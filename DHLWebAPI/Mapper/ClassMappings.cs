@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using DHLWebAPI.Models;
+using DHLWebAPI.Models.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +12,7 @@ namespace DHLWebAPI.Mapper
     {
         public ClassMappings()
         {
-
+            CreateMap<TblCustomerAddress, TblCustomerAddressDTO>().ReverseMap();
         }
     }
 }
