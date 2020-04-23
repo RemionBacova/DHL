@@ -23,7 +23,7 @@ namespace DHLWebAPI.Repository
 
         public ICollection<TblCustomerAddress> GetCustomerAddresses()
         {
-            return db.TblCustomerAddress.OrderBy(o => o.IdAddress).ToList();
+            return db.TblCustomerAddress.OrderBy(a => a.IdAddress).ToList();
         }
     }
 }
