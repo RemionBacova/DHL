@@ -35,6 +35,15 @@ namespace DHLWebAPI
                 (options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddAutoMapper(typeof(ClassMappings));
             services.AddScoped<ICustomerAddressRepository, CustomerAddressRepository>();
+            services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("DHLOpenAPI",
+                    new Microsoft.OpenApi.Models.OpenApiInfo()
+                    {
+                        Title = "DHL Rest API",
+                        Version = "1"
+                    });
+            });
             services.AddControllers();
         }
 
@@ -47,6 +56,11 @@ namespace DHLWebAPI
             }
 
             app.UseHttpsRedirection();
+            app.UseSwagger();
+            app.UseSwaggerUI(options =>
+            {
+                options.SwaggerEndpoint("/swagger/DHLOpenAPI/swagger.json", "DHL Rest API");
+            });
 
             app.UseRouting();
 
