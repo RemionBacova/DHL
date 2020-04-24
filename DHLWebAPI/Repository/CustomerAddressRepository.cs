@@ -16,14 +16,14 @@ namespace DHLWebAPI.Repository
         {
             this.db = db;
         }
-        public TblCustomerAddress GetCustomerAddress(string customerAddressID)
+        public TblCustomerAddress GetCustomerAddress(int customerAddressID)
         {
-            return db.TblCustomerAddress.FirstOrDefault(o => o.IdCustomer.Equals(customerAddressID));
+            return db.TblCustomerAddress.FirstOrDefault(o => o.IdAddress.Equals(customerAddressID));
         }
 
         public ICollection<TblCustomerAddress> GetCustomerAddresses()
         {
-            return db.TblCustomerAddress.OrderBy(a => a.IdAddress).ToList();
+            return db.TblCustomerAddress.ToList();
         }
     }
 }

@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using AutoMapper;
 using DHLWebAPI.Data;
@@ -41,8 +43,17 @@ namespace DHLWebAPI
                     new Microsoft.OpenApi.Models.OpenApiInfo()
                     {
                         Title = "DHL Rest API",
-                        Version = "1"
+                        Version = "1",
+                        Contact = new Microsoft.OpenApi.Models.OpenApiContact()
+                        {
+                            Email = "info@sitel.al",
+                            Name = "Internship Team",
+                            Url = new Uri("http://www.sitel.com.al/")
+                        }
                     });
+                var xmlCommentFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var cmlCommentsFullPath = Path.Combine(AppContext.BaseDirectory, xmlCommentFile);
+                options.IncludeXmlComments(cmlCommentsFullPath);
             });
             services.AddControllers();
         }
@@ -60,6 +71,7 @@ namespace DHLWebAPI
             app.UseSwaggerUI(options =>
             {
                 options.SwaggerEndpoint("/swagger/DHLOpenAPI/swagger.json", "DHL Rest API");
+                options.RoutePrefix = "";
             });
 
             app.UseRouting();

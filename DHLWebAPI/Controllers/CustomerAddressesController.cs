@@ -23,6 +23,11 @@ namespace DHLWebAPI.Controllers
             this.mapper = mapper;
         }
 
+
+        /// <summary>
+        /// Get list of Customers Addresses.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public IActionResult GetCustomerAddresses()
         {
@@ -35,6 +40,27 @@ namespace DHLWebAPI.Controllers
             }
 
             return Ok(listDTO);
+        }
+
+
+        /// <summary>
+        /// Get single customer address.
+        /// </summary>
+        /// <param name="addressID"></param>
+        /// <returns></returns>
+        [HttpGet("{addressID:int}", Name = "GetCustomerAddress")]
+        public IActionResult GetCustomerAddress(int addressID)
+        {
+            var item = customerAddressRepository.GetCustomerAddress(addressID);
+
+            if (item == null)
+            {
+                return NotFound();
+            }
+
+            var itemDTO = mapper.Map<TblCustomerAddressDTO>(item);
+
+            return Ok(itemDTO);
         }
     }
 }

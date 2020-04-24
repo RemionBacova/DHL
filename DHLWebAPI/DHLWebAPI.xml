@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DHLWebAPI</name>
+    </assembly>
+    <members>
+        <member name="M:DHLWebAPI.Controllers.CustomerAddressesController.GetCustomerAddresses">
+            <summary>
+            Get list of Customers Addresses.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DHLWebAPI.Controllers.CustomerAddressesController.GetCustomerAddress(System.Int32)">
+            <summary>
+            Get single customer address.
+            </summary>
+            <param name="addressID"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

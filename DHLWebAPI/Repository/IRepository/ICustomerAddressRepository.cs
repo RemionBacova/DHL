@@ -9,7 +9,7 @@ namespace DHLWebAPI.Repository.IRepository
     public interface ICustomerAddressRepository
     {
         ICollection<TblCustomerAddress> GetCustomerAddresses();
-        TblCustomerAddress GetCustomerAddress(string customerAddressID);
+        TblCustomerAddress GetCustomerAddress(int customerAddressID);
 
     }
 }
