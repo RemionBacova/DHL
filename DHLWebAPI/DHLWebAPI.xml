@@ -17,5 +17,27 @@
             <param name="addressID"></param>
             <returns></returns>
         </member>
+        <member name="M:DHLWebAPI.Controllers.CustomerAddressesController.CreateCustomerAddress(DHLWebAPI.Models.DTOs.TblCustomerAddressDTO)">
+            <summary>
+            Create customer address details(object).
+            </summary>
+            <param name="tblCustomerAddressDTO"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DHLWebAPI.Controllers.CustomerAddressesController.UpdateCustomerAddress(System.Int32,DHLWebAPI.Models.DTOs.TblCustomerAddressDTO)">
+            <summary>
+            Update single data in TblCustomerAddress
+            </summary>
+            <param name="customerAddressID"></param>
+            <param name="tblCustomerAddressDTO"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DHLWebAPI.Controllers.CustomerAddressesController.DeleteCustomerAddress(System.Int32)">
+            <summary>
+            Delete an customer address object from the TblCustomerAddress
+            </summary>
+            <param name="customerAddressID"></param>
+            <returns></returns>
+        </member>
     </members>
 </doc>

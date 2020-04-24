@@ -10,6 +10,10 @@ namespace DHLWebAPI.Repository.IRepository
     {
         ICollection<TblCustomerAddress> GetCustomerAddresses();
         TblCustomerAddress GetCustomerAddress(int customerAddressID);
+        bool CreateCustomerAddress(TblCustomerAddress customerAddress);
+        bool UpdateCustomerAddress(TblCustomerAddress customerAddress);
+        bool DeleteCustomerAddress(TblCustomerAddress customerAddress);
+        bool Save();
 
     }
 }
