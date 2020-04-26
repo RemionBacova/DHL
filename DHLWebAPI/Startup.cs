@@ -23,6 +23,7 @@ namespace DHLWebAPI
 {
     public class Startup
     {
+        //private readonly string OurPolicy = "DHLPolicy";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -33,6 +34,15 @@ namespace DHLWebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //services.AddCors(options =>
+            //{
+            //    options.AddPolicy(name: OurPolicy,
+            //        builder =>
+            //        {
+            //            builder.WithOrigins("https://localhost:44392/")
+            //                .WithMethods("Put");
+            //        });
+            //});
             services.AddDbContext<DHLContext>
                 (options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddAutoMapper(typeof(ClassMappings));
@@ -76,10 +86,13 @@ namespace DHLWebAPI
 
             app.UseRouting();
 
+            //app.UseCors();
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
+                //endpoints.MapControllers().RequireCors(OurPolicy);
                 endpoints.MapControllers();
             });
         }

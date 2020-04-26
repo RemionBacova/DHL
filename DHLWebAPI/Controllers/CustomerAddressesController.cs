@@ -15,13 +15,13 @@ namespace DHLWebAPI.Controllers
     [ApiController]
     public class CustomerAddressesController : ControllerBase
     {
-        private readonly ICustomerAddressRepository customerAddressRepository;
-        private readonly IMapper mapper;
+        private readonly ICustomerAddressRepository _customerAddressRepository;
+        private readonly IMapper _mapper;
 
         public CustomerAddressesController(ICustomerAddressRepository customerAddressRepository, IMapper mapper)
         {
-            this.customerAddressRepository = customerAddressRepository;
-            this.mapper = mapper;
+            this._customerAddressRepository = customerAddressRepository;
+            this._mapper = mapper;
         }
 
 
@@ -32,12 +32,12 @@ namespace DHLWebAPI.Controllers
         [HttpGet]
         public IActionResult GetCustomerAddresses()
         {
-            var list = customerAddressRepository.GetCustomerAddresses();
+            var list = _customerAddressRepository.GetCustomerAddresses();
             var listDTO = new List<TblCustomerAddressDTO>();
 
             foreach (var item in list)
             {
-                listDTO.Add(mapper.Map<TblCustomerAddressDTO>(item));
+                listDTO.Add(_mapper.Map<TblCustomerAddressDTO>(item));
             }
 
             return Ok(listDTO);
@@ -52,14 +52,14 @@ namespace DHLWebAPI.Controllers
         [HttpGet("{addressID:int}", Name = "GetCustomerAddress")]
         public IActionResult GetCustomerAddress(int addressID)
         {
-            var item = customerAddressRepository.GetCustomerAddress(addressID);
+            var item = _customerAddressRepository.GetCustomerAddress(addressID);
 
             if (item == null)
             {
                 return NotFound();
             }
 
-            var itemDTO = mapper.Map<TblCustomerAddressDTO>(item);
+            var itemDTO = _mapper.Map<TblCustomerAddressDTO>(item);
 
             return Ok(itemDTO);
         }
@@ -77,7 +77,7 @@ namespace DHLWebAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            var itemDTO = mapper.Map<TblCustomerAddress>(tblCustomerAddressDTO);
+            var itemDTO = _mapper.Map<TblCustomerAddress>(tblCustomerAddressDTO);
 
             return CreatedAtRoute("GetCustomerAddress", new 
             {
@@ -100,9 +100,9 @@ namespace DHLWebAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            var itemDTO = mapper.Map<TblCustomerAddress>(tblCustomerAddressDTO);
+            var itemDTO = _mapper.Map<TblCustomerAddress>(tblCustomerAddressDTO);
 
-            if (!customerAddressRepository.UpdateCustomerAddress(itemDTO))
+            if (!_customerAddressRepository.UpdateCustomerAddress(itemDTO))
             {
                 ModelState.AddModelError("", $"Something went wrong updating the record.");
                 return StatusCode(500, ModelState);
@@ -119,9 +119,9 @@ namespace DHLWebAPI.Controllers
         [HttpDelete("{customerAddressID:int}", Name = "DeleteCustomerAddress")]
         public IActionResult DeleteCustomerAddress(int customerAddressID)
         {
-            var itemDTO = customerAddressRepository.GetCustomerAddress(customerAddressID);
+            var itemDTO = _customerAddressRepository.GetCustomerAddress(customerAddressID);
 
-            if (!customerAddressRepository.DeleteCustomerAddress(itemDTO))
+            if (!_customerAddressRepository.DeleteCustomerAddress(itemDTO))
             {
                 ModelState.AddModelError("", $"Something went wrong when deleting the record.");
                 return StatusCode(500, ModelState);
