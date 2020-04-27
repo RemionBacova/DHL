@@ -43,10 +43,20 @@ namespace DHLWebAPI
             //                .WithMethods("Put");
             //        });
             //});
+            
+            //DbContext added as a service
             services.AddDbContext<DHLContext>
                 (options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+
+            //Added automapper service for class "ClassMappings"
             services.AddAutoMapper(typeof(ClassMappings));
+
+            //Part of Repository Pattern for class CustomerAddressRepository
             services.AddScoped<ICustomerAddressRepository, CustomerAddressRepository>();
+
+
+            //Added Smagger service and also different metadata
             services.AddSwaggerGen(options =>
             {
                 options.SwaggerDoc("DHLOpenAPI",
@@ -65,6 +75,7 @@ namespace DHLWebAPI
                 var cmlCommentsFullPath = Path.Combine(AppContext.BaseDirectory, xmlCommentFile);
                 options.IncludeXmlComments(cmlCommentsFullPath);
             });
+            
             services.AddControllers();
         }
 
@@ -77,6 +88,8 @@ namespace DHLWebAPI
             }
 
             app.UseHttpsRedirection();
+            
+            //added Swagger middleware, also the Swagger UI for better documentation
             app.UseSwagger();
             app.UseSwaggerUI(options =>
             {

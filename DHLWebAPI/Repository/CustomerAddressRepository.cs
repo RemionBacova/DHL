@@ -13,11 +13,12 @@ namespace DHLWebAPI.Repository
     {
         private readonly DHLContext db;
 
+        //Dependenct Injection for DHLContext
         public CustomerAddressRepository(DHLContext db)
         {
             this.db = db;
         }
-
+        //Below are different crud operations implemented by the ICustomerAddressRepository interface
         public bool CreateCustomerAddress(TblCustomerAddress customerAddress)
         {
             db.TblCustomerAddress.Add(customerAddress);

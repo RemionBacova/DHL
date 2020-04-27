@@ -12,6 +12,7 @@ namespace DHLWebAPI.Mapper
     {
         public ClassMappings()
         {
+            //Mapping functionality that maps TblCustomerAddress with its DTO => TblCustomerAddressDTO
             CreateMap<TblCustomerAddress, TblCustomerAddressDTO>().ReverseMap();
         }
     }
