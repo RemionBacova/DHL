@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace DHLWebAPI.Models.DTOs
 {
-    public class TblAddressDTO
+    public class TblCardDTO
     {
         public int IdAddress { get; set; }
         //

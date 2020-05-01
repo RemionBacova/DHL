@@ -54,9 +54,9 @@ namespace DHLWebAPI
 
             //Part of Repository Pattern for class CustomerAddressRepository
             services.AddScoped<ICustomerAddressRepository, CustomerAddressRepository>();
-            services.AddScoped<ICustomerLogsRepository, CustomerLogsRepository>();
-            services.AddScoped<IDiscountRepository, DiscountRepository>();
-
+            services.AddScoped<IAddressRepository, AddressRepository>();
+            services.AddScoped<ICardsRepository, CardsRepository>();
+            //services.AddScoped<ICustomerDiscountRepository, CustomerDiscountRepository>();
 
 
             //Added Smagger service and also different metadata

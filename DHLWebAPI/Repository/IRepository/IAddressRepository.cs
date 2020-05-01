@@ -22,5 +22,6 @@ namespace DHLWebAPI.Repository.IRepository
 
         //function to remove an address
         void DeleteAddress(int addressId);
+        Task<bool> SaveAllAsync();
     }
 }
