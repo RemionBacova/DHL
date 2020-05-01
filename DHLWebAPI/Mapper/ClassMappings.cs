@@ -13,22 +13,22 @@ namespace DHLWebAPI.Mapper
         public ClassMappings()
         {
             //mapping address entity and its dto
-            CreateMap<TblAddress, TblAddressDTO>();
+            CreateMap<TblAddress, TblAddressDTO>().ReverseMap();
 
             //mapping address type entity and its dto
-            CreateMap<TblAddressType, TblAddressTypeDTO>();
+            CreateMap<TblAddressType, TblAddressTypeDTO>().ReverseMap();
 
             //mapping cards entity and its dto
-            CreateMap<TblCards, TblCardsDTO>();
+            CreateMap<TblCards, TblCardsDTO>().ReverseMap();
 
             //mapping card status entity and its dto
-            CreateMap<TblCardStatus, TblCardStatusDTO>();
+            CreateMap<TblCardStatus, TblCardStatusDTO>().ReverseMap();
 
             //Mapping functionality that maps TblCustomerAddress with its DTO => TblCustomerAddressDTO
             CreateMap<TblCustomerAddress, TblCustomerAddressDTO>().ReverseMap();
 
             //mapping customer discount entity and its dto
-            CreateMap<TblCustomerDiscount, TblCustomerDiscountDTO>();
+            CreateMap<TblCustomerDiscount, TblCustomerDiscountDTO>().ReverseMap();
 
         }   
     }
