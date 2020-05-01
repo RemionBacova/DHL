@@ -14,6 +14,6 @@ namespace DHLWebAPI.Repository.IRepository
         bool UpdateCustomerAddress(TblCustomerAddress customerAddress);
         bool DeleteCustomerAddress(TblCustomerAddress customerAddress);
         bool Save();
-        object GetAddresses();
+   
     }
 }

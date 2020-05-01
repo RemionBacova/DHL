@@ -32,7 +32,7 @@ namespace DHLWebAPI.Controllers
          public async Task<ActionResult<IEnumerable<TblAddress>>> GetAddresses()
         {
             var addresses = await _addressRepository.GetAddresses();
-            return Ok(_mapper.Map<IEnumerable<TblCardDTO>>(addresses));
+            return Ok(_mapper.Map<IEnumerable<TblCardsDTO>>(addresses));
         }
 
         // GET: api/Address/5
@@ -47,7 +47,7 @@ namespace DHLWebAPI.Controllers
 
             }
 
-            return Ok(_mapper.Map<TblCardDTO>(card));
+            return Ok(_mapper.Map<TblCardsDTO>(card));
         }
 
         //POST: api/Address
@@ -97,7 +97,7 @@ namespace DHLWebAPI.Controllers
         }
 
         //DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
+        [HttpDelete("DeleteAddress/{id}")]
         public async Task<IActionResult> DeleteAddress(int id)
         {
             var oldAddress = _addressRepository.GetAddress(id);
@@ -106,11 +106,12 @@ namespace DHLWebAPI.Controllers
             }
                 _addressRepository.DeleteAddress(id);
 
-                if (await _addressRepository.SaveAllAsync())
-                {
-                    return Ok();
-                }
+            if (await _addressRepository.SaveAllAsync())
+            {
+                return Ok();
             }
+            return NoContent();
+        }
           
         }
     }

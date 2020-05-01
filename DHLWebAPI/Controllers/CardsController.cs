@@ -47,7 +47,7 @@ namespace DHLWebAPI.Controllers
 
             }
 
-            return Ok(_mapper.Map<TblCardDTO>(card));
+            return Ok(_mapper.Map<TblCardsDTO>(card));
         }
 
         //POST: api/Card
@@ -70,7 +70,7 @@ namespace DHLWebAPI.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateCard(int id, [FromBody]TblCards model)
+        public async Task<IActionResult> UpdateCard(string id, [FromBody]TblCards model)
         {
             if (!ModelState.IsValid)
             {
@@ -109,6 +109,8 @@ namespace DHLWebAPI.Controllers
             {
                 return Ok();
             }
+
+            return NoContent();
         }
 
     }
