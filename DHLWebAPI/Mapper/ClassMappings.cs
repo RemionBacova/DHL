@@ -30,6 +30,13 @@ namespace DHLWebAPI.Mapper
             //mapping customer discount entity and its dto
             CreateMap<TblCustomerDiscount, TblCustomerDiscountDTO>();
 
+            CreateMap<TblCustomerLogs, TblCustomerLogsDTO>();
+            CreateMap<TblCustomers, TblCustomersDTO>();
+            CreateMap<TblCustomerStatus, TblCustomerStatusDTO>();
+            CreateMap<TblCustomerType, TblCustomerTypeDTO>();
+            CreateMap<TblDiscounts, TblDiscountsDTO>();
+            CreateMap<TblDiscountType, TblDiscountTypeDTO>();
+
         }   
     }
 }

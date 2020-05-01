@@ -1,0 +1,28 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace DHLWebAPI.Models.DTOs
+{
+    public class TblCustomersDTO
+    {
+        public string IdCustomer { get; set; }
+        public byte CustomerType { get; set; }
+        public byte CustomerStatus { get; set; }
+        public string Channel { get; set; }
+        public string CompanyName { get; set; }
+        public string Iva { get; set; }
+        public string Sdi { get; set; }
+        public string ContactName { get; set; }
+        public string FiscalCode { get; set; }
+        public string Pec { get; set; }
+        public string Email { get; set; }
+        public string PhoneNumber { get; set; }
+        public int InsertBy { get; set; }
+        public DateTime InsertDate { get; set; }
+        public int UpdateBy { get; set; }
+        public DateTime UpdateDate { get; set; }
+        public int? IdDiscount { get; set; }
+    }
+}
