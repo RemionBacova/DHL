@@ -11,9 +11,9 @@ namespace DHLWebAPI.Models.DTOs
         public string IdCard { get; set; }
         public float Balance { get; set; }
         public float BalanceAvailable { get; set; }
-        public byte CardStatus { get; set; }
-        public int InsertBy { get; set; }
-        public int UpdateBy { get; set; }
-
+        //
+        public string CardStatus { get; set; }
+        
+        //
     }
 }

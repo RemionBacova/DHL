@@ -11,6 +11,6 @@ namespace DHLWebAPI.Models.DTOs
         public int IdDiscount { get; set; }
         public string CodeForActive { get; set; }
         public bool IsActive { get; set; }
-        public int InsertBy { get; set; }
+        
     }
 }
