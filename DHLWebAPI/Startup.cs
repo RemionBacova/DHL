@@ -57,6 +57,8 @@ namespace DHLWebAPI
             services.AddScoped<IAddressRepository, AddressRepository>();
             services.AddScoped<ICardsRepository, CardsRepository>();
             //services.AddScoped<ICustomerDiscountRepository, CustomerDiscountRepository>();
+            services.AddScoped<ICustomerLogsRepository,CustomerLogsRepository>();
+            services.AddScoped<IDiscountRepository,DiscountRepository>();
 
 
             //Added Smagger service and also different metadata
