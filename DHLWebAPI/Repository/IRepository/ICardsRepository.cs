@@ -8,22 +8,19 @@ namespace DHLWebAPI.Repository.IRepository
 {
     public interface ICardsRepository
     {
-        //function to retrieve the  list with all cards
+        //function below are listed as below:
+        //1.Retrieve all card
+        //2.Retrieve only one card filtered by its id
+        //3.Create a new card
+        //4.Update the information of a card
+        //5.Remove a card
+        //6.Check if the request is successfully completed
+       
         Task<IEnumerable<TblCards>> GetCards();
-
-        //function to retrieve only one card filtered by its id
         Task<TblCards> GetCard(string cardId);
-
-        //function to create a new  card
         Task<TblCards> AddCard(TblCards card);
-
-        //function to update the information of an card
         Task<TblCards> UpdateCard(TblCards card);
-
-        //function to remove an card
         void DeleteCard(string cardId);
-
-        //
         Task<bool> SaveAllAsync();
     }
 }

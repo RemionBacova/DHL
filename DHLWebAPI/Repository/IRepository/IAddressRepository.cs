@@ -8,22 +8,22 @@ namespace DHLWebAPI.Repository.IRepository
 {
     public interface IAddressRepository
     {
-        //function to retrieve the  list with all addresses
-        Task<IEnumerable<TblAddress>> GetAddresses();
+        //function below are listed as below:
+        //1.Retrieve all addresses
+        //2.Retrieve only one address filtered by its id
+        //3.Create a new address
+        //4.Update the information of an address
+        //5.Remove an address
+        //6.Check if the request is successfully completed
 
-        //function to retrieve only one address filtered by its id
+        Task<IEnumerable<TblAddress>> GetAddresses();
         Task<TblAddress> GetAddress(int addressId);
 
-        //function to create a new address
         Task<TblAddress> AddAddress(TblAddress address);
 
-        //function to update the information of an address
         Task<TblAddress> UpdateAddress(TblAddress address);
 
-        //function to remove an address
         void DeleteAddress(int addressId);
-        
-        //
         Task<bool> SaveAllAsync();
     }
 }
