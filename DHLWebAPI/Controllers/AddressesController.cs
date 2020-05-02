@@ -15,9 +15,9 @@ namespace DHLWebAPI.Controllers
     [ApiController]
     public class AddressesController : ControllerBase
     {
-        //inject repository pattern for card
+        //inject repository pattern for address
         private readonly IAddressRepository _addressRepository;
-        //inject AutoMapper at runtime into card controller:
+        //inject AutoMapper at runtime into address controller:
         private readonly IMapper _mapper;
 
         public AddressesController(IAddressRepository addressRepository, IMapper mapper)
@@ -26,92 +26,144 @@ namespace DHLWebAPI.Controllers
             _mapper = mapper;
         }
 
+
         //GET:api/Address
         [HttpGet("GetAddresses")]
-
-         public async Task<ActionResult<IEnumerable<TblAddress>>> GetAddresses()
+        public async Task<ActionResult<IEnumerable<TblAddress>>> GetAddresses()
         {
-            var addresses = await _addressRepository.GetAddresses();
-            return Ok(_mapper.Map<IEnumerable<TblCardsDTO>>(addresses));
+            try
+            {
+                var addresses = await _addressRepository.GetAddresses();
+                return Ok(_mapper.Map<IEnumerable<TblAddressDTO>>(addresses));
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Error retrieving data from the database");
+            }
         }
 
         // GET: api/Address/5
-        [HttpGet("GetAddress/{id}")]
+        [HttpGet("GetAddress/{id:int}")]
         public async Task<ActionResult<IEnumerable<TblAddress>>> GetAddress(int id)
         {
-            var card = await _addressRepository.GetAddress(id);
-
-            if (card == null)
+            try
             {
-                return NotFound($"Address of {id} was not found");
+                var address = await _addressRepository.GetAddress(id);
 
+                if (address == null)
+                {
+                    return NotFound($"Address of {id} was not found");
+
+                }
+                return Ok(_mapper.Map<TblAddressDTO>(address));
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Error retrieving data from the database");
             }
 
-            return Ok(_mapper.Map<TblCardsDTO>(card));
         }
 
         //POST: api/Address
         [HttpPost]
         public async Task<IActionResult> AddAddress([FromBody] TblAddress model)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return BadRequest(ModelState);
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+                var address = await _addressRepository.AddAddress(model);
+
+                //The CreatedAtRoute method is intended to return a URI to the newly created resource 
+                //when you invoke a POST method to store some new object
+                //return CreatedAtRoute("GetAddresses", new
+                //{
+                //    addressID = address.IdAddress
+                //});
+
+                //created at action will provide a 201:Created response
+                return CreatedAtAction(nameof(GetAddress), new
+                {
+                    addressId = address.IdAddress
+                }, address);
+
+
             }
-            var card = await _addressRepository.AddAddress(model);
-           
-            //The CreatedAtRoute method is intended to return a URI to the newly created resource 
-            //when you invoke a POST method to store some new object
-            return CreatedAtRoute("GetAddresses", new
+            catch (Exception)
             {
-                addressID = card.IdAddress
-            });
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Error creating new address record");
+            }
 
         }
 
+
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateAddress(int id, [FromBody]TblAddress model)
+        public async Task<IActionResult> UpdateAddress(int id, [FromBody]TblAddress address)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return BadRequest(ModelState);
-            }
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
 
-            var oldAddress = await _addressRepository.GetAddress(id);
-            if(oldAddress==null)
+                var oldAddress = await _addressRepository.GetAddress(id);
+
+                if (oldAddress == null)
+                {
+                    return NotFound($"Couldn't find an address of {id}");
+                }
+
+                oldAddress = await _addressRepository.UpdateAddress(address);
+
+                if (await _addressRepository.SaveAllAsync())
+                {
+                    return Ok(_mapper.Map<TblAddress>(oldAddress));
+                }
+                return BadRequest(string.Format("Could not update  address: {0}"));
+
+            }
+            catch (Exception)
             {
-                return NotFound($"Couldn't find an card of {id}");
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Error updating data");
             }
-
-            model.AddressLabel = oldAddress.AddressLabel;
-
-            _mapper.Map(model, oldAddress);
-
-            if (await _addressRepository.SaveAllAsync())
-            {
-                return Ok(_mapper.Map<TblAddress>(oldAddress));
-            }
-            return BadRequest(string.Format("Could not update  card: {0}"));
 
 
         }
 
         //DELETE: api/ApiWithActions/5
-        [HttpDelete("DeleteAddress/{id}")]
+        [HttpDelete("DeleteAddress/{id:int}")]
         public async Task<IActionResult> DeleteAddress(int id)
         {
-            var oldAddress = _addressRepository.GetAddress(id);
-            if (oldAddress == null) {
-                return NotFound($"Couldn’t found card of id {id}");
-            }
+            try
+            {
+                var oldAddress = _addressRepository.GetAddress(id);
+
+                if (oldAddress == null)
+                {
+                    return NotFound($"Couldn’t found address of id {id}");
+                }
                 _addressRepository.DeleteAddress(id);
 
-            if (await _addressRepository.SaveAllAsync())
-            {
-                return Ok();
+                if (await _addressRepository.SaveAllAsync())
+                {
+                    return Ok();
+                }
+                return NoContent();
             }
-            return NoContent();
-        }
-          
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Error deleting data");
+            }
+
+
         }
     }
+}

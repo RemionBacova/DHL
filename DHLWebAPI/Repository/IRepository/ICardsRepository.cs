@@ -22,6 +22,8 @@ namespace DHLWebAPI.Repository.IRepository
 
         //function to remove an card
         void DeleteCard(string cardId);
+
+        //
         Task<bool> SaveAllAsync();
     }
 }
