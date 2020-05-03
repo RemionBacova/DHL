@@ -123,7 +123,7 @@ namespace DHLWebAPI.Controllers
 
                 if (await _addressRepository.SaveAllAsync())
                 {
-                    return Ok(_mapper.Map<TblAddress>(oldAddress));
+                    return Ok(_mapper.Map<TblAddressDTO>(oldAddress));
                 }
                 return BadRequest(string.Format("Could not update  address: {0}"));
 

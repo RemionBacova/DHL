@@ -31,7 +31,6 @@ namespace DHLWebAPI.Repository.IRepository
                                             .FirstOrDefaultAsync();
         }
 
-
         //function to create a new card
         public async Task<TblAddress> AddAddress(TblAddress address)
         {

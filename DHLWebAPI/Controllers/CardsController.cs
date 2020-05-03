@@ -31,8 +31,17 @@ namespace DHLWebAPI.Controllers
 
         public async Task<ActionResult<IEnumerable<TblCards>>> GetCards()
         {
-            var cards = await _cardRepository.GetCards();
-            return Ok(_mapper.Map<IEnumerable<TblCardsDTO>>(cards));
+            try
+            {
+                var cards = await _cardRepository.GetCards();
+                return Ok(_mapper.Map<IEnumerable<TblCardsDTO>>(cards));
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Error retrieving data from the database");
+            }
+            
         }
 
         // GET: api/Card/5
@@ -87,7 +96,7 @@ namespace DHLWebAPI.Controllers
 
             if (await _cardRepository.SaveAllAsync())
             {
-                return Ok(_mapper.Map<TblAddress>(oldCard));
+                return Ok(_mapper.Map<TblCardsDTO>(oldCard));
             }
             return BadRequest(string.Format("Could not update card: {0}"));
 
