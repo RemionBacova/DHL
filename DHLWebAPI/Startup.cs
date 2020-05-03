@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using AutoMapper;
 using DHLWebAPI.Data;
+using DHLWebAPI.Installer;
 using DHLWebAPI.Mapper;
 using DHLWebAPI.Repository;
 using DHLWebAPI.Repository.IRepository;
@@ -51,6 +52,10 @@ namespace DHLWebAPI
 
             //Added automapper service for class "ClassMappings"
             services.AddAutoMapper(typeof(ClassMappings));
+
+            //Calling the extension method that calls all the scoped services
+            services.InstallServicesInAssembly(Configuration);
+
 
             //Added Smagger service and also different metadata
             services.AddSwaggerGen(options =>
