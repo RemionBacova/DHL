@@ -52,14 +52,6 @@ namespace DHLWebAPI
             //Added automapper service for class "ClassMappings"
             services.AddAutoMapper(typeof(ClassMappings));
 
-            //Part of Repository Pattern for class CustomerAddressRepository
-            services.AddScoped<ICustomerAddressRepository, CustomerAddressRepository>();
-            services.AddScoped<IAddressRepository, AddressRepository>();
-            services.AddScoped<ICardsRepository, CardsRepository>();
-            services.AddScoped<ICustomerLogsRepository,CustomerLogsRepository>();
-            services.AddScoped<IDiscountRepository,DiscountRepository>();
-
-
             //Added Smagger service and also different metadata
             services.AddSwaggerGen(options =>
             {
