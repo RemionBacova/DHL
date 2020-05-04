@@ -34,7 +34,20 @@ namespace DHLWebAPI.Controllers
             try
             {
                 var cards = await _cardRepository.GetCards();
-                return Ok(_mapper.Map<IEnumerable<TblCardsDTO>>(cards));
+                var cardsDTO = new List<TblCardsDTO>();
+
+                foreach (var card in cards)
+                {
+                    cardsDTO.Add(_mapper.Map<TblCardsDTO>(card));
+                }
+
+                if (cardsDTO != null)
+                {
+                    return Ok(cardsDTO);
+                }
+                return BadRequest();
+                
+   
             }
             catch (Exception)
             {

@@ -19,9 +19,12 @@ namespace DHLWebAPI.Repository
         }
 
         //function to retrieve the  list with all cards
-        public async Task<IEnumerable<TblCards>> GetCards() =>
+        public async Task<IEnumerable<TblCards>> GetCards()
+        {
             //return all card
-            await _context.TblCards.ToListAsync();
+           return await _context.TblCards.ToListAsync();
+        }
+           
 
         //function to retrieve only one card filtered by its id
        public async Task<TblCards> GetCard(string cardId)

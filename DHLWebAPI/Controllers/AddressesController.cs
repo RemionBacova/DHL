@@ -27,14 +27,32 @@ namespace DHLWebAPI.Controllers
         }
 
 
-        //GET:api/Address
-        [HttpGet("GetAddresses")]
+        /// <summary>
+        /// Get list of Addresses.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
         public async Task<ActionResult<IEnumerable<TblAddress>>> GetAddresses()
         {
             try
             {
                 var addresses = await _addressRepository.GetAddresses();
-                return Ok(_mapper.Map<IEnumerable<TblAddressDTO>>(addresses));
+                if (addresses == null)
+                {
+                    return NotFound($"Couldn't find anu address from the database");
+                }
+                var addresesDTO =  new List<TblAddressDTO>();
+
+                foreach (var adr in addresses)
+                {
+                    addresesDTO.Add(_mapper.Map<TblAddressDTO>(adr));
+                }
+
+                if (addresesDTO != null)
+                {
+                    return Ok(addresesDTO);
+                }
+                return BadRequest();
             }
             catch (Exception)
             {
