@@ -4,6 +4,48 @@
         <name>DHLWebAPI</name>
     </assembly>
     <members>
+        <member name="M:DHLWebAPI.Controllers.CustomerDiscountsController.GetCustomerDiscount">
+            <summary>
+            Get list of CustomerDiscounts.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DHLWebAPI.Controllers.CustomerDiscountsController.GeCustomerDiscount(System.Int32)">
+            <summary>
+            Get single customerdiscount.
+            </summary>
+            <param name="IdCustomer"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DHLWebAPI.Controllers.CustomerDiscountsController.GetCustomerDiscounts(System.String)">
+            <summary>
+            Get single customerdiscount by token
+            </summary>
+            <param name="tokenString"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DHLWebAPI.Controllers.CustomerDiscountsController.CreateDiscounts(DHLWebAPI.Models.DTOs.TblCustomerDiscountDTO)">
+            <summary>
+            Create customerdiscount(object).
+            </summary>
+            <param name="tblcustomerDiscountDTO"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DHLWebAPI.Controllers.CustomerDiscountsController.UpdateCusDiscounts(System.Int32,DHLWebAPI.Models.DTOs.TblCustomerDiscountDTO)">
+            <summary>
+            Update single data in TblCustomerDiscount
+            </summary>
+            <param name="customerID"></param>
+            <param name="tblcustomerDiscountDTO"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DHLWebAPI.Controllers.CustomerDiscountsController.DeleteCusDiscounts(System.Int32)">
+            <summary>
+            Delete an discount object from the TblCustomerDiscounts
+            </summary>
+            <param name="customerID"></param>
+            <returns></returns>
+        </member>
         <member name="M:DHLWebAPI.Controllers.DiscountsController.GetDiscounts">
             <summary>
             Get list of Discounts.
