@@ -46,6 +46,41 @@
             <param name="customerID"></param>
             <returns></returns>
         </member>
+        <member name="M:DHLWebAPI.Controllers.CustomersController.GetCustomers">
+            <summary>
+            Get list of Customers.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DHLWebAPI.Controllers.CustomersController.GetCustomers(System.Int32)">
+            <summary>
+            Get single customer.
+            </summary>
+            <param name="IdCustomer"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DHLWebAPI.Controllers.CustomersController.CreateCustomers(DHLWebAPI.Models.DTOs.TblCustomersDTO)">
+            <summary>
+            Create customer(object).
+            </summary>
+            <param name="tblcustomersDTO"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DHLWebAPI.Controllers.CustomersController.UpdateCustomers(System.Int32,DHLWebAPI.Models.DTOs.TblCustomersDTO)">
+            <summary>
+            Update single data in TblCustomer
+            </summary>
+            <param name="customerID"></param>
+            <param name="tblcustomersDTO"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DHLWebAPI.Controllers.CustomersController.DeleteCustomers(System.Int32)">
+            <summary>
+            Delete an discount object from the TblCustomers
+            </summary>
+            <param name="customerID"></param>
+            <returns></returns>
+        </member>
         <member name="M:DHLWebAPI.Controllers.DiscountsController.GetDiscounts">
             <summary>
             Get list of Discounts.
