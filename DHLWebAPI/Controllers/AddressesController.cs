@@ -27,16 +27,13 @@ namespace DHLWebAPI.Controllers
         }
 
 
-        /// <summary>
-        /// Get list of Addresses.
-        /// </summary>
-        /// <returns></returns>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<TblAddress>>> GetAddresses()
+        public async Task<ActionResult> GetAddresses()
         {
             try
             {
                 var addresses = await _addressRepository.GetAddresses();
+
                 if (addresses == null)
                 {
                     return NotFound($"Couldn't find anu address from the database");
@@ -47,12 +44,9 @@ namespace DHLWebAPI.Controllers
                 {
                     addresesDTO.Add(_mapper.Map<TblAddressDTO>(adr));
                 }
-
-                if (addresesDTO != null)
-                {
-                    return Ok(addresesDTO);
-                }
-                return BadRequest();
+            
+                return Ok(addresesDTO);
+            
             }
             catch (Exception)
             {
@@ -63,7 +57,7 @@ namespace DHLWebAPI.Controllers
 
         // GET: api/Address/5
         [HttpGet("GetAddress/{id:int}")]
-        public async Task<ActionResult<IEnumerable<TblAddress>>> GetAddress(int id)
+        public async Task<ActionResult> GetAddress(int id)
         {
             try
             {
@@ -86,7 +80,7 @@ namespace DHLWebAPI.Controllers
 
         //POST: api/Address
         [HttpPost]
-        public async Task<IActionResult> AddAddress([FromBody] TblAddress model)
+        public async Task<IActionResult> CreateAddress([FromBody] TblAddressDTO addressDto)
         {
             try
             {
@@ -94,14 +88,12 @@ namespace DHLWebAPI.Controllers
                 {
                     return BadRequest(ModelState);
                 }
-                var address = await _addressRepository.AddAddress(model);
 
-                //The CreatedAtRoute method is intended to return a URI to the newly created resource 
-                //when you invoke a POST method to store some new object
-                //return CreatedAtRoute("GetAddresses", new
-                //{
-                //    addressID = address.IdAddress
-                //});
+                var address = _mapper.Map<TblAddress>(addressDto);
+
+                await _addressRepository.AddAddress(address);
+
+                await _addressRepository.SaveAllAsync();
 
                 //created at action will provide a 201:Created response
                 return CreatedAtAction(nameof(GetAddress), new
@@ -109,6 +101,12 @@ namespace DHLWebAPI.Controllers
                     addressId = address.IdAddress
                 }, address);
 
+                //The CreatedAtRoute method is intended to return a URI to the newly created resource 
+                //when you invoke a POST method to store some new object
+                //return CreatedAtRoute("GetAddresses", new
+                //{
+                //    addressID = address.IdAddress
+                //});
 
             }
             catch (Exception)
@@ -121,30 +119,26 @@ namespace DHLWebAPI.Controllers
 
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateAddress(int id, [FromBody]TblAddress address)
+        public async Task<IActionResult> UpdateAddress(int id, [FromBody]TblAddressDTO addressDto)
         {
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest(ModelState);
-                }
+                var address = _mapper.Map<TblAddress>(addressDto);
 
-                var oldAddress = await _addressRepository.GetAddress(id);
+                 await _addressRepository.GetAddress(id);
 
-                if (oldAddress == null)
+                if (address == null)
                 {
                     return NotFound($"Couldn't find an address of {id}");
                 }
 
-                oldAddress = await _addressRepository.UpdateAddress(address);
+                 await _addressRepository.UpdateAddress(address);
 
                 if (await _addressRepository.SaveAllAsync())
                 {
-                    return Ok(_mapper.Map<TblAddressDTO>(oldAddress));
+                    return Ok();
                 }
                 return BadRequest(string.Format("Could not update  address: {0}"));
-
             }
             catch (Exception)
             {
