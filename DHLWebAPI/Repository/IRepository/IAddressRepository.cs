@@ -1,4 +1,5 @@
 ﻿using DHLWebAPI.Models;
+using DHLWebAPI.Models.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,8 @@ namespace DHLWebAPI.Repository.IRepository
         Task<TblAddress> UpdateAddress(TblAddress address);
 
         void DeleteAddress(int addressId);
+
         Task<bool> SaveAllAsync();
+
     }
 }

@@ -8,8 +8,11 @@ namespace DHLWebAPI.Models.DTOs
     public class TblAddressDTO
     {
         public int IdAddress { get; set; }
-        public byte IdAddressType { get; set; }
-  
+        //
+        public string AdressType { get; set; }
+        public string Description { get; set; }
+        //
+
         public string AddressLabel { get; set; }
         public string Country { get; set; }
         public string Province { get; set; }
@@ -24,10 +27,7 @@ namespace DHLWebAPI.Models.DTOs
         public string LunchTimeEnd { get; set; }
         public string ContactName { get; set; }
 
-        //
-        public string AdressType { get; set; }
-        public string Description { get; set; }
-        //
+        
 
     }
 }

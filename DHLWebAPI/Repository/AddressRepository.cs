@@ -1,5 +1,6 @@
 ﻿using DHLWebAPI.Data;
 using DHLWebAPI.Models;
+using DHLWebAPI.Models.DTOs;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -41,7 +42,7 @@ namespace DHLWebAPI.Repository.IRepository
             var addressNew = await _context.TblAddress.AddAsync(address);
             //save changes
             await _context.SaveChangesAsync();
-            //the new adr as 
+            //return new address 
             return addressNew.Entity;
         }
 
@@ -98,5 +99,7 @@ namespace DHLWebAPI.Repository.IRepository
         {
             return (await _context.SaveChangesAsync() > 0);
         }
+
+   
     }
 }
