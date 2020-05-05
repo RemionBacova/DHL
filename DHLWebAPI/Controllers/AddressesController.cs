@@ -36,7 +36,7 @@ namespace DHLWebAPI.Controllers
 
                 if (addresses == null)
                 {
-                    return NotFound($"Couldn't find anu address from the database");
+                    return NotFound($"Couldn't find any address from the database");
                 }
                 var addresesDTO =  new List<TblAddressDTO>();
 

@@ -4,12 +4,6 @@
         <name>DHLWebAPI</name>
     </assembly>
     <members>
-        <member name="M:DHLWebAPI.Controllers.AddressesController.GetAddresses">
-            <summary>
-            Get list of Addresses.
-            </summary>
-            <returns></returns>
-        </member>
         <member name="M:DHLWebAPI.Controllers.DiscountsController.GetDiscounts">
             <summary>
             Get list of Discounts.

@@ -29,25 +29,23 @@ namespace DHLWebAPI.Controllers
         //GET:api/Cards
         [HttpGet("GetCards")]
 
-        public async Task<ActionResult<IEnumerable<TblCards>>> GetCards()
+        public async Task<ActionResult> GetCards()
         {
             try
             {
                 var cards = await _cardRepository.GetCards();
+                if (cards == null)
+                {
+                    return NotFound($"Couldn't find any cards from the database");
+                }
                 var cardsDTO = new List<TblCardsDTO>();
 
                 foreach (var card in cards)
                 {
                     cardsDTO.Add(_mapper.Map<TblCardsDTO>(card));
                 }
+                 return Ok(cardsDTO);
 
-                if (cardsDTO != null)
-                {
-                    return Ok(cardsDTO);
-                }
-                return BadRequest();
-                
-   
             }
             catch (Exception)
             {
@@ -59,59 +57,88 @@ namespace DHLWebAPI.Controllers
 
         // GET: api/Card/5
         [HttpGet("GetCard/{id}")]
-        public async Task<ActionResult<IEnumerable<TblCards>>> GetCard(string id)
+        public async Task<ActionResult> GetCard(string id)
         {
-            var card = await _cardRepository.GetCard(id);
-
-            if (card == null)
+            try
             {
-                return NotFound($"Card of {id} was not found");
+                var card = await _cardRepository.GetCard(id);
 
+                if (card == null)
+                {
+                    return NotFound($"Card of {id} was not found");
+
+                }
+
+                return Ok(_mapper.Map<TblCardsDTO>(card));
             }
-
-            return Ok(_mapper.Map<TblCardsDTO>(card));
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Error retrieving data from the database");
+            }
         }
 
         //POST: api/Card
         [HttpPost]
-        public async Task<IActionResult> AddCard([FromBody] TblCards model)
+        public async Task<IActionResult> CreateCard([FromBody] TblCardsDTO cardDto)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return BadRequest(ModelState);
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+                
+                var card = _mapper.Map<TblCards>(cardDto);
+
+                await _cardRepository.AddCard(card);
+
+                await _cardRepository.SaveAllAsync();
+
+                //The CreatedAtRoute method is intended to return a URI to the newly created resource 
+                //when you invoke a POST method to store some new object
+                return CreatedAtRoute("GetCards", new
+                {
+                    cardID = card.IdCard
+                });
             }
-            var card = await _cardRepository.AddCard(model);
-
-            //The CreatedAtRoute method is intended to return a URI to the newly created resource 
-            //when you invoke a POST method to store some new object
-            return CreatedAtRoute("GetCards", new
+            catch (Exception)
             {
-                cardID = card.IdCard
-            });
-
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Error retrieving data from the database");
+            }
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateCard(string id, [FromBody]TblCards model)
+        public async Task<IActionResult> UpdateCard(string id, [FromBody]TblCardsDTO cardDto)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return BadRequest(ModelState);
+                var card = _mapper.Map<TblCards>(cardDto);
+               
+                card= await _cardRepository.GetCard(id);
+
+                if (card == null)
+                {
+                    return NotFound($"Couldn't find a card of {id}");
+                }
+
+                await _cardRepository.UpdateCard(card);
+
+                if (await _cardRepository.SaveAllAsync())
+                {
+                    return Ok();
+                }
+                return BadRequest(string.Format("Could not update card: {0}"));
+
             }
 
-            var oldCard = await _cardRepository.GetCard(id);
-            if (oldCard == null)
+            catch (Exception)
             {
-                return NotFound($"Couldn't find a card of {id}");
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Error retrieving data from the database");
             }
 
-            _mapper.Map(model, oldCard);
-
-            if (await _cardRepository.SaveAllAsync())
-            {
-                return Ok(_mapper.Map<TblCardsDTO>(oldCard));
-            }
-            return BadRequest(string.Format("Could not update card: {0}"));
 
 
         }
@@ -120,19 +147,27 @@ namespace DHLWebAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCard(string id)
         {
-            var oldCard = _cardRepository.GetCard(id);
-            if (oldCard == null)
+            try
             {
-                return NotFound($"Couldn’t found card of id {id}");
-            }
-            _cardRepository.DeleteCard(id);
+                var oldCard = _cardRepository.GetCard(id);
+                if (oldCard == null)
+                {
+                    return NotFound($"Couldn’t found card of id {id}");
+                }
+                _cardRepository.DeleteCard(id);
 
-            if (await _cardRepository.SaveAllAsync())
+                if (await _cardRepository.SaveAllAsync())
+                {
+                    return Ok();
+                }
+
+                return NoContent();
+            }
+            catch (Exception)
             {
-                return Ok();
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Error retrieving data from the database");
             }
-
-            return NoContent();
         }
 
     }
