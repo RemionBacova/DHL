@@ -15,10 +15,10 @@ namespace DHLWebAPI.Installer
         public void InstallServices(IServiceCollection services, IConfiguration Configuration)
         {
             //Part of Repository Pattern for class CustomerAddressRepository
-            services.AddScoped<ICustomerAddressRepository, CustomerAddressRepository>();
+            
             services.AddScoped<IAddressRepository, AddressRepository>();
             services.AddScoped<ICardsRepository, CardsRepository>();
-            services.AddScoped<ICustomerLogsRepository, CustomerLogsRepository>();
+            
             services.AddScoped<IDiscountRepository, DiscountRepository>();
         }
     }
