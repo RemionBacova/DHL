@@ -49,7 +49,7 @@ namespace DHLWebAPI.Repository.IRepository
         //function to update the information of an address
         public async Task<TblAddress> UpdateAddress(TblAddress address)
         {
-            //retrieve the card we are trying to update
+            //retrieve the address we are trying to update
             var address1= await _context.TblAddress.Where(adr => adr.IdAddress == address.IdAddress)
                                                   .FirstOrDefaultAsync();
             //
@@ -73,6 +73,7 @@ namespace DHLWebAPI.Repository.IRepository
 
                 //save changes
                 await _context.SaveChangesAsync();
+
                 //return result
                 return address1;
             }
