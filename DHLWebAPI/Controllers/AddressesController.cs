@@ -6,11 +6,13 @@ using AutoMapper;
 using DHLWebAPI.Models;
 using DHLWebAPI.Models.DTOs;
 using DHLWebAPI.Repository.IRepository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DHLWebAPI.Controllers
 {
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class AddressesController : ControllerBase
@@ -32,12 +34,15 @@ namespace DHLWebAPI.Controllers
         {
             try
             {
+                //get all addresses saved until now
                 var addresses = await _addressRepository.GetAddresses();
 
                 if (addresses == null)
                 {
+                    //if there are no addresses found display the msg
                     return NotFound($"Couldn't find any address from the database");
                 }
+                //transfer all the data to dto
                 var addresesDTO =  new List<TblAddressDTO>();
 
                 foreach (var adr in addresses)
@@ -45,6 +50,7 @@ namespace DHLWebAPI.Controllers
                     addresesDTO.Add(_mapper.Map<TblAddressDTO>(adr));
                 }
             
+                //display the dto with the msg
                 return Ok(addresesDTO);
             
             }
@@ -61,14 +67,20 @@ namespace DHLWebAPI.Controllers
         {
             try
             {
+                //get the address as identified by its id
                 var address = await _addressRepository.GetAddress(id);
 
                 if (address == null)
                 {
+                    //if the address does not exist display error message
                     return NotFound($"Address of {id} was not found");
 
                 }
-                return Ok(_mapper.Map<TblAddressDTO>(address));
+                //transfer the data of source into dto 
+                var addressDto = _mapper.Map<TblAddressDTO>(address);
+
+                //display the msg
+                return Ok(addressDto);
             }
             catch (Exception)
             {
