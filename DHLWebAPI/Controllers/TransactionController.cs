@@ -112,7 +112,7 @@ namespace DHLWebAPI.Controllers
 
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateTransaction(int id, [FromBody]TblAddressDTO transactionlogsDto)
+        public async Task<IActionResult> UpdateTransaction(int id, [FromBody]TblTransactionLogsDTO transactionlogsDto)
         {
             try
             {
