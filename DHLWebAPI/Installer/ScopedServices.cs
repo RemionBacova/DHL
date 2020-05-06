@@ -22,6 +22,7 @@ namespace DHLWebAPI.Installer
             services.AddScoped<IDiscountRepository, DiscountRepository>();
             services.AddScoped<ICustomerDiscountsRepository, CustomerDiscountsRepository>();
             services.AddScoped<ICustomersRepository, CustomersRepository>();
+            services.AddScoped<ITransactionRepository, TransactionRepository>();
         }
     }
 }
