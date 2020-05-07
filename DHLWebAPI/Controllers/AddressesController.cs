@@ -29,8 +29,8 @@ namespace DHLWebAPI.Controllers
         }
 
 
-        [HttpGet("{id}",Name="GetAddresses")]
-        public async Task<ActionResult> Get()
+        [HttpGet]
+        public async Task<ActionResult> GetAddresses()
         {
             try
             {
@@ -58,8 +58,8 @@ namespace DHLWebAPI.Controllers
 
 
         // GET: api/Address/5
-        [HttpGet("{id}", Name = "GetAddress")]
-        public async Task<ActionResult> Get(int id)
+        [HttpGet("{id}")]
+        public async Task<ActionResult> GetAddress(int id)
         {
             try
             {
@@ -121,8 +121,8 @@ namespace DHLWebAPI.Controllers
         }
 
 
-        [HttpPut("{id}", Name = "UpdateAddress")]
-        public async Task<IActionResult> Put(int id, [FromBody]TblAddressDTO addressDto)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateAddress(int id, [FromBody]TblAddressDTO addressDto)
         {
             try
             {
@@ -156,8 +156,8 @@ namespace DHLWebAPI.Controllers
         }
 
         //DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}", Name = "DeleteAddress")]
-        public async Task<IActionResult> Delete(int id)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteAddress(int id)
         {
             try
             {

@@ -27,8 +27,8 @@ namespace DHLWebAPI.Controllers
         }
 
         //GET:api/Cards
-        [HttpGet( Name = "GetCards")]
-        public async Task<ActionResult> Get()
+        [HttpGet]
+        public async Task<ActionResult> GetCards()
         {
             try
             {
@@ -53,8 +53,8 @@ namespace DHLWebAPI.Controllers
         }
 
         // GET: api/Card/5
-        [HttpGet("{id}", Name = "GetCard")]
-        public async Task<ActionResult> Get(string id)
+        [HttpGet("{id}")]
+        public async Task<ActionResult> GetCard(string id)
         {
             try
             {
@@ -76,8 +76,8 @@ namespace DHLWebAPI.Controllers
         }
 
         //POST: api/Card
-        [HttpPost(Name = "CreateCard")]
-        public async Task<IActionResult> Post([FromBody] TblCardsDTO cardDto)
+        [HttpPost]
+        public async Task<IActionResult> CreateCard([FromBody] TblCardsDTO cardDto)
         {
             try
             {
@@ -110,8 +110,8 @@ namespace DHLWebAPI.Controllers
             return BadRequest(ModelState);
         }
 
-        [HttpPut("{id}", Name = "UpdateCard")]
-        public async Task<IActionResult> Put(string id, [FromBody]TblCardsDTO cardDto)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateCard(string id, [FromBody]TblCardsDTO cardDto)
         {
             try
             {
@@ -143,8 +143,8 @@ namespace DHLWebAPI.Controllers
         }
 
         //DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}", Name = "DeleteCard")]
-        public async Task<IActionResult> Delete(string id)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteCard(string id)
         {
             try
             {
