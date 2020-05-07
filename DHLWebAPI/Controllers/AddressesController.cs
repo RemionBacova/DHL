@@ -28,7 +28,10 @@ namespace DHLWebAPI.Controllers
             _mapper = mapper;
         }
 
-
+        /// <summary>
+        /// Get list of Addresses.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public async Task<ActionResult> GetAddresses()
         {
@@ -56,7 +59,11 @@ namespace DHLWebAPI.Controllers
             }
         }
 
-
+        /// <summary>
+        /// Get single Address.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         // GET: api/Address/5
         [HttpGet("{id}")]
         public async Task<ActionResult> GetAddress(int id)
@@ -85,7 +92,11 @@ namespace DHLWebAPI.Controllers
             }
 
         }
-
+        /// <summary>
+        /// Create Address.
+        /// </summary>
+        /// <param name="addressDto"></param>
+        /// <returns></returns>
         //POST: api/Address
         [HttpPost(Name = "CreateAddress")]
         public async Task<IActionResult> Post([FromBody] TblAddressDTO addressDto)
@@ -120,7 +131,12 @@ namespace DHLWebAPI.Controllers
             return BadRequest(ModelState);
         }
 
-
+        /// <summary>
+        /// Update Address.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="addressDto"></param>
+        /// <returns></returns>
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateAddress(int id, [FromBody]TblAddressDTO addressDto)
         {
@@ -154,7 +170,11 @@ namespace DHLWebAPI.Controllers
 
 
         }
-
+        /// <summary>
+        /// Delete Address.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         //DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAddress(int id)
