@@ -131,7 +131,7 @@ namespace DHLWebAPI.Controllers
                 }
                 else
                 {
-                    return BadRequest(string.Format("Could not update card: {0}"));
+                    return BadRequest();
                 }
             }
 

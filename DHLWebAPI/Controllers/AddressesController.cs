@@ -142,7 +142,7 @@ namespace DHLWebAPI.Controllers
                 }
                 else
                 {
-                    return BadRequest(string.Format("Could not update  address: {0}"));
+                    return BadRequest();
                 }
               
             }
