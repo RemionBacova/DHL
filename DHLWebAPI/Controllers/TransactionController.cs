@@ -25,7 +25,10 @@ namespace DHLWebAPI.Controllers
             _mapper = mapper;
         }
 
-
+        /// <summary>
+        /// Get list of Transactions.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public async Task<ActionResult> GetTransactions()
         {
@@ -54,6 +57,11 @@ namespace DHLWebAPI.Controllers
             }
         }
 
+        /// <summary>
+        /// Get a single Transaction.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         // GET: api/Transaction/5
         [HttpGet("GetTransaction/{id:int}")]
         public async Task<ActionResult> GetTransaction(int id)
@@ -77,6 +85,11 @@ namespace DHLWebAPI.Controllers
 
         }
 
+        /// <summary>
+        /// Create Transaction.
+        /// </summary>
+        /// <param name="transactionlogsDto"></param>
+        /// <returns></returns>
         //POST: api/Transaction
         [HttpPost]
         public async Task<IActionResult> CreateTransaction([FromBody] TblTransactionLogsDTO transactionlogsDto)
@@ -110,7 +123,12 @@ namespace DHLWebAPI.Controllers
 
         }
 
-
+        /// <summary>
+        /// Update Transaction.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="transactionlogsDto"></param>
+        /// <returns></returns>
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateTransaction(int id, [FromBody]TblTransactionLogsDTO transactionlogsDto)
         {

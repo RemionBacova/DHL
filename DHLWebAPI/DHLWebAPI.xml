@@ -116,5 +116,33 @@
             <param name="discountsID"></param>
             <returns></returns>
         </member>
+        <member name="M:DHLWebAPI.Controllers.TransactionController.GetTransactions">
+            <summary>
+            Get list of Transactions.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DHLWebAPI.Controllers.TransactionController.GetTransaction(System.Int32)">
+            <summary>
+            Get a single Transaction.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DHLWebAPI.Controllers.TransactionController.CreateTransaction(DHLWebAPI.Models.DTOs.TblTransactionLogsDTO)">
+            <summary>
+            Create Transaction.
+            </summary>
+            <param name="transactionlogsDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DHLWebAPI.Controllers.TransactionController.UpdateTransaction(System.Int32,DHLWebAPI.Models.DTOs.TblTransactionLogsDTO)">
+            <summary>
+            Update Transaction.
+            </summary>
+            <param name="id"></param>
+            <param name="transactionlogsDto"></param>
+            <returns></returns>
+        </member>
     </members>
 </doc>
