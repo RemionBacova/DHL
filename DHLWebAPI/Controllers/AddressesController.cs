@@ -29,9 +29,7 @@ namespace DHLWebAPI.Controllers
         }
 
 
-        [HttpGet]
-        [Route("{id}",Name="GetAddresses")]
-
+        [HttpGet("{id}",Name="GetAddresses")]
         public async Task<ActionResult> Get()
         {
             try
@@ -45,7 +43,7 @@ namespace DHLWebAPI.Controllers
                     return NotFound($"Couldn't find any address from the database");
                 }
                 //transfer all the data to dto
-                var addresesDTO =_mapper.Map<IEnumerable<TblAddressDTO>>(addresses));
+                var addresesDTO =_mapper.Map<IEnumerable<TblAddressDTO>>(addresses);
 
                 //display status code
                 return Ok(addresesDTO);
@@ -60,8 +58,7 @@ namespace DHLWebAPI.Controllers
 
 
         // GET: api/Address/5
-        [HttpGet]
-        [Route("{id}", Name = "GetAddress")]
+        [HttpGet("{id}", Name = "GetAddress")]
         public async Task<ActionResult> Get(int id)
         {
             try
@@ -90,7 +87,7 @@ namespace DHLWebAPI.Controllers
         }
 
         //POST: api/Address
-        [HttpPost]
+        [HttpPost(Name = "CreateAddress")]
         public async Task<IActionResult> Post([FromBody] TblAddressDTO addressDto)
         {
             try
@@ -124,8 +121,7 @@ namespace DHLWebAPI.Controllers
         }
 
 
-        [HttpPut]
-        [Route(("{id}"))]
+        [HttpPut("{id}", Name = "UpdateAddress")]
         public async Task<IActionResult> Put(int id, [FromBody]TblAddressDTO addressDto)
         {
             try
@@ -160,8 +156,7 @@ namespace DHLWebAPI.Controllers
         }
 
         //DELETE: api/ApiWithActions/5
-        [HttpDelete]
-        [Route("{id}")]
+        [HttpDelete("{id}", Name = "DeleteAddress")]
         public async Task<IActionResult> Delete(int id)
         {
             try

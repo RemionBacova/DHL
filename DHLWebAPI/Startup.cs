@@ -1,28 +1,21 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Text;
-using System.Threading.Tasks;
 using AutoMapper;
 using DHLWebAPI.Data;
 using DHLWebAPI.Installer;
 using DHLWebAPI.Mapper;
 using DHLWebAPI.Models.JWT;
-using DHLWebAPI.Repository;
-using DHLWebAPI.Repository.IRepository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
+
 
 namespace DHLWebAPI
 {
@@ -108,7 +101,8 @@ namespace DHLWebAPI
                 var cmlCommentsFullPath = Path.Combine(AppContext.BaseDirectory, xmlCommentFile);
                 options.IncludeXmlComments(cmlCommentsFullPath);
             });
-            
+
+            //add controllers
             services.AddControllers();
         }
 
