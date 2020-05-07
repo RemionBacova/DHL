@@ -39,6 +39,41 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="M:DHLWebAPI.Controllers.CardsController.GetCards">
+            <summary>
+            Get list of Cards.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DHLWebAPI.Controllers.CardsController.GetCard(System.String)">
+            <summary>
+            Get a single Card.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DHLWebAPI.Controllers.CardsController.CreateCard(DHLWebAPI.Models.DTOs.TblCardsDTO)">
+            <summary>
+            Create Card.
+            </summary>
+            <param name="cardDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DHLWebAPI.Controllers.CardsController.UpdateCard(System.String,DHLWebAPI.Models.DTOs.TblCardsDTO)">
+            <summary>
+            Update Card.
+            </summary>
+            <param name="id"></param>
+            <param name="cardDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DHLWebAPI.Controllers.CardsController.DeleteCard(System.String)">
+            <summary>
+            Delete Card.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
         <member name="M:DHLWebAPI.Controllers.CustomerDiscountsController.GetCustomerDiscount">
             <summary>
             Get list of CustomerDiscounts.

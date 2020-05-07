@@ -25,7 +25,10 @@ namespace DHLWebAPI.Controllers
             _repository = cardRepository;
             _mapper = mapper;
         }
-
+        /// <summary>
+        /// Get list of Cards.
+        /// </summary>
+        /// <returns></returns>
         //GET:api/Cards
         [HttpGet]
         public async Task<ActionResult> GetCards()
@@ -51,7 +54,11 @@ namespace DHLWebAPI.Controllers
             }
             
         }
-
+        /// <summary>
+        /// Get a single Card.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         // GET: api/Card/5
         [HttpGet("{id}")]
         public async Task<ActionResult> GetCard(string id)
@@ -74,7 +81,11 @@ namespace DHLWebAPI.Controllers
                     "Error retrieving data from the database");
             }
         }
-
+        /// <summary>
+        /// Create Card.
+        /// </summary>
+        /// <param name="cardDto"></param>
+        /// <returns></returns>
         //POST: api/Card
         [HttpPost]
         public async Task<IActionResult> CreateCard([FromBody] TblCardsDTO cardDto)
@@ -109,7 +120,12 @@ namespace DHLWebAPI.Controllers
             }
             return BadRequest(ModelState);
         }
-
+        /// <summary>
+        /// Update Card.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="cardDto"></param>
+        /// <returns></returns>
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateCard(string id, [FromBody]TblCardsDTO cardDto)
         {
@@ -141,7 +157,11 @@ namespace DHLWebAPI.Controllers
                     "Error retrieving data from the database");
             }
         }
-
+        /// <summary>
+        /// Delete Card.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         //DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCard(string id)
