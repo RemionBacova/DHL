@@ -19,9 +19,9 @@ namespace DHLWebAPI.Repository
         }
 
         //function to retrieve the  list with all cards
-        public async Task<IEnumerable<TblCards>> GetCards()
+        public async Task<IEnumerable<TblCards>> GetAllCards()
         {
-            //return all card
+            //return all cards
            return await _context.TblCards.ToListAsync();
         }
            
@@ -36,56 +36,21 @@ namespace DHLWebAPI.Repository
         }
 
         //function to create a new  card
-        public async Task<TblCards> AddCard(TblCards card)
+        public async void AddCard(TblCards card)
         {
             //add the new card
-            var cardNew = await _context.TblCards.AddAsync(card);
+            await _context.TblCards.AddAsync(card);
             //save changes
-            await _context.SaveChangesAsync();
-            //the new adr as 
-            return cardNew.Entity;
-        }
-
-        //function to update the information of an card
-        public async Task<TblCards> UpdateCard(TblCards card)
-        {
-            //retrieve the card we are trying to update
-            var cardNew = await _context.TblCards.Where(c=>c.IdCard==card.IdCard)
-                                                  .FirstOrDefaultAsync();
-            //
-            if (cardNew != null)
-            {
-                //if the card exist we can update its information
-                cardNew.IdCustomer = card.IdCustomer;
-                cardNew.Balance = card.Balance;
-                cardNew.BalanceAvailable = card.BalanceAvailable;
-                cardNew.CardStatus = card.CardStatus;
-                cardNew.UpdateBy = card.UpdateBy;
-                cardNew.UpdateDate = DateTime.Now;
-
-            //save changes
-             await _context.SaveChangesAsync();
-                
-            //return result
-            return cardNew;
-            }
-            return null;
+            await _context.SaveChangesAsync(); 
         }
 
         //function to remove an card
-        public async void DeleteCard(string cardId)
+        public async void DeleteCard(TblCards card)
         {
-            //check if the card exist
-            var cardRem= await _context.TblCards.Where(c => c.IdCard == cardId)
-                                               .FirstOrDefaultAsync();
-            if (cardRem != null)
-            {
                 //remove card
-                _context.TblCards.Remove(cardRem);
+                _context.TblCards.Remove(card);
                 //save changes
                 await _context.SaveChangesAsync();
-
-            }
         }
 
         public async Task<bool> SaveAllAsync()

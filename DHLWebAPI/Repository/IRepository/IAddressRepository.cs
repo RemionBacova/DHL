@@ -13,18 +13,16 @@ namespace DHLWebAPI.Repository.IRepository
         //1.Retrieve all addresses
         //2.Retrieve only one address filtered by its id
         //3.Create a new address
-        //4.Update the information of an address
-        //5.Remove an address
-        //6.Check if the request is successfully completed
+        //4.Remove an address
+        //5.Check if the request is successfully completed
 
-        Task<IEnumerable<TblAddress>> GetAddresses();
-        Task<TblAddress> GetAddress(int addressId);
+        Task<IEnumerable<TblAddress>> GetAllAddresses();
 
-        Task<TblAddress> AddAddress(TblAddress address);
+        Task<TblAddress> GetAddress(int id);
 
-        Task<TblAddress> UpdateAddress(TblAddress address);
+        void AddAddress(TblAddress address);
 
-        void DeleteAddress(int addressId);
+        void DeleteAddress(TblAddress address);
 
         Task<bool> SaveAllAsync();
 

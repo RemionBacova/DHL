@@ -16,35 +16,33 @@ namespace DHLWebAPI.Controllers
     public class CardsController : ControllerBase
     {
         //inject repository pattern for cards
-        private readonly ICardsRepository _cardRepository;
+        private readonly ICardsRepository _repository;
         //inject AutoMapper at runtime into card controller:
         private readonly IMapper _mapper;
 
         public CardsController(ICardsRepository cardRepository, IMapper mapper)
         {
-            _cardRepository = cardRepository;
+            _repository = cardRepository;
             _mapper = mapper;
         }
 
         //GET:api/Cards
-        [HttpGet("GetCards")]
-
-        public async Task<ActionResult> GetCards()
+        [HttpGet]
+        [Route("{id}", Name= "GetCards")]
+        public async Task<ActionResult> Get()
         {
             try
             {
-                var cards = await _cardRepository.GetCards();
+                var cards = await _repository.GetAllCards();
+
                 if (cards == null)
                 {
                     return NotFound($"Couldn't find any cards from the database");
                 }
-                var cardsDTO = new List<TblCardsDTO>();
 
-                foreach (var card in cards)
-                {
-                    cardsDTO.Add(_mapper.Map<TblCardsDTO>(card));
-                }
-                 return Ok(cardsDTO);
+               var cardsDTO= _mapper.Map<IEnumerable<TblCardsDTO>>(cards);
+                
+               return Ok(cardsDTO);
 
             }
             catch (Exception)
@@ -56,12 +54,13 @@ namespace DHLWebAPI.Controllers
         }
 
         // GET: api/Card/5
-        [HttpGet("GetCard/{id}")]
-        public async Task<ActionResult> GetCard(string id)
+        [HttpGet]
+        [Route("{id}", Name = "GetCard")]
+        public async Task<ActionResult> Get(string id)
         {
             try
             {
-                var card = await _cardRepository.GetCard(id);
+                var card = await _repository.GetCard(id);
 
                 if (card == null)
                 {
@@ -80,57 +79,63 @@ namespace DHLWebAPI.Controllers
 
         //POST: api/Card
         [HttpPost]
-        public async Task<IActionResult> CreateCard([FromBody] TblCardsDTO cardDto)
+        public async Task<IActionResult> Post([FromBody] TblCardsDTO cardDto)
         {
             try
             {
-                if (!ModelState.IsValid)
+                if (ModelState.IsValid)
                 {
-                    return BadRequest(ModelState);
+                    var card = _mapper.Map<TblCards>(cardDto);
+
+                     _repository.AddCard(card);
+
+                    if(await _repository.SaveAllAsync())
+                    {
+                        var newcardDTO= _mapper.Map<TblCardsDTO>(card);
+
+                        //The CreatedAtRoute method is intended to return a URI to the newly created resource 
+                        //when you invoke a POST method to store some new object
+                        return CreatedAtRoute("GetCard", new
+                        {
+                            cardID = newcardDTO.IdCard
+                        },newcardDTO);
+                    }
                 }
                 
-                var card = _mapper.Map<TblCards>(cardDto);
-
-                await _cardRepository.AddCard(card);
-
-                await _cardRepository.SaveAllAsync();
-
-                //The CreatedAtRoute method is intended to return a URI to the newly created resource 
-                //when you invoke a POST method to store some new object
-                return CreatedAtRoute("GetCards", new
-                {
-                    cardID = card.IdCard
-                });
+                
             }
             catch (Exception)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
                     "Error retrieving data from the database");
             }
+            return BadRequest(ModelState);
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateCard(string id, [FromBody]TblCardsDTO cardDto)
+        [HttpPut]
+        [Route("{id}")]
+        public async Task<IActionResult> Put(string id, [FromBody]TblCardsDTO cardDto)
         {
             try
             {
-                var card = _mapper.Map<TblCards>(cardDto);
                
-                card= await _cardRepository.GetCard(id);
+                var card = await _repository.GetCard(id);
 
                 if (card == null)
                 {
                     return NotFound($"Couldn't find a card of {id}");
                 }
 
-                await _cardRepository.UpdateCard(card);
+                _mapper.Map(cardDto,card);
 
-                if (await _cardRepository.SaveAllAsync())
+                if (await _repository.SaveAllAsync())
                 {
-                    return Ok();
+                    return Ok(_mapper.Map<TblCardsDTO>(card));
                 }
-                return BadRequest(string.Format("Could not update card: {0}"));
-
+                else
+                {
+                    return BadRequest(string.Format("Could not update card: {0}"));
+                }
             }
 
             catch (Exception)
@@ -138,27 +143,25 @@ namespace DHLWebAPI.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError,
                     "Error retrieving data from the database");
             }
-
-
-
         }
 
         //DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCard(string id)
+        [HttpDelete]
+        [Route("{id}")]
+        public async Task<IActionResult> Delete(string id)
         {
             try
             {
-                var oldCard = _cardRepository.GetCard(id);
-                if (oldCard == null)
+                var card = await _repository.GetCard(id);
+                if (card == null)
                 {
                     return NotFound($"Couldn’t found card of id {id}");
                 }
-                _cardRepository.DeleteCard(id);
+                _repository.DeleteCard(card);
 
-                if (await _cardRepository.SaveAllAsync())
+                if (await _repository.SaveAllAsync())
                 {
-                    return Ok();
+                    return Ok(_mapper.Map<TblCardsDTO>(card));
                 }
 
                 return NoContent();

@@ -19,7 +19,7 @@ namespace DHLWebAPI.Repository.IRepository
         }
 
         //function to retrieve the  list with all addresses
-        public async Task<IEnumerable<TblAddress>> GetAddresses()
+        public async Task<IEnumerable<TblAddress>> GetAllAddresses()
         {
             //return the list with all addresses
            return await _context.TblAddress.ToListAsync();
@@ -36,64 +36,24 @@ namespace DHLWebAPI.Repository.IRepository
         }
 
         //function to create a new card
-        public async Task<TblAddress> AddAddress(TblAddress address)
+        public async void AddAddress(TblAddress address)
         {
             //add the new address
-            var addressNew = await _context.TblAddress.AddAsync(address);
+            await _context.TblAddress.AddAsync(address);
             //save changes
             await _context.SaveChangesAsync();
-            //return new address 
-            return addressNew.Entity;
-        }
-
-        //function to update the information of an address
-        public async Task<TblAddress> UpdateAddress(TblAddress address)
-        {
-            //retrieve the address we are trying to update
-            var address1= await _context.TblAddress.Where(adr => adr.IdAddress == address.IdAddress)
-                                                  .FirstOrDefaultAsync();
-            //
-            if(address1 != null)
-            {
-                //if the card exist we can update its information
-                address1.IdAddressType = address.IdAddressType;
-                address1.AddressLabel = address.AddressLabel;
-                address1.Country = address.Country;
-                address1.Province = address.Province;
-                address1.City = address.City;
-                address1.PostalCode = address.PostalCode;
-                address1.PostAddress = address.PostAddress;
-                address1.PostAddressNumber = address.PostAddressNumber;
-                address1.PostIntern = address.PostIntern;
-                address1.OpenTimeStart = address.OpenTimeEnd;
-                address1.OpenTimeEnd = address.OpenTimeStart;
-                address1.LunchTimeStart = address.LunchTimeStart;
-                address1.LunchTimeEnd = address.LunchTimeEnd;
-                address1.ContactName = address.ContactName;
-
-                //save changes
-                await _context.SaveChangesAsync();
-
-                //return result
-                return address1;
-            }
-            return null;
 
         }
 
+    
         //function to remove an address
-        public async void DeleteAddress(int addressId)
+        public async void DeleteAddress(TblAddress address)
         {
-            //check if the card exist
-            var address1 = await _context.TblAddress.Where(adr => adr.IdAddress == addressId)
-                                        .FirstOrDefaultAsync();
-            if (address1 != null)
-            {
                 //remove card
-                _context.TblAddress.Remove(address1);
+                _context.TblAddress.Remove(address);
                 //save changes
                 await _context.SaveChangesAsync();
-            }
+            
         }
 
         public async Task<bool> SaveAllAsync()
