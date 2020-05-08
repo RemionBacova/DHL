@@ -15,6 +15,7 @@ namespace DHLWebAPI.Models
         public int UpdateBy { get; set; }
         public DateTime UpdateDate { get; set; }
 
+
         public virtual TblUsers UpdateByNavigation { get; set; }
         public virtual ICollection<TblCards> TblCards { get; set; }
     }
