@@ -56,7 +56,7 @@ namespace DHLWebAPI.Controllers
         /// </summary>
         /// <param name="IdCustomer"></param>
         /// <returns></returns>
-        [HttpGet("{IdCustomer:int}", Name = "GetCustomers")]
+        [HttpGet("{IdCustomer:alpha}", Name = "GetCustomers")]
         public IActionResult GetCustomers(int IdCustomer)
         {
             var item = _customersRepository.GetCustomers(IdCustomer);
@@ -98,7 +98,7 @@ namespace DHLWebAPI.Controllers
         /// <param name="customerID"></param>
         /// <param name="tblcustomersDTO"></param>
         /// <returns></returns>
-        [HttpPatch("{customerID:int}", Name = "UpdateCustomers")]
+        [HttpPatch("{customerID:alpha}", Name = "UpdateCustomers")]
         public IActionResult UpdateCustomers
             (int customerID, [FromBody] TblCustomersDTO tblcustomersDTO)
         {
@@ -123,7 +123,7 @@ namespace DHLWebAPI.Controllers
         /// </summary>
         /// <param name="customerID"></param>
         /// <returns></returns>
-        [HttpDelete("{customerID:int}", Name = "DeleteCustomers")]
+        [HttpDelete("{customerID:alpha}", Name = "DeleteCustomers")]
         public IActionResult DeleteCustomers(int customerID)
         {
             var itemDTO = _customersRepository.GetCustomers(customerID);

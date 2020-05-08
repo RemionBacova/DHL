@@ -56,7 +56,7 @@ namespace DHLWebAPI.Controllers
         /// </summary>
         /// <param name="IdCustomer"></param>
         /// <returns></returns>
-        [HttpGet("{IdCustomer:int}", Name = "GetCustomerDiscount")]
+        [HttpGet("{IdCustomer:alpha}", Name = "GetCustomerDiscount")]
         public IActionResult GeCustomerDiscount(int IdCustomer)
         {
             var item = _customerDiscountsRepository.GetCustomerDiscount(IdCustomer);
@@ -76,7 +76,7 @@ namespace DHLWebAPI.Controllers
         /// </summary>
         /// <param name="tokenString"></param>
         /// <returns></returns>
-        [HttpGet("{tokenString:string}", Name = "GetCustomerDiscounts")]
+        [HttpGet("{tokenString:alpha}", Name = "GetCustomerDiscounts")]
         public IActionResult GetCustomerDiscounts(string tokenString)
         {
             var item = _customerDiscountsRepository.GetCustomerDiscounts(tokenString);
@@ -118,7 +118,7 @@ namespace DHLWebAPI.Controllers
         /// <param name="customerID"></param>
         /// <param name="tblcustomerDiscountDTO"></param>
         /// <returns></returns>
-        [HttpPatch("{customerID:int}", Name = "UpdateCusDiscounts")]
+        [HttpPatch("{customerID:alpha}", Name = "UpdateCusDiscounts")]
         public IActionResult UpdateCusDiscounts
             (int customerID, [FromBody] TblCustomerDiscountDTO tblcustomerDiscountDTO)
         {
@@ -143,7 +143,7 @@ namespace DHLWebAPI.Controllers
         /// </summary>
         /// <param name="customerID"></param>
         /// <returns></returns>
-        [HttpDelete("{customerID:int}", Name = "DeleteCusDiscounts")]
+        [HttpDelete("{customerID:alpha}", Name = "DeleteCusDiscounts")]
         public IActionResult DeleteCusDiscounts(int customerID)
         {
             var itemDTO = _customerDiscountsRepository.GetCustomerDiscount(customerID);
