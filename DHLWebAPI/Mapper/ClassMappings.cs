@@ -38,6 +38,8 @@ namespace DHLWebAPI.Mapper
             CreateMap<TblDiscounts, TblDiscountsDTO>().ReverseMap();
             CreateMap<TblDiscountType, TblDiscountTypeDTO>().ReverseMap();
             CreateMap<TblTransactionLogs, TblTransactionLogsDTO>().ReverseMap();
+            CreateMap<TblAddressType, TblAddressTypeDTO>().ReverseMap();
+            CreateMap<TblCardStatus, TblCardStatusDTO>().ReverseMap();
 
 
         }

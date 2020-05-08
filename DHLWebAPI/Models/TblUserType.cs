@@ -10,7 +10,7 @@ namespace DHLWebAPI.Models
             TblUsers = new HashSet<TblUsers>();
         }
 
-        public byte IdUserType { get; set; }
+        public int IdUserType { get; set; }
         public string UserTypeTitle { get; set; }
         public string Description { get; set; }
         public int InsertBy { get; set; }

@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace DHLWebAPI.Models
+namespace DHLWebAPI.Models.DTOs
 {
-    public partial class TblAddressType
+    public class TblAddressTypeDTO
     {
-        public TblAddressType()
-        {
-            TblAddress = new HashSet<TblAddress>();
-        }
-
         public int IdAddressType { get; set; }
         public string AdressType { get; set; }
         public string Description { get; set; }
@@ -17,9 +14,5 @@ namespace DHLWebAPI.Models
         public DateTime InsertDate { get; set; }
         public int? UpdateBy { get; set; }
         public DateTime? UpdateDate { get; set; }
-
-        public virtual TblUsers InsertByNavigation { get; set; }
-        public virtual TblUsers UpdateByNavigation { get; set; }
-        public virtual ICollection<TblAddress> TblAddress { get; set; }
     }
 }
