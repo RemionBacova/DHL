@@ -36,7 +36,7 @@ namespace DHLWebAPI.Models
 
         public int IdUser { get; set; }
         public string ContactName { get; set; }
-        public byte UserType { get; set; }
+        public int UserType { get; set; }
         public string TitleOfCourtesy { get; set; }
         public DateTime Birthdate { get; set; }
         public DateTime Hiredate { get; set; }
