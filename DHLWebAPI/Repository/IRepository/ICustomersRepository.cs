@@ -6,13 +6,8 @@ using System.Threading.Tasks;
 
 namespace DHLWebAPI.Repository.IRepository
 {
-    interface ICustomersRepository
+    public interface ICustomersRepository
     {
         ICollection<TblCustomers> GetCustomers();
-        TblCustomers GetCustomers(string customerID);
-        bool CreateCustomers(TblCustomers customers);
-        bool UpdateCustomers(TblCustomers customers);
-        bool DeleteCustomers(TblCustomers customers);
-        bool Save();
     }
 }

@@ -11,46 +11,13 @@ namespace DHLWebAPI.Repository
 {
     public class CustomersRepository : ICustomersRepository
     {
-        private readonly DHLContext db;
+        private readonly DHLContext _db;
 
-        //Dependenct Injection for DHLContext
-        public CustomersRepository(DHLContext db)
+        public CustomersRepository(DHLContext dHLContext)
         {
-            this.db = db;
+            _db = dHLContext;
         }
 
-        //Below are different crud operations implemented by the ICustomersRepository interface
-        public bool CreateCustomers(TblCustomers customers)
-        {
-            db.TblCustomers.Add(customers);
-            return Save();
-        }
-
-        public bool DeleteCustomers(TblCustomers customers)
-        {
-            db.TblCustomers.Remove(customers);
-            return Save();
-        }
-
-        public TblCustomers GetCustomers(string customerID)
-        {
-            return db.TblCustomers.FirstOrDefault(o => o.IdCustomer.Equals(customerID));
-        }
-
-        public ICollection<TblCustomers> GetCustomers()
-        {
-            return db.TblCustomers.ToList();
-        }
-
-        public bool UpdateCustomers(TblCustomers customers)
-        {
-            db.TblCustomers.Update(customers);
-            return Save();
-        }
-
-        public bool Save()
-        {
-            return db.SaveChanges() >= 0 ? true : false;
-        }
+        public ICollection<TblCustomers> GetCustomers() => _db.TblCustomers.ToList();
     }
 }
