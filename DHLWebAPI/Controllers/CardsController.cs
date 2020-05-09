@@ -47,12 +47,12 @@ namespace DHLWebAPI.Controllers
                return Ok(cardsDTO);
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                    "Error retrieving data from the database");
+                    $"Error {ex.Message} retrieving data from the database");
             }
-            
+
         }
         /// <summary>
         /// Get a single Card.
@@ -75,10 +75,10 @@ namespace DHLWebAPI.Controllers
 
                 return Ok(_mapper.Map<TblCardsDTO>(card));
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                    "Error retrieving data from the database");
+                    $"Error {ex.Message} retrieving data from the database");
             }
         }
         /// <summary>
@@ -113,10 +113,10 @@ namespace DHLWebAPI.Controllers
                 
                 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                    "Error retrieving data from the database");
+                    $"Error {ex.Message} retrieving data from the database");
             }
             return BadRequest(ModelState);
         }
@@ -151,10 +151,10 @@ namespace DHLWebAPI.Controllers
                 }
             }
 
-            catch (Exception)
+            catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                    "Error retrieving data from the database");
+                    $"Error {ex.Message} retrieving data from the database");
             }
         }
         /// <summary>
@@ -182,10 +182,10 @@ namespace DHLWebAPI.Controllers
 
                 return NoContent();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                    "Error retrieving data from the database");
+                    $"Error {ex.Message} retrieving data from the database");
             }
         }
 

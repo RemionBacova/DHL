@@ -3,9 +3,10 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 using AutoMapper;
-using DHLWebAPI.Data;
+
 using DHLWebAPI.Installer;
 using DHLWebAPI.Mapper;
+using DHLWebAPI.Models;
 using DHLWebAPI.Models.JWT;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;

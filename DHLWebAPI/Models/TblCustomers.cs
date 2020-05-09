@@ -15,8 +15,8 @@ namespace DHLWebAPI.Models
         }
 
         public string IdCustomer { get; set; }
-        public int CustomerType { get; set; }
-        public int CustomerStatus { get; set; }
+        public byte CustomerType { get; set; }
+        public byte CustomerStatus { get; set; }
         public string Channel { get; set; }
         public string CompanyName { get; set; }
         public string Iva { get; set; }

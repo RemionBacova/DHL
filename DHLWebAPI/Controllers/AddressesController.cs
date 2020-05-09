@@ -81,10 +81,10 @@ namespace DHLWebAPI.Controllers
                 //display the msg
                 return Ok(addressDto);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                    "Error retrieving data from the database");
+                    $"Error {ex.Message} retrieving data from the database");
             }
 
         }
@@ -118,10 +118,10 @@ namespace DHLWebAPI.Controllers
                 }
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                    "Error creating new address record");
+                    $"Error {ex.Message} retrieving data from the database");
             }
 
             return BadRequest(ModelState);
@@ -195,10 +195,10 @@ namespace DHLWebAPI.Controllers
                 }
                
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                    "Error deleting data");
+                    $"Error {ex.Message} retrieving data from the database");
             }
 
 

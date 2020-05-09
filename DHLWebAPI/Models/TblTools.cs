@@ -14,7 +14,7 @@ namespace DHLWebAPI.Models
 
         public string IdTool { get; set; }
         public string ToolName { get; set; }
-        public int[] ToolKey { get; set; }
+        public byte[] ToolKey { get; set; }
         public bool ToolStatus { get; set; }
         public int IdProfile { get; set; }
 

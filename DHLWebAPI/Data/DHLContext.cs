@@ -1,12 +1,13 @@
 ﻿using System;
-using DHLWebAPI.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
-namespace DHLWebAPI.Data
+namespace DHLWebAPI.Models
 {
     public partial class DHLContext : DbContext
     {
+      
+
         public DHLContext(DbContextOptions<DHLContext> options)
             : base(options)
         {
@@ -37,14 +38,13 @@ namespace DHLWebAPI.Data
         // Unable to generate entity type for table 'dbo.tbl_discount_filetab'. Please see the warning messages.
         // Unable to generate entity type for table 'dbo.tbl_filetab'. Please see the warning messages.
 
-//        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-//        {
-//            if (!optionsBuilder.IsConfigured)
-//            {
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-//                optionsBuilder.UseSqlServer("Data Source=DESKTOP-PSHFM7H;Initial Catalog=DHL;User ID=sa;Password=root;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
-//            }
-//        }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer("Name=DefaultConnection");
+            }
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -185,12 +185,12 @@ namespace DHLWebAPI.Data
             modelBuilder.Entity<TblCards>(entity =>
             {
                 entity.HasKey(x => x.IdCustomer)
-                    .HasName("PK__tbl_card__DB43864A41274DFD");
+                    .HasName("PK__tbl_card__DB43864A309309D5");
 
                 entity.ToTable("tbl_cards");
 
                 entity.HasIndex(x => x.IdCard)
-                    .HasName("UQ__tbl_card__3B7B33C3063A5170")
+                    .HasName("UQ__tbl_card__3B7B33C30302E6B9")
                     .IsUnique();
 
                 entity.Property(e => e.IdCustomer)
@@ -234,7 +234,7 @@ namespace DHLWebAPI.Data
             modelBuilder.Entity<TblCustomerAddress>(entity =>
             {
                 entity.HasKey(x => new { x.IdCustomer, x.IdAddress })
-                    .HasName("PK__tbl_cust__345F797D93197717");
+                    .HasName("PK__tbl_cust__345F797D18461953");
 
                 entity.ToTable("tbl_customer_address");
 
@@ -274,7 +274,7 @@ namespace DHLWebAPI.Data
             modelBuilder.Entity<TblCustomerDiscount>(entity =>
             {
                 entity.HasKey(x => new { x.IdCustomer, x.IdDiscount })
-                    .HasName("PK__tbl_cust__E72988E95FECDE04");
+                    .HasName("PK__tbl_cust__E72988E9763FF381");
 
                 entity.ToTable("tbl_customer_discount");
 
@@ -582,7 +582,7 @@ namespace DHLWebAPI.Data
             modelBuilder.Entity<TblProductDiscount>(entity =>
             {
                 entity.HasKey(x => new { x.IdProduct, x.IdDiscount })
-                    .HasName("PK__tbl_prod__12E3487782BA20F7");
+                    .HasName("PK__tbl_prod__12E34877E8452339");
 
                 entity.ToTable("tbl_product_discount");
 
@@ -649,7 +649,7 @@ namespace DHLWebAPI.Data
             modelBuilder.Entity<TblProfilePermission>(entity =>
             {
                 entity.HasKey(x => x.ProfileSetName)
-                    .HasName("PK__tbl_prof__ABF29A359A90DFDF");
+                    .HasName("PK__tbl_prof__ABF29A35D7291A0D");
 
                 entity.ToTable("tbl_profile_permission");
 
@@ -723,7 +723,7 @@ namespace DHLWebAPI.Data
             modelBuilder.Entity<TblToolPermission>(entity =>
             {
                 entity.HasKey(x => x.IdProfile)
-                    .HasName("PK__tbl_tool__120435C1D7E9C773");
+                    .HasName("PK__tbl_tool__120435C18A2526A2");
 
                 entity.ToTable("tbl_tool_permission");
 
@@ -825,8 +825,6 @@ namespace DHLWebAPI.Data
 
                 entity.ToTable("tbl_user_type");
 
-                entity.Property(e => e.IdUserType).ValueGeneratedOnAdd();
-
                 entity.Property(e => e.Description)
                     .IsRequired()
                     .HasMaxLength(100)
@@ -884,7 +882,6 @@ namespace DHLWebAPI.Data
                     .IsUnicode(false);
 
                 entity.Property(e => e.TitleOfCourtesy)
-                    .IsRequired()
                     .HasMaxLength(5)
                     .IsUnicode(false);
 
@@ -893,8 +890,6 @@ namespace DHLWebAPI.Data
                     .HasColumnName("username")
                     .HasMaxLength(50)
                     .IsUnicode(false);
-
-                // ky userTypeNavigation ka foreign key UserType te tipit byte por te tabela primare eshte int
 
                 entity.HasOne(d => d.UserTypeNavigation)
                     .WithMany(p => p.TblUsers)
