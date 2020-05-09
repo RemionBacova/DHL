@@ -12,7 +12,7 @@ namespace DHLWebAPI.Models
             TblTransactionLogs = new HashSet<TblTransactionLogs>();
         }
 
-        public int IdTool { get; set; }
+        public string IdTool { get; set; }
         public string ToolName { get; set; }
         public byte[] ToolKey { get; set; }
         public bool ToolStatus { get; set; }

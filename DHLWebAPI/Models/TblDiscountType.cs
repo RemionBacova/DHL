@@ -10,8 +10,8 @@ namespace DHLWebAPI.Models
             TblDiscounts = new HashSet<TblDiscounts>();
         }
 
-        public int IdDiscountType { get; set; }
-        public int DiscountTypeTitle { get; set; }
+        public byte IdDiscountType { get; set; }
+        public string DiscountTypeTitle { get; set; }
         public string Description { get; set; }
         public int InsertBy { get; set; }
         public DateTime InsertDate { get; set; }

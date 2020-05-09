@@ -8,7 +8,7 @@ namespace DHLWebAPI.Models.DTOs
     public class TblTransactionLogsDTO
     {
         public long Pid { get; set; }
-        public int IdCustomer { get; set; }
+        public string IdCustomer { get; set; }
         public string IdCard { get; set; }
         public byte TransactionType { get; set; }
         public byte TransactionStatus { get; set; }
@@ -19,7 +19,7 @@ namespace DHLWebAPI.Models.DTOs
         public bool Awbstatus { get; set; }
         public int InsertBy { get; set; }
         public DateTime InsertDate { get; set; }
-        public int IdTool { get; set; }
+        public string IdTool { get; set; }
     }
 }
 

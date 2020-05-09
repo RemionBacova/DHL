@@ -8,7 +8,7 @@ namespace DHLWebAPI.Models.DTOs
     public class TblDiscountTypeDTO
     {
         public int IdDiscountType { get; set; }
-        public int DiscountTypeTitle { get; set; }
+        public string DiscountTypeTitle { get; set; }
         public string Description { get; set; }
         public int InsertBy { get; set; }
         public DateTime InsertDate { get; set; }

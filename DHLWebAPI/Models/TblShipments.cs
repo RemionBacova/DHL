@@ -6,7 +6,7 @@ namespace DHLWebAPI.Models
     public partial class TblShipments
     {
         public long Pid { get; set; }
-        public int IdCostumer { get; set; }
+        public string IdCostumer { get; set; }
         public long Awb { get; set; }
         public DateTime DatetimeCreation { get; set; }
         public bool ImmediateInvoicing { get; set; }
@@ -18,7 +18,7 @@ namespace DHLWebAPI.Models
         public DateTime InsertDate { get; set; }
         public int UpdateBy { get; set; }
         public DateTime UpdateDate { get; set; }
-        public int IdTool { get; set; }
+        public string IdTool { get; set; }
 
         public virtual TblCustomers IdCostumerNavigation { get; set; }
         public virtual TblTools IdToolNavigation { get; set; }

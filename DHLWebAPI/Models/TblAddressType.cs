@@ -10,8 +10,8 @@ namespace DHLWebAPI.Models
             TblAddress = new HashSet<TblAddress>();
         }
 
-        public int IdAddressType { get; set; }
-        public int AdressType { get; set; }
+        public byte IdAddressType { get; set; }
+        public string AdressType { get; set; }
         public string Description { get; set; }
         public int InsertBy { get; set; }
         public DateTime InsertDate { get; set; }
