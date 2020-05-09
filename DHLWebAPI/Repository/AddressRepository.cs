@@ -21,7 +21,7 @@ namespace DHLWebAPI.Repository.IRepository
         //function to retrieve the  list with all addresses
         public async Task<IEnumerable<TblAddress>> GetAllAddresses()
         {
-            var model = await _context.TblAddress.Take(5).ToListAsync();
+            var model = await _context.TblAddress.ToListAsync();
             //return the list with all addresses
             return model;
         }
