@@ -51,7 +51,7 @@ namespace DHLWebAPI.Controllers
             catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                    $"Error {ex.Message} retrieving data from the database");
+                    $"Error Explanation: {ex.Message} ");
             }
         }
 
@@ -84,7 +84,7 @@ namespace DHLWebAPI.Controllers
             catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                    $"Error {ex.Message} retrieving data from the database");
+                    $"Error Explanation: {ex.Message} ");
             }
 
         }
@@ -121,7 +121,7 @@ namespace DHLWebAPI.Controllers
             catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                    $"Error {ex.Message} retrieving data from the database");
+                    $"Error Explanation: {ex.Message} ");
             }
 
             return BadRequest(ModelState);
@@ -177,28 +177,30 @@ namespace DHLWebAPI.Controllers
         {
             try
             {
+                //get the address from the db 
                 var address = await _repository.GetAddress(id);
 
                 if (address == null)
-                {
+                { 
+                    //in case it does exists display the msg
                     return NotFound($"Couldn’t found address of id {id}");
                 }
+                //remove the address
                 _repository.DeleteAddress(address);
 
                 if (await _repository.SaveAllAsync())
                 {
                     return Ok();
                 }
-                else
-                {
+                
                     return BadRequest(string.Format("Could not delete address"));
-                }
+                
                
             }
             catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                    $"Error {ex.Message} retrieving data from the database");
+                    $"Error Explanation: {ex.Message} ");
             }
 
 

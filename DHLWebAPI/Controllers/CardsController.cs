@@ -50,7 +50,7 @@ namespace DHLWebAPI.Controllers
             catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                    $"Error {ex.Message} retrieving data from the database");
+                    $"Error Explanation: {ex.Message} ");
             }
 
         }
@@ -78,7 +78,7 @@ namespace DHLWebAPI.Controllers
             catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                    $"Error {ex.Message} retrieving data from the database");
+                    $"Error Explanation: {ex.Message} ");
             }
         }
         /// <summary>
@@ -116,7 +116,7 @@ namespace DHLWebAPI.Controllers
             catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                    $"Error {ex.Message} retrieving data from the database");
+                    $"Error Explanation: {ex.Message} ");
             }
             return BadRequest(ModelState);
         }
@@ -150,11 +150,10 @@ namespace DHLWebAPI.Controllers
                     return BadRequest();
                 }
             }
-
             catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                    $"Error {ex.Message} retrieving data from the database");
+                    $"Error Explanation: {ex.Message} ");
             }
         }
         /// <summary>
@@ -185,7 +184,7 @@ namespace DHLWebAPI.Controllers
             catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                    $"Error {ex.Message} retrieving data from the database");
+                    $"Error Explanation: {ex.Message} ");
             }
         }
 

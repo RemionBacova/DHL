@@ -52,7 +52,7 @@ namespace DHLWebAPI.Repository.IRepository
                 //remove card
                 _context.TblAddress.Remove(address);
                 //save changes
-                await _context.SaveChangesAsync();
+               // await _context.SaveChangesAsync();
             
         }
 
