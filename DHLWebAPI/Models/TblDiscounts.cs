@@ -15,7 +15,7 @@ namespace DHLWebAPI.Models
         public int IdDiscount { get; set; }
         public string DiscountTitle { get; set; }
         public string DiscountDescription { get; set; }
-        public byte DiscountType { get; set; }
+        public int DiscountType { get; set; }
         public float DiscountPerc { get; set; }
         public DateTime DiscountStartDate { get; set; }
         public DateTime DiscountEndDate { get; set; }

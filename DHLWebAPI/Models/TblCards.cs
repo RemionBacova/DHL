@@ -14,7 +14,7 @@ namespace DHLWebAPI.Models
         public string IdCard { get; set; }
         public float Balance { get; set; }
         public float BalanceAvailable { get; set; }
-        public byte CardStatus { get; set; }
+        public int CardStatus { get; set; }
         public int InsertBy { get; set; }
         public DateTime InsertDate { get; set; }
         public int UpdateBy { get; set; }
