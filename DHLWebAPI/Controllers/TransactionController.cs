@@ -149,7 +149,7 @@ namespace DHLWebAPI.Controllers
                 {
                     return Ok();
                 }
-                return BadRequest(string.Format("Could not update  transaction: {0}"));
+                return BadRequest(string.Format("Could not update  transaction"));
             }
             catch (Exception)
             {

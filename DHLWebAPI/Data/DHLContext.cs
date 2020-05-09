@@ -7,10 +7,6 @@ namespace DHLWebAPI.Data
 {
     public partial class DHLContext : DbContext
     {
-        public DHLContext()
-        {
-        }
-
         public DHLContext(DbContextOptions<DHLContext> options)
             : base(options)
         {
@@ -897,6 +893,8 @@ namespace DHLWebAPI.Data
                     .HasColumnName("username")
                     .HasMaxLength(50)
                     .IsUnicode(false);
+
+                // ky userTypeNavigation ka foreign key UserType te tipit byte por te tabela primare eshte int
 
                 entity.HasOne(d => d.UserTypeNavigation)
                     .WithMany(p => p.TblUsers)

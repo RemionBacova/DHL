@@ -21,11 +21,11 @@ namespace DHLWebAPI.Repository.IRepository
         //function to retrieve the  list with all addresses
         public async Task<IEnumerable<TblAddress>> GetAllAddresses()
         {
+            var model = await _context.TblAddress.Take(5).ToListAsync();
             //return the list with all addresses
-           return await _context.TblAddress.ToListAsync();
-
+            return model;
         }
-
+        
 
         //function to retrieve only one card filtered by its id
         public async Task<TblAddress> GetAddress(int addressId)

@@ -40,11 +40,7 @@ namespace DHLWebAPI.Controllers
                 //get all addresses saved until now
                 var addresses = await _repository.GetAllAddresses();
 
-                if (addresses == null)
-                {
-                    //if there are no addresses found display the msg
-                    return NotFound($"Couldn't find any address from the database");
-                }
+            
                 //transfer all the data to dto
                 var addresesDTO =_mapper.Map<IEnumerable<TblAddressDTO>>(addresses);
 
@@ -52,10 +48,10 @@ namespace DHLWebAPI.Controllers
                 return Ok(addresesDTO);
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                    "Error retrieving data from the database");
+                    $"Error {ex.Message} retrieving data from the database");
             }
         }
 
@@ -195,7 +191,7 @@ namespace DHLWebAPI.Controllers
                 }
                 else
                 {
-                    return BadRequest(string.Format("Could not delete address: {0}"));
+                    return BadRequest(string.Format("Could not delete address"));
                 }
                
             }

@@ -53,7 +53,7 @@ namespace DHLWebAPI
             //Calling the extension method that calls all the scoped services
             services.InstallServicesInAssembly(Configuration);
 
-            //JWT
+            //JWT Scheme 
             //match jwt with the class we have created
             var jwtSection = Configuration.GetSection("JWTSettings");
             services.Configure<JWTSettings>(jwtSection);
@@ -128,6 +128,7 @@ namespace DHLWebAPI
 
             //app.UseCors();
 
+            //Authentication middleware is responsible for authentication in ASP.Net Core
             app.UseAuthentication();
 
             app.UseAuthorization();
