@@ -8,7 +8,7 @@ namespace DHLWebAPI.Models.DTOs
     public class TblShipmentsDTO
     {
         public long Pid { get; set; }
-        public string IdCostumer { get; set; }
+        public int IdCostumer { get; set; }
         public long Awb { get; set; }
         public DateTime DatetimeCreation { get; set; }
         public bool ImmediateInvoicing { get; set; }
@@ -20,7 +20,7 @@ namespace DHLWebAPI.Models.DTOs
         public DateTime InsertDate { get; set; }
         public int UpdateBy { get; set; }
         public DateTime UpdateDate { get; set; }
-        public string IdTool { get; set; }
+        public int IdTool { get; set; }
     }
 }
 

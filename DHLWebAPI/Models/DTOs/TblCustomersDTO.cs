@@ -7,7 +7,7 @@ namespace DHLWebAPI.Models.DTOs
 {
     public class TblCustomersDTO
     {
-        public string IdCustomer { get; set; }
+        public int IdCustomer { get; set; }
         public int CustomerType { get; set; }
         public int CustomerStatus { get; set; }
         public string Channel { get; set; }

@@ -5,7 +5,7 @@ namespace DHLWebAPI.Models
 {
     public partial class TblCustomerAddress
     {
-        public string IdCustomer { get; set; }
+        public int IdCustomer { get; set; }
         public int IdAddress { get; set; }
         public int InsertBy { get; set; }
         public DateTime InsertDate { get; set; }

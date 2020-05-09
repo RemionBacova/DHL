@@ -38,5 +38,14 @@ namespace DHLWebAPI.Controllers
             return Ok(customersListDTO);
         }
 
+        [HttpGet("{customerId:int}")]
+        public IActionResult GetCustomer(int customerId)
+        {
+            var customer = _repository.GetCustomer(customerId);
+            var customerDTO = _mapper.Map<TblCustomersDTO>(customer);
+
+            return Ok(customerDTO);
+        }
+
     }
 }

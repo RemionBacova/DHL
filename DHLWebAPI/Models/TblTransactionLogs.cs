@@ -6,7 +6,7 @@ namespace DHLWebAPI.Models
     public partial class TblTransactionLogs
     {
         public long Pid { get; set; }
-        public string IdCustomer { get; set; }
+        public int IdCustomer { get; set; }
         public string IdCard { get; set; }
         public byte TransactionType { get; set; }
         public byte TransactionStatus { get; set; }
@@ -17,7 +17,7 @@ namespace DHLWebAPI.Models
         public bool Awbstatus { get; set; }
         public int InsertBy { get; set; }
         public DateTime InsertDate { get; set; }
-        public string IdTool { get; set; }
+        public int IdTool { get; set; }
 
         public virtual TblCards IdCardNavigation { get; set; }
         public virtual TblCustomers IdCustomerNavigation { get; set; }

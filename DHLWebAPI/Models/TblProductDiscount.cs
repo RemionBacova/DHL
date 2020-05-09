@@ -5,7 +5,7 @@ namespace DHLWebAPI.Models
 {
     public partial class TblProductDiscount
     {
-        public string IdProduct { get; set; }
+        public int IdProduct { get; set; }
         public int IdDiscount { get; set; }
         public string CodeForActive { get; set; }
         public bool IsActive { get; set; }

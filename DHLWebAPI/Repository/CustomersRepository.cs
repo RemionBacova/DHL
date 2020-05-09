@@ -18,6 +18,11 @@ namespace DHLWebAPI.Repository
             _db = dHLContext;
         }
 
+        public TblCustomers GetCustomer(int customerId)
+        {
+            return _db.TblCustomers.FirstOrDefault(o => o.IdCustomer == customerId);
+        }
+
         public ICollection<TblCustomers> GetCustomers() => _db.TblCustomers.ToList();
     }
 }

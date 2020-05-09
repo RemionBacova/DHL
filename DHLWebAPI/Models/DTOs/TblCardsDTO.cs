@@ -7,7 +7,7 @@ namespace DHLWebAPI.Models.DTOs
 {
     public class TblCardsDTO
     {
-        public string IdCustomer { get; set; }
+        public int IdCustomer { get; set; }
         public string IdCard { get; set; }
         public float Balance { get; set; }
         public float BalanceAvailable { get; set; }
