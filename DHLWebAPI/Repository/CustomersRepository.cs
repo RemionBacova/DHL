@@ -31,7 +31,7 @@ namespace DHLWebAPI.Repository
             return Save();
         }
 
-        public TblCustomers GetCustomers(int customerID)
+        public TblCustomers GetCustomers(string customerID)
         {
             return db.TblCustomers.FirstOrDefault(o => o.IdCustomer.Equals(customerID));
         }

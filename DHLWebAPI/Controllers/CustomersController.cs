@@ -57,7 +57,7 @@ namespace DHLWebAPI.Controllers
         /// <param name="IdCustomer"></param>
         /// <returns></returns>
         [HttpGet("{IdCustomer:alpha}", Name = "GetCustomers")]
-        public IActionResult GetCustomers(int IdCustomer)
+        public IActionResult GetCustomers(string IdCustomer)
         {
             var item = _customersRepository.GetCustomers(IdCustomer);
 
@@ -124,7 +124,7 @@ namespace DHLWebAPI.Controllers
         /// <param name="customerID"></param>
         /// <returns></returns>
         [HttpDelete("{customerID:alpha}", Name = "DeleteCustomers")]
-        public IActionResult DeleteCustomers(int customerID)
+        public IActionResult DeleteCustomers(string customerID)
         {
             var itemDTO = _customersRepository.GetCustomers(customerID);
 

@@ -122,7 +122,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:DHLWebAPI.Controllers.CustomersController.GetCustomers(System.Int32)">
+        <member name="M:DHLWebAPI.Controllers.CustomersController.GetCustomers(System.String)">
             <summary>
             Get single customer.
             </summary>
@@ -144,7 +144,7 @@
             <param name="tblcustomersDTO"></param>
             <returns></returns>
         </member>
-        <member name="M:DHLWebAPI.Controllers.CustomersController.DeleteCustomers(System.Int32)">
+        <member name="M:DHLWebAPI.Controllers.CustomersController.DeleteCustomers(System.String)">
             <summary>
             Delete an discount object from the TblCustomers
             </summary>

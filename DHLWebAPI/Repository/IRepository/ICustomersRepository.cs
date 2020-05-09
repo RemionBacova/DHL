@@ -9,7 +9,7 @@ namespace DHLWebAPI.Repository.IRepository
     interface ICustomersRepository
     {
         ICollection<TblCustomers> GetCustomers();
-        TblCustomers GetCustomers(int customerID);
+        TblCustomers GetCustomers(string customerID);
         bool CreateCustomers(TblCustomers customers);
         bool UpdateCustomers(TblCustomers customers);
         bool DeleteCustomers(TblCustomers customers);
