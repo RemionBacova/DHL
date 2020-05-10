@@ -34,26 +34,21 @@ namespace DHLWebAPI.Controllers
         {
             try
             {
-                var transaction = await _transactionRepository.GetTransactions();
+                var transactions = await _transactionRepository.GetTransactions();
 
-                if (transaction == null)
-                {
-                    return NotFound($"Couldn't find any transaction on the database");
-                }
-                var transactionDTO = new List<TblTransactionLogsDTO>();
+                //transfer all the data to dto
+                var transactionDTO = _mapper.Map<IEnumerable<TblTransactionLogsDTO>>(transactions);
 
-                foreach (var zh in transaction)
-                {
-                    transactionDTO.Add(_mapper.Map<TblTransactionLogsDTO>(zh));
-                }
-
+                //display status code
                 return Ok(transactionDTO);
 
+            
+
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                    "Error retrieving data from the database");
+                   $"Error Explanation: {ex.Message} ");
             }
         }
 
@@ -75,12 +70,15 @@ namespace DHLWebAPI.Controllers
                     return NotFound($"Transaction of {id} was not found");
 
                 }
-                return Ok(_mapper.Map<TblTransactionLogsDTO>(transaction));
+                var transactionDto = _mapper.Map<TblTransactionLogsDTO>(transaction);
+
+                //display the msg
+                return Ok(transactionDto);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                    "Error retrieving data from the database");
+                    $"Error Explanation: {ex.Message} ");
             }
 
         }
@@ -96,31 +94,26 @@ namespace DHLWebAPI.Controllers
         {
             try
             {
-                if (!ModelState.IsValid)
+                if (ModelState.IsValid)
                 {
-                    return BadRequest(ModelState);
+                    var transaction = _mapper.Map<TblTransactionLog>(transactionlogsDto);
+
+                    _transactionRepository.AddTransaction(transaction);
+
+                    
+                    var newtransactionDto = _mapper.Map<TblAddressDTO>(transaction);
+                    return Ok(newtransactionDto);
+                    //}
+
                 }
-
-                var transaction = _mapper.Map<TblTransactionLog>(transactionlogsDto);
-
-                await _transactionRepository.AddTransaction(transaction);
-
-                await _transactionRepository.SaveAllAsync();
-
-                //created at action will provide a 201:Created response
-                return CreatedAtAction(nameof(GetTransaction), new
-                {
-                    Id = transaction.Pid
-                }, transaction);
-
-
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                    "Error creating new transaction record");
+                    $"Error Explanation: {ex.Message} ");
             }
 
+            return BadRequest(ModelState);
         }
 
         /// <summary>
@@ -134,28 +127,32 @@ namespace DHLWebAPI.Controllers
         {
             try
             {
-                var transaction = _mapper.Map<TblTransactionLog>(transactionlogsDto);
-
-                await _transactionRepository.GetTransaction(id);
+                var transaction = await _transactionRepository.GetTransaction(id);
 
                 if (transaction == null)
                 {
                     return NotFound($"Couldn't find a transaction of {id}");
                 }
 
-                await _transactionRepository.UpdateTransaction(transaction);
+                var newTransaction = _mapper.Map(transactionlogsDto, transaction);
 
                 if (await _transactionRepository.SaveAllAsync())
                 {
-                    return Ok();
+                    //return the mapped result in case it is successfully saved
+                    return Ok(_mapper.Map<TblTransactionLogsDTO>(newTransaction));
                 }
-                return BadRequest(string.Format("Could not update  transaction"));
+                else
+                {
+                    return BadRequest();
+                }
+
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                    "Error updating data");
+                    $"Error Explanation: {ex.Message} ");
             }
+
 
 
         }
