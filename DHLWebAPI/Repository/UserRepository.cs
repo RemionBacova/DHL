@@ -18,6 +18,11 @@ namespace DHLWebAPI.Repository
             _context = context;
         }
 
+        public void AddToken(TblRefreshToken token)
+        {
+            _context.TblRefreshTokens.AddAsync(token);
+        }
+
         public async void AddUser(TblUser user)
         {
             _context.TblUsers.Add(user);
@@ -27,6 +32,13 @@ namespace DHLWebAPI.Repository
         public async Task<IEnumerable<TblUser>> GetAllUsers()
         {
             return await _context.TblUsers.ToListAsync();
+        }
+
+        public async Task<TblRefreshToken> GetToken(string refreshToken)
+        {
+          return _context.TblRefreshTokens.Where(rt => rt.Token == refreshToken)
+                                                .OrderByDescending(rt => rt.ExpiryDate)
+                                                .FirstOrDefault();
         }
 
         public async Task<TblUser> GetUser(int id)

@@ -28,6 +28,7 @@ namespace DHLWebAPI.Data
         public virtual DbSet<TblProductDiscount> TblProductDiscounts { get; set; }
         public virtual DbSet<TblProduct> TblProducts { get; set; }
         public virtual DbSet<TblProfilePermission> TblProfilePermissions { get; set; }
+        public virtual DbSet<TblRefreshToken> TblRefreshTokens { get; set; }
         public virtual DbSet<TblShipment> TblShipments { get; set; }
         public virtual DbSet<TblToolPermission> TblToolPermissions { get; set; }
         public virtual DbSet<TblTool> TblTools { get; set; }
@@ -532,6 +533,28 @@ namespace DHLWebAPI.Data
                     .HasForeignKey(x => x.IdProfile)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__tbl_profi__IdPro__75A278F5");
+            });
+
+            modelBuilder.Entity<TblRefreshToken>(entity =>
+            {
+                entity.HasKey(x => x.TokenId)
+                    .HasName("PK_RefreshToken");
+
+                entity.ToTable("tbl_refresh_token");
+
+                entity.Property(e => e.TokenId).ValueGeneratedNever();
+
+                entity.Property(e => e.ExpiryDate).HasColumnType("datetime");
+
+                entity.Property(e => e.Token)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.IdUserNavigation)
+                    .WithMany(p => p.TblRefreshToken)
+                    .HasForeignKey(x => x.IdUser)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__tbl_refre__IdUse__40058253");
             });
 
             modelBuilder.Entity<TblShipment>(entity =>

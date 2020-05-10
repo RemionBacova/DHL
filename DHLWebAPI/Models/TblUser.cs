@@ -13,6 +13,7 @@ namespace DHLWebAPI.Models
             TblCustomerDiscount = new HashSet<TblCustomerDiscount>();
             TblCustomerInsertByNavigation = new HashSet<TblCustomer>();
             TblCustomerUpdateByNavigation = new HashSet<TblCustomer>();
+            TblRefreshToken = new HashSet<TblRefreshToken>();
             TblTransactionLog = new HashSet<TblTransactionLog>();
         }
 
@@ -37,6 +38,7 @@ namespace DHLWebAPI.Models
         public virtual ICollection<TblCustomerDiscount> TblCustomerDiscount { get; set; }
         public virtual ICollection<TblCustomer> TblCustomerInsertByNavigation { get; set; }
         public virtual ICollection<TblCustomer> TblCustomerUpdateByNavigation { get; set; }
+        public virtual ICollection<TblRefreshToken> TblRefreshToken { get; set; }
         public virtual ICollection<TblTransactionLog> TblTransactionLog { get; set; }
     }
 }

@@ -20,9 +20,9 @@ namespace DHLWebAPI.Repository.IRepository
         Task<TblUser> GetUser(int id);
 
         Task<TblUser> GetUserWithCredentials(string username,string password);
-
+        Task<TblRefreshToken> GetToken(string refreshToken);
         void AddUser(TblUser user);
-
+        void AddToken(TblRefreshToken token);
         Task<bool> SaveAllAsync();
 
     }
