@@ -52,9 +52,8 @@ namespace DHLWebAPI.Repository.IRepository
         {
                 //remove card
                 _context.TblAddress.Remove(address);
-            //save changes
-            await _context.SaveChangesAsync();
-
+               
+            
         }
 
         public async Task<bool> SaveAllAsync()
