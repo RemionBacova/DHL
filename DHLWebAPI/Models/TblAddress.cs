@@ -27,6 +27,7 @@ namespace DHLWebAPI.Models
         public string ContactName { get; set; }
 
         public virtual TblAddressType IdAddressTypeNavigation { get; set; }
+
         public virtual ICollection<TblCustomerAddress> TblCustomerAddress { get; set; }
     }
 }
