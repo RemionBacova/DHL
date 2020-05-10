@@ -12,13 +12,12 @@ namespace DHLWebAPI.Repository.IRepository
         //1.Retrieve all card
         //2.Retrieve only one card filtered by its id
         //3.Create a new card
-        //4.Remove a card
-        //5.Check if the request is successfully completed
+        //4.Check if the request is successfully completed
        
         Task<IEnumerable<TblCard>> GetAllCards();
         Task<TblCard> GetCard(string id);
         void AddCard(TblCard card);
-        void DeleteCard(TblCard card);
+  
         Task<bool> SaveAllAsync();
     }
 }

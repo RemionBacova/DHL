@@ -45,14 +45,6 @@ namespace DHLWebAPI.Repository
             await _context.SaveChangesAsync(); 
         }
 
-        //function to remove an card
-        public async void DeleteCard(TblCard card)
-        {
-                //remove card
-                _context.TblCards.Remove(card);
-                //save changes
-                await _context.SaveChangesAsync();
-        }
 
         public async Task<bool> SaveAllAsync()
         {

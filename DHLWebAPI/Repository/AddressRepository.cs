@@ -51,15 +51,7 @@ namespace DHLWebAPI.Repository.IRepository
 
         }
 
-    
-        //function to remove an address
-        public async void DeleteAddress(TblAddress address)
-        {
-                //remove card
-                _context.TblAddresses.Remove(address);
-               
-            
-        }
+   
 
         public async Task<bool> SaveAllAsync()
         {

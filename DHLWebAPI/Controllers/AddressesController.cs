@@ -185,18 +185,9 @@ namespace DHLWebAPI.Controllers
                     //in case it does exists display the msg
                     return NotFound($"Couldn’t found address in the database!");
                 }
-                //remove the address
-                _repository.DeleteAddress(address);
-
-                if (await _repository.SaveAllAsync())
-                {
-                    return Ok();
-                }
-                else
-                {
-                    return BadRequest(string.Format("Could not delete address"));
-                }
-
+               
+                    return BadRequest(string.Format("Address is not permitted to be deleted. You can change its status!"));
+                
 
 
             }

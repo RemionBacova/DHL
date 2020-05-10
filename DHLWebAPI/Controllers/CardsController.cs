@@ -172,14 +172,11 @@ namespace DHLWebAPI.Controllers
                 {
                     return NotFound($"Couldn’t found card of id {id}");
                 }
-                _repository.DeleteCard(card);
+                //_repository.DeleteCard(card);
 
-                if (await _repository.SaveAllAsync())
-                {
-                    return Ok(_mapper.Map<TblCardsDTO>(card));
-                }
 
-                return NoContent();
+                return BadRequest(string.Format("Card is not permitted to be deleted. You can change its status!"));
+
             }
             catch (Exception ex)
             {
