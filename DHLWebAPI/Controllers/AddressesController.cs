@@ -106,17 +106,13 @@ namespace DHLWebAPI.Controllers
 
                     _repository.AddAddress(address);
 
-                    //if(await _repository.SaveAllAsync())
+                  //  if (await _repository.SaveAllAsync())
                     //{
                         var newaddressDto = _mapper.Map<TblAddressDTO>(address);
-                    return Ok(newaddressDto);  
-                        //The CreatedAtRoute method is intended to return a URI to the newly created resource 
-                        //when you invoke a POST method to store some new object
-                    //  return CreatedAtRoute("GetAddress", new { id = newaddressDto.IdAddress }, newaddressDto);
+                        return Ok(newaddressDto);
                     //}
-                      
-                }
 
+                }
             }
             catch (Exception ex)
             {

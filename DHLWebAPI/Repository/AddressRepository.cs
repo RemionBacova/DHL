@@ -46,9 +46,8 @@ namespace DHLWebAPI.Repository.IRepository
 
             //add the new address
           await _context.TblAddresses.AddAsync(address);
-
             //save changes
-           // await _context.SaveChangesAsync();
+           await _context.SaveChangesAsync();
 
         }
 

@@ -8,7 +8,6 @@ namespace DHLWebAPI.Models.DTOs
     public class TblAddressDTO
     {
         public int IdAddress { get; set; }
-        public int IdAddressType { get; set; }
         public string AddressLabel { get; set; }
         public string Country { get; set; }
         public string Province { get; set; }

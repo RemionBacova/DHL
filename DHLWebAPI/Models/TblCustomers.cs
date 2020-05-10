@@ -9,9 +9,9 @@ namespace DHLWebAPI.Models
         {
             TblCustomerAddress = new HashSet<TblCustomerAddress>();
             TblCustomerDiscount = new HashSet<TblCustomerDiscount>();
-            TblCustomerLogs = new HashSet<TblCustomerLogs>();
-            TblShipments = new HashSet<TblShipments>();
-            TblTransactionLogs = new HashSet<TblTransactionLogs>();
+            TblCustomerLogs = new HashSet<TblCustomerLog>();
+            TblShipments = new HashSet<TblShipment>();
+            TblTransactionLogs = new HashSet<TblTransactionLog>();
         }
 
         public string IdCustomer { get; set; }
@@ -34,14 +34,14 @@ namespace DHLWebAPI.Models
 
         public virtual TblCustomerStatus CustomerStatusNavigation { get; set; }
         public virtual TblCustomerType CustomerTypeNavigation { get; set; }
-        public virtual TblDiscounts IdDiscountNavigation { get; set; }
-        public virtual TblUsers InsertByNavigation { get; set; }
-        public virtual TblUsers UpdateByNavigation { get; set; }
-        public virtual TblCards TblCards { get; set; }
+        public virtual TblDiscount IdDiscountNavigation { get; set; }
+        public virtual TblUser InsertByNavigation { get; set; }
+        public virtual TblUser UpdateByNavigation { get; set; }
+        public virtual TblCard TblCards { get; set; }
         public virtual ICollection<TblCustomerAddress> TblCustomerAddress { get; set; }
         public virtual ICollection<TblCustomerDiscount> TblCustomerDiscount { get; set; }
-        public virtual ICollection<TblCustomerLogs> TblCustomerLogs { get; set; }
-        public virtual ICollection<TblShipments> TblShipments { get; set; }
-        public virtual ICollection<TblTransactionLogs> TblTransactionLogs { get; set; }
+        public virtual ICollection<TblCustomerLog> TblCustomerLogs { get; set; }
+        public virtual ICollection<TblShipment> TblShipments { get; set; }
+        public virtual ICollection<TblTransactionLog> TblTransactionLogs { get; set; }
     }
 }
