@@ -84,11 +84,11 @@ namespace DHLWebAPI.Controllers
 
         }
         /// <summary>
-        /// Create Address.
+        /// Create Discount.
         /// </summary>
         /// <param name="discDto"></param>
         /// <returns></returns>
-        //POST: api/Address
+        //POST: api/Discounts
         [HttpPost(Name = "CreateDiscount")]
         public async Task<IActionResult> Post([FromBody] TblDiscountsDTO discDto)
         {
@@ -179,7 +179,7 @@ namespace DHLWebAPI.Controllers
                
                     return NotFound($"Couldn’t found discounts of id {id}");
                 }
-                //remove the address
+                //remove the discount
                 _repository.DeleteDiscount(disc);
 
                 if (await _repository.SaveAllAsync())
