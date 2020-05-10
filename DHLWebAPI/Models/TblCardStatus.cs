@@ -10,7 +10,7 @@ namespace DHLWebAPI.Models
             TblCards = new HashSet<TblCards>();
         }
 
-        public byte IdCardStatus { get; set; }
+        public int IdCardStatus { get; set; }
         public string CardStatus { get; set; }
         public int UpdateBy { get; set; }
         public DateTime UpdateDate { get; set; }

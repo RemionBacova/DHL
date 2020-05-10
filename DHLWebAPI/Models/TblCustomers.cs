@@ -15,8 +15,8 @@ namespace DHLWebAPI.Models
         }
 
         public string IdCustomer { get; set; }
-        public byte CustomerType { get; set; }
-        public byte CustomerStatus { get; set; }
+        public int CustomerType { get; set; }
+        public int CustomerStatus { get; set; }
         public string Channel { get; set; }
         public string CompanyName { get; set; }
         public string Iva { get; set; }
@@ -26,10 +26,10 @@ namespace DHLWebAPI.Models
         public string Pec { get; set; }
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
-        public int InsertBy { get; set; }
-        public DateTime InsertDate { get; set; }
-        public int UpdateBy { get; set; }
-        public DateTime UpdateDate { get; set; }
+        public int? InsertBy { get; set; }
+        public DateTime? InsertDate { get; set; }
+        public int? UpdateBy { get; set; }
+        public DateTime? UpdateDate { get; set; }
         public int? IdDiscount { get; set; }
 
         public virtual TblCustomerStatus CustomerStatusNavigation { get; set; }

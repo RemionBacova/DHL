@@ -5,7 +5,7 @@ namespace DHLWebAPI.Models
 {
     public partial class TblCustomerLogs
     {
-        public long Pid { get; set; }
+        public int Pid { get; set; }
         public string IdCustomer { get; set; }
         public string CustomerXml { get; set; }
         public int InsertBy { get; set; }
@@ -14,6 +14,5 @@ namespace DHLWebAPI.Models
 
         public virtual TblCustomers IdCustomerNavigation { get; set; }
         public virtual TblTools IdToolNavigation { get; set; }
-        public virtual TblUsers InsertByNavigation { get; set; }
     }
 }

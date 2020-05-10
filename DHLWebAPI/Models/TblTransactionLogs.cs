@@ -5,15 +5,15 @@ namespace DHLWebAPI.Models
 {
     public partial class TblTransactionLogs
     {
-        public long Pid { get; set; }
+        public int Pid { get; set; }
         public string IdCustomer { get; set; }
         public string IdCard { get; set; }
-        public byte TransactionType { get; set; }
-        public byte TransactionStatus { get; set; }
+        public int TransactionType { get; set; }
+        public int TransactionStatus { get; set; }
         public string TransactionId { get; set; }
         public DateTime TransactionDateTime { get; set; }
         public float Value { get; set; }
-        public long? Awb { get; set; }
+        public int? Awb { get; set; }
         public bool Awbstatus { get; set; }
         public int InsertBy { get; set; }
         public DateTime InsertDate { get; set; }
