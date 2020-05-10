@@ -9,8 +9,8 @@ namespace DHLWebAPI.Models
         public int IdDiscount { get; set; }
         public string CodeForActive { get; set; }
         public bool IsActive { get; set; }
-        public int InsertBy { get; set; }
-        public DateTime InsertDate { get; set; }
+        public int? InsertBy { get; set; }
+        public DateTime? InsertDate { get; set; }
 
         public virtual TblCustomers IdCustomerNavigation { get; set; }
         public virtual TblDiscounts IdDiscountNavigation { get; set; }

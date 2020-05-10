@@ -112,7 +112,7 @@ namespace DHLWebAPI.Controllers
 
                         //The CreatedAtRoute method is intended to return a URI to the newly created resource 
                         //when you invoke a POST method to store some new object
-                        return CreatedAtRoute("GetAddress", new { id = newaddressDto.IdAddress }, newaddressDto);
+                       return CreatedAtRoute("GetAddress", new { id = newaddressDto.IdAddress }, newaddressDto);
                     }
                       
                 }
@@ -142,15 +142,15 @@ namespace DHLWebAPI.Controllers
 
                 if (address == null)
                 {
-                    return NotFound($"Couldn't find an address of {id}");
+                    return NotFound($"Couldn't find an address");
                 }
 
                 //send destination inf to source=> update inf
-                _mapper.Map(addressDto,address);
+               var newAddress= _mapper.Map(addressDto,address);
 
                 if (await _repository.SaveAllAsync())
                 {
-                    return Ok(_mapper.Map<TblAddressDTO>(address));
+                    return Ok(_mapper.Map<TblAddressDTO>(newAddress));
                 }
                 else
                 {
@@ -158,10 +158,10 @@ namespace DHLWebAPI.Controllers
                 }
               
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                    "Error updating data");
+                    $"Error Explanation: {ex.Message} ");
             }
 
 
@@ -183,7 +183,7 @@ namespace DHLWebAPI.Controllers
                 if (address == null)
                 { 
                     //in case it does exists display the msg
-                    return NotFound($"Couldn’t found address of id {id}");
+                    return NotFound($"Couldn’t found address in the database!");
                 }
                 //remove the address
                 _repository.DeleteAddress(address);
@@ -192,10 +192,13 @@ namespace DHLWebAPI.Controllers
                 {
                     return Ok();
                 }
-                
+                else
+                {
                     return BadRequest(string.Format("Could not delete address"));
-                
-               
+                }
+
+
+
             }
             catch (Exception ex)
             {
