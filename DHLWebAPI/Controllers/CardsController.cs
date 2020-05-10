@@ -101,13 +101,13 @@ namespace DHLWebAPI.Controllers
                     if(await _repository.SaveAllAsync())
                     {
                         var newcardDTO= _mapper.Map<TblCardsDTO>(card);
-
+                        return Ok(newcardDTO);
                         //The CreatedAtRoute method is intended to return a URI to the newly created resource 
                         //when you invoke a POST method to store some new object
-                        return CreatedAtRoute("GetCard", new
-                        {
-                            cardID = newcardDTO.IdCard
-                        },newcardDTO);
+                        //return CreatedAtRoute("GetCard", new
+                        //{
+                        //    cardID = newcardDTO.IdCard
+                        //},newcardDTO);
                     }
                 }
                 

@@ -16,10 +16,7 @@ namespace DHLWebAPI.Mapper
             CreateMap<TblAddress, TblAddressDTO>().ReverseMap();   //bidirectional mapping
 
             //mapping cards entity and its dto
-            CreateMap<TblCard, TblCardsDTO>()
-                        .ForMember(dest => dest.CardStatus, act => act.MapFrom(src => src.CardStatusNavigation.IdCardStatus))
-                        .ForMember(dest=>dest.CardStatus,act=>act.MapFrom(src=>src.CardStatusNavigation.CardStatus))
-                        .ReverseMap();
+            CreateMap<TblCard, TblCardsDTO>().ReverseMap();
 
             //Mapping functionality that maps TblCustomerAddress with its DTO => TblCustomerAddressDTO
             CreateMap<TblCustomerAddress, TblCustomerAddressDTO>().ReverseMap();

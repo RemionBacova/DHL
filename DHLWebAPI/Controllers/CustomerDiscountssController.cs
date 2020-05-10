@@ -109,8 +109,8 @@ namespace DHLWebAPI.Controllers
                     {
                         var newDto = _mapper.Map<TblCustomerDiscountDTO>(cusdisc);
 
-                       
-                        return CreatedAtRoute("GetCusDisc", new { id = newDto.IdDiscount }, newDto);
+                        return Ok(newDto);
+                       // return CreatedAtRoute("GetCusDisc", new { id = newDto.IdDiscount }, newDto);
                     }
 
                 }
