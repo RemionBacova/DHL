@@ -1,67 +1,65 @@
 ﻿
 using DHLWebAPI.Data;
 using DHLWebAPI.Models;
-using DHLWebAPI.Repository.IRepository;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
+using DHLWebAPI.Models.DTOs;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DHLWebAPI.Repository
+namespace DHLWebAPI.Repository.IRepository
 {
     public class CustomerDiscountsRepository : ICustomerDiscountsRepository
     {
-        private readonly DHLContext db;
+        private readonly DHLContext _context;
 
-        //Dependenct Injection for DHLContext
-        public CustomerDiscountsRepository(DHLContext db)
+        public CustomerDiscountsRepository(DHLContext context)
         {
-            this.db = db;
-        }
-        //Below are different crud operations implemented by the ICustomerDiscountRepository interface
-        public bool CreateCusDiscounts(TblCustomerDiscount cusdiscounts)
-        {
-            db.TblCustomerDiscount.Add(cusdiscounts);
-            return Save();
+            _context = context;
         }
 
-        public bool DeleteCusDiscounts(TblCustomerDiscount cusdiscounts)
+      
+        public async Task<IEnumerable<TblCustomerDiscount>> GetAllCusDisc()
         {
-            db.TblCustomerDiscount.Remove(cusdiscounts);
-            return Save();
-        }
-
-        public TblCustomerDiscount GetCustomerDiscount(int customerID)
-        {
-            return db.TblCustomerDiscount.FirstOrDefault(o => o.IdCustomer.Equals(customerID));
-
-        }
-
-        public TblCustomerDiscount GetCustomerDiscounts(string tokenString)
-        {
-            return db.TblCustomerDiscount.FirstOrDefault(o => o.CodeForActive.Equals(tokenString));
-        }
-
-        public ICollection<TblCustomerDiscount> GetCustomerDiscount()
-        {
-            return db.TblCustomerDiscount.ToList();
-        }
-        public ICollection<TblCustomerDiscount> GetCustomerDiscounts()
-        {
-            return db.TblCustomerDiscount.ToList();
+            var model = await _context.TblCustomerDiscount.ToListAsync();
+            return model;
         }
 
 
-        public bool UpdateCusDiscounts(TblCustomerDiscount cusdiscounts)
+    
+        public async Task<TblCustomerDiscount> GetCusDisc(int Id)
         {
-            db.TblCustomerDiscount.Update(cusdiscounts);
-            return Save();
+           
+            return await _context.TblCustomerDiscount.Where(o => o.IdDiscount == Id)
+                                            .FirstOrDefaultAsync();
         }
 
-        public bool Save()
+        
+        public async void AddCusDiscount(TblCustomerDiscount cusdisc)
         {
-            return db.SaveChanges() >= 0 ? true : false;
+           
+            await _context.TblCustomerDiscount.AddAsync(cusdisc);
+            await _context.SaveChangesAsync();
+
         }
+
+
+        
+        public async void DeleteCusDisc(TblCustomerDiscount cusdisc)
+        {
+            
+            _context.TblCustomerDiscount.Remove(cusdisc);
+            
+             await _context.SaveChangesAsync();
+
+        }
+
+        public async Task<bool> SaveAllAsync()
+        {
+            return (await _context.SaveChangesAsync() > 0);
+        }
+
+
     }
 }
