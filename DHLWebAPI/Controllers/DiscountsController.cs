@@ -6,136 +6,198 @@ using AutoMapper;
 using DHLWebAPI.Models;
 using DHLWebAPI.Models.DTOs;
 using DHLWebAPI.Repository.IRepository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DHLWebAPI.Controllers
 {
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class DiscountsController : ControllerBase
     {
-        private readonly IDiscountRepository _discountsRepository;
-        private IMapper _mapper;
+        
+        private readonly IDiscountRepository _repository;
+        private readonly IMapper _mapper;
 
-        //private readonly IDiscountRepository _discountsRepository;
-        //private readonly IMapper _mapper;
-
-
-      private DiscountsController(IDiscountRepository discountRepository, IMapper mapper)
+        public DiscountsController(IDiscountRepository discountRepository, IMapper mapper)
         {
-            this._discountsRepository = discountRepository;
-            this._mapper = mapper;
+            _repository = discountRepository;
+            _mapper = mapper;
         }
-
-    
-
-
 
         /// <summary>
         /// Get list of Discounts.
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public IActionResult GetDiscounts()
+        public async Task<ActionResult> GetDiscounts()
         {
-            var list = _discountsRepository.GetDiscounts();
-            var listDTO = new List<TblDiscountsDTO>();
-
-            foreach (var item in list)
+            try
             {
-                listDTO.Add(_mapper.Map<TblDiscountsDTO>(item));
+               
+                var discounts = await _repository.GetAllDiscounts();
+                var discDTO = _mapper.Map<IEnumerable<TblDiscountsDTO>>(discounts
+                    );
+                return Ok(discDTO);
+
             }
-
-            return Ok(listDTO);
-        }
-
-
-        /// <summary>
-        /// Get single discount.
-        /// </summary>
-        /// <param name="IdDiscount"></param>
-        /// <returns></returns>
-        [HttpGet("{IdDiscount:alpha}", Name = "GetDiscounts")]
-        public IActionResult GetDiscounts(int IdDiscount)
-        {
-            var item = _discountsRepository.GetDiscounts(IdDiscount);
-
-            if (item == null)
+            catch (Exception ex)
             {
-                return NotFound();
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    $"Error Explanation: {ex.Message} ");
             }
-
-            var itemDTO = _mapper.Map<TblDiscountsDTO>(item);
-
-            return Ok(itemDTO);
         }
 
         /// <summary>
-        /// Create discount(object).
+        /// Get single Discount.
         /// </summary>
-        /// <param name="tblDiscountsDTO"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
-        [HttpPost]
-        public IActionResult CreateDiscounts([FromBody] TblDiscountsDTO tblDiscountsDTO)
+        // GET: api/Discounts/5
+        [HttpGet("{id}")]
+        public async Task<ActionResult> GetDiscounts(int id)
         {
-            if (tblDiscountsDTO == null)
+            try
             {
-                return BadRequest(ModelState);
+               
+                var disc = await _repository.GetDiscounts(id);
+
+                if (disc == null)
+                {
+           
+                    return NotFound($"Discount of {id} was not found");
+
+                }
+                //transfer the data of source into dto 
+                var discDto = _mapper.Map<TblDiscountsDTO>(disc);
+
+                //display the msg
+                return Ok(discDto);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    $"Error Explanation: {ex.Message} ");
             }
 
-            var itemDTO = _mapper.Map<TblDiscounts>(tblDiscountsDTO);
-
-            return CreatedAtRoute("GetDiscounts", new
+        }
+        /// <summary>
+        /// Create Address.
+        /// </summary>
+        /// <param name="discDto"></param>
+        /// <returns></returns>
+        //POST: api/Address
+        [HttpPost(Name = "CreateDiscount")]
+        public async Task<IActionResult> Post([FromBody] TblDiscountsDTO discDto)
+        {
+            try
             {
-                discountsID = itemDTO.IdDiscount
-            });
+
+                if (ModelState.IsValid)
+                {
+                    var disc = _mapper.Map<TblDiscounts>(discDto);
+
+                    _repository.AddDiscount(disc);
+
+                    if (await _repository.SaveAllAsync())
+                    {
+                        var newdiscDto = _mapper.Map<TblDiscountsDTO>(disc);
+
+                        
+                        return CreatedAtRoute("GetDiscounts", new { id = newdiscDto.IdDiscount}, newdiscDto);
+                    }
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    $"Error Explanation: {ex.Message} ");
+            }
+
+            return BadRequest(ModelState);
         }
 
         /// <summary>
-        /// Update single data in TblDiscounts
+        /// Update Discounts.
         /// </summary>
-        /// <param name="discountsID"></param>
-        /// <param name="tblDiscountsDTO"></param>
+        /// <param name="id"></param>
+        /// <param name="discDto"></param>
         /// <returns></returns>
-        [HttpPatch("{discountsID:alpha}", Name = "UpdateDiscounts")]
-        public IActionResult UpdateDiscounts
-            (int discountsID, [FromBody] TblDiscountsDTO tblDiscountsDTO)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateDiscount(int id, [FromBody]TblDiscountsDTO discDto)
         {
-            if (tblDiscountsDTO == null || discountsID != tblDiscountsDTO.IdDiscount)
+            try
             {
-                return BadRequest(ModelState);
+                var disc = await _repository.GetDiscounts(id);
+
+                if (disc == null)
+                {
+                    return NotFound($"Couldn't find an discount of {id}");
+                }
+
+               
+                _mapper.Map(discDto, disc);
+
+                if (await _repository.SaveAllAsync())
+                {
+                    return Ok(_mapper.Map<TblDiscountsDTO>(disc));
+                }
+                else
+                {
+                    return BadRequest();
+                }
+
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Error updating data");
             }
 
-            var itemDTO = _mapper.Map<TblDiscounts>(tblDiscountsDTO);
 
-            if (!_discountsRepository.UpdateDiscounts(itemDTO))
-            {
-                ModelState.AddModelError("", $"Something went wrong updating the record.");
-                return StatusCode(500, ModelState);
-            }
-
-            return NoContent();
         }
-
         /// <summary>
-        /// Delete an discount object from the TblCustomerAddress
+        /// Delete Discounts.
         /// </summary>
-        /// <param name="discountsID"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
-        [HttpDelete("{discountsID:alpha}", Name = "DeleteDiscounts")]
-        public IActionResult DeleteDiscounts(int discountsID)
+        //DELETE: api/ApiWithActions/5
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteDisocunt(int id)
         {
-            var itemDTO = _discountsRepository.GetDiscounts(discountsID);
-
-            if (!_discountsRepository.DeleteDiscounts(itemDTO))
+            try
             {
-                ModelState.AddModelError("", $"Something went wrong when deleting the record.");
-                return StatusCode(500, ModelState);
+                
+                var disc = await _repository.GetDiscounts(id);
+
+                if (disc == null)
+                {
+               
+                    return NotFound($"Couldn’t found discounts of id {id}");
+                }
+                //remove the address
+                _repository.DeleteDiscount(disc);
+
+                if (await _repository.SaveAllAsync())
+                {
+                    return Ok();
+                }
+
+                return BadRequest(string.Format("Could not delete discount"));
+
+
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    $"Error Explanation: {ex.Message} ");
             }
 
-            return NoContent();
-        }
 
+        }
     }
 }

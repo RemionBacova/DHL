@@ -1,4 +1,5 @@
 ﻿using DHLWebAPI.Models;
+using DHLWebAPI.Models.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,13 +7,18 @@ using System.Threading.Tasks;
 
 namespace DHLWebAPI.Repository.IRepository
 {
-    interface IDiscountRepository
+    public interface IDiscountRepository
     {
-        ICollection<TblDiscounts> GetDiscounts();
-        TblDiscounts GetDiscounts(int discountsID);
-        bool CreateDiscounts(TblDiscounts discounts);
-        bool UpdateDiscounts(TblDiscounts discounts);
-        bool DeleteDiscounts(TblDiscounts discounts);
-        bool Save();
+       
+        Task<IEnumerable<TblDiscounts>> GetAllDiscounts();
+
+        Task<TblDiscounts> GetDiscounts(int id);
+
+        void AddDiscount(TblDiscounts disc);
+
+        void DeleteDiscount(TblDiscounts disc);
+
+        Task<bool> SaveAllAsync();
+
     }
 }
