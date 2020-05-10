@@ -8,6 +8,6 @@ namespace DHLWebAPI.Repository.IRepository
 {
     public interface ICustomersRepository
     {
-        ICollection<TblCustomers> GetCustomers();
+        ICollection<TblCustomer> GetCustomers();
     }
 }

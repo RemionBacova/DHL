@@ -19,6 +19,6 @@ namespace DHLWebAPI.Repository
             _db = dHLContext;
         }
 
-        public ICollection<TblCustomers> GetCustomers() => _db.TblCustomers.ToList();
+        public ICollection<TblCustomer> GetCustomers() => _db.TblCustomers.ToList();
     }
 }

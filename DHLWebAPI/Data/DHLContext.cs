@@ -13,27 +13,27 @@ namespace DHLWebAPI.Data
         {
         }
 
-        public virtual DbSet<TblAddress> TblAddress { get; set; }
-        public virtual DbSet<TblAddressType> TblAddressType { get; set; }
-        public virtual DbSet<TblCardStatus> TblCardStatus { get; set; }
-        public virtual DbSet<TblCards> TblCards { get; set; }
-        public virtual DbSet<TblCustomerAddress> TblCustomerAddress { get; set; }
-        public virtual DbSet<TblCustomerDiscount> TblCustomerDiscount { get; set; }
-        public virtual DbSet<TblCustomerLogs> TblCustomerLogs { get; set; }
-        public virtual DbSet<TblCustomerStatus> TblCustomerStatus { get; set; }
-        public virtual DbSet<TblCustomerType> TblCustomerType { get; set; }
-        public virtual DbSet<TblCustomers> TblCustomers { get; set; }
-        public virtual DbSet<TblDiscountType> TblDiscountType { get; set; }
-        public virtual DbSet<TblDiscounts> TblDiscounts { get; set; }
-        public virtual DbSet<TblProductDiscount> TblProductDiscount { get; set; }
-        public virtual DbSet<TblProducts> TblProducts { get; set; }
-        public virtual DbSet<TblProfilePermission> TblProfilePermission { get; set; }
-        public virtual DbSet<TblShipments> TblShipments { get; set; }
-        public virtual DbSet<TblToolPermission> TblToolPermission { get; set; }
-        public virtual DbSet<TblTools> TblTools { get; set; }
-        public virtual DbSet<TblTransactionLogs> TblTransactionLogs { get; set; }
-        public virtual DbSet<TblUserType> TblUserType { get; set; }
-        public virtual DbSet<TblUsers> TblUsers { get; set; }
+        public virtual DbSet<TblAddress> TblAddresses { get; set; }
+        public virtual DbSet<TblAddressType> TblAddressTypes { get; set; }
+        public virtual DbSet<TblCardStatus> TblCardStatuses { get; set; }
+        public virtual DbSet<TblCard> TblCards { get; set; }
+        public virtual DbSet<TblCustomerAddress> TblCustomerAddresses { get; set; }
+        public virtual DbSet<TblCustomerDiscount> TblCustomerDiscounts { get; set; }
+        public virtual DbSet<TblCustomerLog> TblCustomerLogs { get; set; }
+        public virtual DbSet<TblCustomerStatus> TblCustomerStatuses { get; set; }
+        public virtual DbSet<TblCustomerType> TblCustomerTypes { get; set; }
+        public virtual DbSet<TblCustomer> TblCustomers { get; set; }
+        public virtual DbSet<TblDiscountType> TblDiscountTypes { get; set; }
+        public virtual DbSet<TblDiscount> TblDiscounts { get; set; }
+        public virtual DbSet<TblProductDiscount> TblProductDiscounts { get; set; }
+        public virtual DbSet<TblProduct> TblProducts { get; set; }
+        public virtual DbSet<TblProfilePermission> TblProfilePermissions { get; set; }
+        public virtual DbSet<TblShipment> TblShipments { get; set; }
+        public virtual DbSet<TblToolPermission> TblToolPermissions { get; set; }
+        public virtual DbSet<TblTool> TblTools { get; set; }
+        public virtual DbSet<TblTransactionLog> TblTransactionLogs { get; set; }
+        public virtual DbSet<TblUserType> TblUserTypes { get; set; }
+        public virtual DbSet<TblUser> TblUsers { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -72,22 +72,18 @@ namespace DHLWebAPI.Data
                     .IsUnicode(false);
 
                 entity.Property(e => e.LunchTimeEnd)
-                    .IsRequired()
                     .HasMaxLength(5)
                     .IsUnicode(false);
 
                 entity.Property(e => e.LunchTimeStart)
-                    .IsRequired()
                     .HasMaxLength(5)
                     .IsUnicode(false);
 
                 entity.Property(e => e.OpenTimeEnd)
-                    .IsRequired()
                     .HasMaxLength(5)
                     .IsUnicode(false);
 
                 entity.Property(e => e.OpenTimeStart)
-                    .IsRequired()
                     .HasMaxLength(5)
                     .IsUnicode(false);
 
@@ -97,12 +93,10 @@ namespace DHLWebAPI.Data
                     .IsUnicode(false);
 
                 entity.Property(e => e.PostAddressNumber)
-                    .IsRequired()
                     .HasMaxLength(10)
                     .IsUnicode(false);
 
                 entity.Property(e => e.PostIntern)
-                    .IsRequired()
                     .HasMaxLength(10)
                     .IsUnicode(false);
 
@@ -141,6 +135,53 @@ namespace DHLWebAPI.Data
                 entity.Property(e => e.InsertDate).HasColumnType("datetime");
             });
 
+            modelBuilder.Entity<TblCard>(entity =>
+            {
+                entity.HasKey(x => x.IdCustomer)
+                    .HasName("PK__tbl_card__DB43864A0D17DC50");
+
+                entity.ToTable("tbl_card");
+
+                entity.HasIndex(x => x.IdCard)
+                    .HasName("UQ__tbl_card__3B7B33C36806A437")
+                    .IsUnique();
+
+                entity.Property(e => e.IdCustomer)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.IdCard)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.InsertDate).HasColumnType("datetime");
+
+                entity.Property(e => e.UpdateDate).HasColumnType("datetime");
+
+                entity.HasOne(d => d.CardStatusNavigation)
+                    .WithMany(p => p.TblCard)
+                    .HasForeignKey(x => x.CardStatus)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__tbl_cards__CardS__534D60F1");
+
+                entity.HasOne(d => d.IdCustomerNavigation)
+                    .WithOne(p => p.TblCard)
+                    .HasForeignKey<TblCard>(x => x.IdCustomer)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__tbl_cards__IdCus__5441852A");
+
+                entity.HasOne(d => d.InsertByNavigation)
+                    .WithMany(p => p.TblCardInsertByNavigation)
+                    .HasForeignKey(x => x.InsertBy)
+                    .HasConstraintName("FK__tbl_cards__Inser__5535A963");
+
+                entity.HasOne(d => d.UpdateByNavigation)
+                    .WithMany(p => p.TblCardUpdateByNavigation)
+                    .HasForeignKey(x => x.UpdateBy)
+                    .HasConstraintName("FK__tbl_cards__Updat__5629CD9C");
+            });
+
             modelBuilder.Entity<TblCardStatus>(entity =>
             {
                 entity.HasKey(x => x.IdCardStatus);
@@ -161,51 +202,88 @@ namespace DHLWebAPI.Data
                     .HasConstraintName("FK__tbl_card___Updat__52593CB8");
             });
 
-            modelBuilder.Entity<TblCards>(entity =>
+            modelBuilder.Entity<TblCustomer>(entity =>
             {
                 entity.HasKey(x => x.IdCustomer)
-                    .HasName("PK__tbl_card__DB43864A0D17DC50");
+                    .HasName("PK_tbl_customers");
 
-                entity.ToTable("tbl_cards");
-
-                entity.HasIndex(x => x.IdCard)
-                    .HasName("UQ__tbl_card__3B7B33C36806A437")
-                    .IsUnique();
+                entity.ToTable("tbl_customer");
 
                 entity.Property(e => e.IdCustomer)
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.Property(e => e.IdCard)
+                entity.Property(e => e.Channel)
                     .IsRequired()
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
+                entity.Property(e => e.CompanyName)
+                    .HasMaxLength(150)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.ContactName)
+                    .HasMaxLength(150)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Email)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.FiscalCode)
+                    .HasMaxLength(16)
+                    .IsUnicode(false);
+
                 entity.Property(e => e.InsertDate).HasColumnType("datetime");
+
+                entity.Property(e => e.Iva)
+                    .HasColumnName("IVA")
+                    .HasMaxLength(150)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Pec)
+                    .HasColumnName("PEC")
+                    .HasMaxLength(250)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.PhoneNumber)
+                    .HasMaxLength(25)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Sdi)
+                    .HasColumnName("SDI")
+                    .HasMaxLength(150)
+                    .IsUnicode(false);
 
                 entity.Property(e => e.UpdateDate).HasColumnType("datetime");
 
-                entity.HasOne(d => d.CardStatusNavigation)
-                    .WithMany(p => p.TblCards)
-                    .HasForeignKey(x => x.CardStatus)
+                entity.HasOne(d => d.CustomerStatusNavigation)
+                    .WithMany(p => p.TblCustomer)
+                    .HasForeignKey(x => x.CustomerStatus)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__tbl_cards__CardS__534D60F1");
+                    .HasConstraintName("FK__tbl_custo__Custo__656C112C");
 
-                entity.HasOne(d => d.IdCustomerNavigation)
-                    .WithOne(p => p.TblCards)
-                    .HasForeignKey<TblCards>(x => x.IdCustomer)
+                entity.HasOne(d => d.CustomerTypeNavigation)
+                    .WithMany(p => p.TblCustomer)
+                    .HasForeignKey(x => x.CustomerType)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__tbl_cards__IdCus__5441852A");
+                    .HasConstraintName("FK__tbl_custo__Custo__6477ECF3");
+
+                entity.HasOne(d => d.IdDiscountNavigation)
+                    .WithMany(p => p.TblCustomer)
+                    .HasForeignKey(x => x.IdDiscount)
+                    .HasConstraintName("FK__tbl_custo__IdDis__66603565");
 
                 entity.HasOne(d => d.InsertByNavigation)
-                    .WithMany(p => p.TblCardsInsertByNavigation)
+                    .WithMany(p => p.TblCustomerInsertByNavigation)
                     .HasForeignKey(x => x.InsertBy)
-                    .HasConstraintName("FK__tbl_cards__Inser__5535A963");
+                    .HasConstraintName("FK__tbl_custo__Inser__6754599E");
 
                 entity.HasOne(d => d.UpdateByNavigation)
-                    .WithMany(p => p.TblCardsUpdateByNavigation)
+                    .WithMany(p => p.TblCustomerUpdateByNavigation)
                     .HasForeignKey(x => x.UpdateBy)
-                    .HasConstraintName("FK__tbl_cards__Updat__5629CD9C");
+                    .HasConstraintName("FK__tbl_custo__Updat__68487DD7");
             });
 
             modelBuilder.Entity<TblCustomerAddress>(entity =>
@@ -268,11 +346,12 @@ namespace DHLWebAPI.Data
                     .HasConstraintName("FK__tbl_custo__Inser__5CD6CB2B");
             });
 
-            modelBuilder.Entity<TblCustomerLogs>(entity =>
+            modelBuilder.Entity<TblCustomerLog>(entity =>
             {
-                entity.HasKey(x => x.Pid);
+                entity.HasKey(x => x.Pid)
+                    .HasName("PK_tbl_customer_logs");
 
-                entity.ToTable("tbl_customer_logs");
+                entity.ToTable("tbl_customer_log");
 
                 entity.Property(e => e.Pid).HasColumnName("PID");
 
@@ -293,13 +372,13 @@ namespace DHLWebAPI.Data
                 entity.Property(e => e.InsertDate).HasColumnType("datetime");
 
                 entity.HasOne(d => d.IdCustomerNavigation)
-                    .WithMany(p => p.TblCustomerLogs)
+                    .WithMany(p => p.TblCustomerLog)
                     .HasForeignKey(x => x.IdCustomer)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__tbl_custo__IdCus__5DCAEF64");
 
                 entity.HasOne(d => d.IdToolNavigation)
-                    .WithMany(p => p.TblCustomerLogs)
+                    .WithMany(p => p.TblCustomerLog)
                     .HasForeignKey(x => x.IdTool)
                     .HasConstraintName("FK__tbl_custo__IdToo__5EBF139D");
             });
@@ -340,87 +419,30 @@ namespace DHLWebAPI.Data
                 entity.Property(e => e.UpdateDate).HasColumnType("datetime");
             });
 
-            modelBuilder.Entity<TblCustomers>(entity =>
+            modelBuilder.Entity<TblDiscount>(entity =>
             {
-                entity.HasKey(x => x.IdCustomer);
+                entity.HasKey(x => x.IdDiscount)
+                    .HasName("PK_tbl_discounts");
 
-                entity.ToTable("tbl_customers");
+                entity.ToTable("tbl_discount");
 
-                entity.Property(e => e.IdCustomer)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Channel)
+                entity.Property(e => e.DiscountDescription)
                     .IsRequired()
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.CompanyName)
                     .HasMaxLength(150)
                     .IsUnicode(false);
 
-                entity.Property(e => e.ContactName)
-                    .HasMaxLength(150)
-                    .IsUnicode(false);
+                entity.Property(e => e.DiscountEndDate).HasColumnType("date");
 
-                entity.Property(e => e.Email)
+                entity.Property(e => e.DiscountStartDate).HasColumnType("date");
+
+                entity.Property(e => e.DiscountTitle)
                     .IsRequired()
-                    .HasMaxLength(250)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.FiscalCode)
-                    .HasMaxLength(16)
+                    .HasMaxLength(20)
                     .IsUnicode(false);
 
                 entity.Property(e => e.InsertDate).HasColumnType("datetime");
 
-                entity.Property(e => e.Iva)
-                    .HasColumnName("IVA")
-                    .HasMaxLength(150)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Pec)
-                    .HasColumnName("PEC")
-                    .HasMaxLength(250)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.PhoneNumber)
-                    .HasMaxLength(25)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.Sdi)
-                    .HasColumnName("SDI")
-                    .HasMaxLength(150)
-                    .IsUnicode(false);
-
                 entity.Property(e => e.UpdateDate).HasColumnType("datetime");
-
-                entity.HasOne(d => d.CustomerStatusNavigation)
-                    .WithMany(p => p.TblCustomers)
-                    .HasForeignKey(x => x.CustomerStatus)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__tbl_custo__Custo__656C112C");
-
-                entity.HasOne(d => d.CustomerTypeNavigation)
-                    .WithMany(p => p.TblCustomers)
-                    .HasForeignKey(x => x.CustomerType)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__tbl_custo__Custo__6477ECF3");
-
-                entity.HasOne(d => d.IdDiscountNavigation)
-                    .WithMany(p => p.TblCustomers)
-                    .HasForeignKey(x => x.IdDiscount)
-                    .HasConstraintName("FK__tbl_custo__IdDis__66603565");
-
-                entity.HasOne(d => d.InsertByNavigation)
-                    .WithMany(p => p.TblCustomersInsertByNavigation)
-                    .HasForeignKey(x => x.InsertBy)
-                    .HasConstraintName("FK__tbl_custo__Inser__6754599E");
-
-                entity.HasOne(d => d.UpdateByNavigation)
-                    .WithMany(p => p.TblCustomersUpdateByNavigation)
-                    .HasForeignKey(x => x.UpdateBy)
-                    .HasConstraintName("FK__tbl_custo__Updat__68487DD7");
             });
 
             modelBuilder.Entity<TblDiscountType>(entity =>
@@ -444,27 +466,23 @@ namespace DHLWebAPI.Data
                 entity.Property(e => e.UpdateDate).HasColumnType("datetime");
             });
 
-            modelBuilder.Entity<TblDiscounts>(entity =>
+            modelBuilder.Entity<TblProduct>(entity =>
             {
-                entity.HasKey(x => x.IdDiscount);
+                entity.HasKey(x => x.IdProduct)
+                    .HasName("PK_tbl_products");
 
-                entity.ToTable("tbl_discounts");
+                entity.ToTable("tbl_product");
 
-                entity.Property(e => e.DiscountDescription)
-                    .IsRequired()
-                    .HasMaxLength(150)
+                entity.Property(e => e.IdProduct)
+                    .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.Property(e => e.DiscountEndDate).HasColumnType("date");
+                entity.Property(e => e.InsertData).HasColumnType("datetime");
 
-                entity.Property(e => e.DiscountStartDate).HasColumnType("date");
-
-                entity.Property(e => e.DiscountTitle)
+                entity.Property(e => e.ProductName)
                     .IsRequired()
-                    .HasMaxLength(20)
+                    .HasMaxLength(100)
                     .IsUnicode(false);
-
-                entity.Property(e => e.InsertDate).HasColumnType("datetime");
 
                 entity.Property(e => e.UpdateDate).HasColumnType("datetime");
             });
@@ -493,26 +511,6 @@ namespace DHLWebAPI.Data
                     .HasConstraintName("FK__tbl_produ__IdDis__70DDC3D8");
             });
 
-            modelBuilder.Entity<TblProducts>(entity =>
-            {
-                entity.HasKey(x => x.IdProduct);
-
-                entity.ToTable("tbl_products");
-
-                entity.Property(e => e.IdProduct)
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.InsertData).HasColumnType("datetime");
-
-                entity.Property(e => e.ProductName)
-                    .IsRequired()
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.UpdateDate).HasColumnType("datetime");
-            });
-
             modelBuilder.Entity<TblProfilePermission>(entity =>
             {
                 entity.HasKey(x => x.ProfileSetName)
@@ -536,11 +534,12 @@ namespace DHLWebAPI.Data
                     .HasConstraintName("FK__tbl_profi__IdPro__75A278F5");
             });
 
-            modelBuilder.Entity<TblShipments>(entity =>
+            modelBuilder.Entity<TblShipment>(entity =>
             {
-                entity.HasKey(x => x.Pid);
+                entity.HasKey(x => x.Pid)
+                    .HasName("PK_tbl_shipments");
 
-                entity.ToTable("tbl_shipments");
+                entity.ToTable("tbl_shipment");
 
                 entity.Property(e => e.Pid).HasColumnName("PID");
 
@@ -565,34 +564,22 @@ namespace DHLWebAPI.Data
                 entity.Property(e => e.UpdateDate).HasColumnType("datetime");
 
                 entity.HasOne(d => d.IdCostumerNavigation)
-                    .WithMany(p => p.TblShipments)
+                    .WithMany(p => p.TblShipment)
                     .HasForeignKey(x => x.IdCostumer)
                     .HasConstraintName("FK__tbl_shipm__IdCos__76969D2E");
 
                 entity.HasOne(d => d.IdToolNavigation)
-                    .WithMany(p => p.TblShipments)
+                    .WithMany(p => p.TblShipment)
                     .HasForeignKey(x => x.IdTool)
                     .HasConstraintName("FK__tbl_shipm__IdToo__778AC167");
             });
 
-            modelBuilder.Entity<TblToolPermission>(entity =>
+            modelBuilder.Entity<TblTool>(entity =>
             {
-                entity.HasKey(x => x.IdProfile)
-                    .HasName("PK__tbl_tool__120435C168B50901");
+                entity.HasKey(x => x.IdTool)
+                    .HasName("PK_tbl_tools");
 
-                entity.ToTable("tbl_tool_permission");
-
-                entity.Property(e => e.ProfileCode)
-                    .IsRequired()
-                    .HasMaxLength(250)
-                    .IsUnicode(false);
-            });
-
-            modelBuilder.Entity<TblTools>(entity =>
-            {
-                entity.HasKey(x => x.IdTool);
-
-                entity.ToTable("tbl_tools");
+                entity.ToTable("tbl_tool");
 
                 entity.Property(e => e.IdTool)
                     .HasMaxLength(100)
@@ -609,17 +596,31 @@ namespace DHLWebAPI.Data
                     .IsUnicode(false);
 
                 entity.HasOne(d => d.IdProfileNavigation)
-                    .WithMany(p => p.TblTools)
+                    .WithMany(p => p.TblTool)
                     .HasForeignKey(x => x.IdProfile)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__tbl_tools__IdPro__7A672E12");
             });
 
-            modelBuilder.Entity<TblTransactionLogs>(entity =>
+            modelBuilder.Entity<TblToolPermission>(entity =>
             {
-                entity.HasKey(x => x.Pid);
+                entity.HasKey(x => x.IdProfile)
+                    .HasName("PK__tbl_tool__120435C168B50901");
 
-                entity.ToTable("tbl_transaction_logs");
+                entity.ToTable("tbl_tool_permission");
+
+                entity.Property(e => e.ProfileCode)
+                    .IsRequired()
+                    .HasMaxLength(250)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<TblTransactionLog>(entity =>
+            {
+                entity.HasKey(x => x.Pid)
+                    .HasName("PK_tbl_transaction_logs");
+
+                entity.ToTable("tbl_transaction_log");
 
                 entity.Property(e => e.Pid).HasColumnName("PID");
 
@@ -651,55 +652,35 @@ namespace DHLWebAPI.Data
                     .IsUnicode(false);
 
                 entity.HasOne(d => d.IdCardNavigation)
-                    .WithMany(p => p.TblTransactionLogs)
+                    .WithMany(p => p.TblTransactionLog)
                     .HasPrincipalKey(x => x.IdCard)
                     .HasForeignKey(x => x.IdCard)
                     .HasConstraintName("FK__tbl_trans__IdCar__7B5B524B");
 
                 entity.HasOne(d => d.IdCustomerNavigation)
-                    .WithMany(p => p.TblTransactionLogs)
+                    .WithMany(p => p.TblTransactionLog)
                     .HasForeignKey(x => x.IdCustomer)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__tbl_trans__IdCus__7C4F7684");
 
                 entity.HasOne(d => d.IdToolNavigation)
-                    .WithMany(p => p.TblTransactionLogs)
+                    .WithMany(p => p.TblTransactionLog)
                     .HasForeignKey(x => x.IdTool)
                     .HasConstraintName("FK__tbl_trans__IdToo__7D439ABD");
 
                 entity.HasOne(d => d.InsertByNavigation)
-                    .WithMany(p => p.TblTransactionLogs)
+                    .WithMany(p => p.TblTransactionLog)
                     .HasForeignKey(x => x.InsertBy)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__tbl_trans__Inser__7E37BEF6");
             });
 
-            modelBuilder.Entity<TblUserType>(entity =>
+            modelBuilder.Entity<TblUser>(entity =>
             {
-                entity.HasKey(x => x.IdUserType);
+                entity.HasKey(x => x.IdUser)
+                    .HasName("PK_tbl_users");
 
-                entity.ToTable("tbl_user_type");
-
-                entity.Property(e => e.Description)
-                    .IsRequired()
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.InsertDate).HasColumnType("datetime");
-
-                entity.Property(e => e.UpdateDate).HasColumnType("datetime");
-
-                entity.Property(e => e.UserTypeTitle)
-                    .IsRequired()
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-            });
-
-            modelBuilder.Entity<TblUsers>(entity =>
-            {
-                entity.HasKey(x => x.IdUser);
-
-                entity.ToTable("tbl_users");
+                entity.ToTable("tbl_user");
 
                 entity.Property(e => e.Address)
                     .IsRequired()
@@ -748,10 +729,31 @@ namespace DHLWebAPI.Data
                     .IsUnicode(false);
 
                 entity.HasOne(d => d.UserTypeNavigation)
-                    .WithMany(p => p.TblUsers)
+                    .WithMany(p => p.TblUser)
                     .HasForeignKey(x => x.UserType)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__tbl_users__UserT__7F2BE32F");
+            });
+
+            modelBuilder.Entity<TblUserType>(entity =>
+            {
+                entity.HasKey(x => x.IdUserType);
+
+                entity.ToTable("tbl_user_type");
+
+                entity.Property(e => e.Description)
+                    .IsRequired()
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.InsertDate).HasColumnType("datetime");
+
+                entity.Property(e => e.UpdateDate).HasColumnType("datetime");
+
+                entity.Property(e => e.UserTypeTitle)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
             });
 
             OnModelCreatingPartial(modelBuilder);

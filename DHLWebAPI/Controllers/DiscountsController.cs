@@ -97,7 +97,7 @@ namespace DHLWebAPI.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    var disc = _mapper.Map<TblDiscounts>(discDto);
+                    var disc = _mapper.Map<TblDiscount>(discDto);
 
                     _repository.AddDiscount(disc);
 

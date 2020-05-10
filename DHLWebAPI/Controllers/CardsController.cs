@@ -94,7 +94,7 @@ namespace DHLWebAPI.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var card = _mapper.Map<TblCards>(cardDto);
+                    var card = _mapper.Map<TblCard>(cardDto);
 
                      _repository.AddCard(card);
 

@@ -15,10 +15,10 @@ namespace DHLWebAPI.Repository.IRepository
         //4.Remove a card
         //5.Check if the request is successfully completed
        
-        Task<IEnumerable<TblCards>> GetAllCards();
-        Task<TblCards> GetCard(string id);
-        void AddCard(TblCards card);
-        void DeleteCard(TblCards card);
+        Task<IEnumerable<TblCard>> GetAllCards();
+        Task<TblCard> GetCard(string id);
+        void AddCard(TblCard card);
+        void DeleteCard(TblCard card);
         Task<bool> SaveAllAsync();
     }
 }

@@ -20,7 +20,7 @@ namespace DHLWebAPI.Repository.IRepository
         }
 
     
-        public async Task<IEnumerable<TblDiscounts>> GetAllDiscounts()
+        public async Task<IEnumerable<TblDiscount>> GetAllDiscounts()
         {
             var model = await _context.TblDiscounts.ToListAsync();
             return model;
@@ -28,7 +28,7 @@ namespace DHLWebAPI.Repository.IRepository
 
 
         
-        public async Task<TblDiscounts> GetDiscounts(int Id)
+        public async Task<TblDiscount> GetDiscounts(int Id)
         {
             //return the user who matches the id
             return await _context.TblDiscounts.Where(d => d.IdDiscount == Id)
@@ -36,7 +36,7 @@ namespace DHLWebAPI.Repository.IRepository
         }
 
      
-        public async void AddDiscount(TblDiscounts disc)
+        public async void AddDiscount(TblDiscount disc)
         {
             
             await _context.TblDiscounts.AddAsync(disc);
@@ -46,7 +46,7 @@ namespace DHLWebAPI.Repository.IRepository
 
 
      
-        public async void DeleteDiscount(TblDiscounts disc)
+        public async void DeleteDiscount(TblDiscount disc)
         {
             
             _context.TblDiscounts.Remove(disc);

@@ -22,8 +22,8 @@ namespace DHLWebAPI.Repository.IRepository
         //function to retrieve the  list with all addresses
         public async Task<IEnumerable<TblAddress>> GetAllAddresses()
         {
-            var model = await _context.TblAddress
-                                      //.Include(type => type.TblAddressType)
+            var model = await _context.TblAddresses
+                                       .Include(cust => cust.TblCustomerAddress)
                                       .ToListAsync();
             //return the list with all addresses
             return model;
@@ -34,35 +34,21 @@ namespace DHLWebAPI.Repository.IRepository
         public async Task<TblAddress> GetAddress(int addressId)
         {
             //return the user who matches the id
-            return await _context.TblAddress.Where(adr => adr.IdAddress == addressId)
-                                          //  .Include(type=>type.TblAddressType)
+            return await _context.TblAddresses.Where(adr => adr.IdAddress == addressId)
+                                           .Include(cust => cust.TblCustomerAddress)
                                             .FirstOrDefaultAsync();
         }
 
         //function to create a new card
         public async void AddAddress(TblAddress address)
         {
-            var addressToAdd = new TblAddress()
-            {
-                AddressLabel = address.AddressLabel,
-                Country = address.Country,
-                Province = address.Province,
-                City = address.City,
-                PostalCode = address.PostalCode,
-                PostAddress = address.PostAddress,
-                PostAddressNumber = address.PostAddress,
-                PostIntern = address.PostIntern,
-                OpenTimeStart = address.OpenTimeStart,
-                OpenTimeEnd = address.OpenTimeEnd,
-                LunchTimeStart = address.LunchTimeStart,
-                LunchTimeEnd = address.LunchTimeEnd,
-                ContactName = address.ContactName
-            };
+          
 
             //add the new address
-            await _context.TblAddress.AddAsync(addressToAdd);
+          await _context.TblAddresses.AddAsync(address);
+
             //save changes
-            await _context.SaveChangesAsync();
+           // await _context.SaveChangesAsync();
 
         }
 
@@ -71,7 +57,7 @@ namespace DHLWebAPI.Repository.IRepository
         public async void DeleteAddress(TblAddress address)
         {
                 //remove card
-                _context.TblAddress.Remove(address);
+                _context.TblAddresses.Remove(address);
                
             
         }

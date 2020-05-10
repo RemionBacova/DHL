@@ -101,7 +101,7 @@ namespace DHLWebAPI.Controllers
                     return BadRequest(ModelState);
                 }
 
-                var transaction = _mapper.Map<TblTransactionLogs>(transactionlogsDto);
+                var transaction = _mapper.Map<TblTransactionLog>(transactionlogsDto);
 
                 await _transactionRepository.AddTransaction(transaction);
 
@@ -134,7 +134,7 @@ namespace DHLWebAPI.Controllers
         {
             try
             {
-                var transaction = _mapper.Map<TblTransactionLogs>(transactionlogsDto);
+                var transaction = _mapper.Map<TblTransactionLog>(transactionlogsDto);
 
                 await _transactionRepository.GetTransaction(id);
 

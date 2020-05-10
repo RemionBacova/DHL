@@ -10,12 +10,12 @@ namespace DHLWebAPI.Repository.IRepository
     {
 
 
-        Task<IEnumerable<TblTransactionLogs>> GetTransactions();
-        Task<TblTransactionLogs> GetTransaction(int transactionId);
+        Task<IEnumerable<TblTransactionLog>> GetTransactions();
+        Task<TblTransactionLog> GetTransaction(int transactionId);
 
-        Task<TblTransactionLogs> AddTransaction(TblTransactionLogs transaction);
+        Task<TblTransactionLog> AddTransaction(TblTransactionLog transaction);
 
-        Task<TblTransactionLogs> UpdateTransaction(TblTransactionLogs transaction);
+        Task<TblTransactionLog> UpdateTransaction(TblTransactionLog transaction);
 
 
         Task<bool> SaveAllAsync();

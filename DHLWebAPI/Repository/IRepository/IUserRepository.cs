@@ -15,13 +15,13 @@ namespace DHLWebAPI.Repository.IRepository
         //4.Remove an address
         //5.Check if the request is successfully completed
         
-        Task<IEnumerable<TblUsers>> GetAllUsers();
+        Task<IEnumerable<TblUser>> GetAllUsers();
 
-        Task<TblUsers> GetUser(int id);
+        Task<TblUser> GetUser(int id);
 
-        Task<TblUsers> GetUserWithCredentials(string username,string password);
+        Task<TblUser> GetUserWithCredentials(string username,string password);
 
-        void AddUser(TblUsers user);
+        void AddUser(TblUser user);
 
         Task<bool> SaveAllAsync();
 

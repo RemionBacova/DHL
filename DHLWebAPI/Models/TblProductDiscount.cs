@@ -12,6 +12,6 @@ namespace DHLWebAPI.Models
         public int? InsertBy { get; set; }
         public DateTime? InsertDate { get; set; }
 
-        public virtual TblDiscounts IdDiscountNavigation { get; set; }
+        public virtual TblDiscount IdDiscountNavigation { get; set; }
     }
 }

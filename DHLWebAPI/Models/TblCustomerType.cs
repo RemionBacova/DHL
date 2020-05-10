@@ -7,7 +7,7 @@ namespace DHLWebAPI.Models
     {
         public TblCustomerType()
         {
-            TblCustomers = new HashSet<TblCustomers>();
+            TblCustomer = new HashSet<TblCustomer>();
         }
 
         public int IdCustomerType { get; set; }
@@ -17,6 +17,6 @@ namespace DHLWebAPI.Models
         public int? UpdateBy { get; set; }
         public DateTime? UpdateDate { get; set; }
 
-        public virtual ICollection<TblCustomers> TblCustomers { get; set; }
+        public virtual ICollection<TblCustomer> TblCustomer { get; set; }
     }
 }

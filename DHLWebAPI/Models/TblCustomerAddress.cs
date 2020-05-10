@@ -9,6 +9,6 @@ namespace DHLWebAPI.Models
         public int IdAddress { get; set; }
 
         public virtual TblAddress IdAddressNavigation { get; set; }
-        public virtual TblCustomers IdCustomerNavigation { get; set; }
+        public virtual TblCustomer IdCustomerNavigation { get; set; }
     }
 }

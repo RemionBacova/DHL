@@ -20,7 +20,7 @@ namespace DHLWebAPI.Repository
         }
 
         //function to retrieve the  list with all cards
-        public async Task<IEnumerable<TblCards>> GetAllCards()
+        public async Task<IEnumerable<TblCard>> GetAllCards()
         {
             //return all cards
            return await _context.TblCards.ToListAsync();
@@ -28,7 +28,7 @@ namespace DHLWebAPI.Repository
            
 
         //function to retrieve only one card filtered by its id
-       public async Task<TblCards> GetCard(string cardId)
+       public async Task<TblCard> GetCard(string cardId)
         {
             //return the card who matches the id
             return await _context.TblCards.Where(c => c.IdCard == cardId)
@@ -37,7 +37,7 @@ namespace DHLWebAPI.Repository
         }
 
         //function to create a new  card
-        public async void AddCard(TblCards card)
+        public async void AddCard(TblCard card)
         {
             //add the new card
             await _context.TblCards.AddAsync(card);
@@ -46,7 +46,7 @@ namespace DHLWebAPI.Repository
         }
 
         //function to remove an card
-        public async void DeleteCard(TblCards card)
+        public async void DeleteCard(TblCard card)
         {
                 //remove card
                 _context.TblCards.Remove(card);

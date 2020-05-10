@@ -20,7 +20,7 @@ namespace DHLWebAPI.Repository.IRepository
         }
 
         //  return the  list of all transactions
-        public async Task<IEnumerable<TblTransactionLogs>> GetTransactions()
+        public async Task<IEnumerable<TblTransactionLog>> GetTransactions()
         {
             return await _context.TblTransactionLogs.ToListAsync();
 
@@ -28,14 +28,14 @@ namespace DHLWebAPI.Repository.IRepository
 
 
         // return one transaction filtered by its id
-        public async Task<TblTransactionLogs> GetTransaction(int transactionId)
+        public async Task<TblTransactionLog> GetTransaction(int transactionId)
         {
             return await _context.TblTransactionLogs.Where(zh => zh.Pid == transactionId)
                                             .FirstOrDefaultAsync();
         }
 
         // create new 
-        public async Task<TblTransactionLogs> AddTransaction(TblTransactionLogs transaction)
+        public async Task<TblTransactionLog> AddTransaction(TblTransactionLog transaction)
         {
             //add the new transaction
             var transactionNew = await _context.TblTransactionLogs.AddAsync(transaction);
@@ -46,7 +46,7 @@ namespace DHLWebAPI.Repository.IRepository
         }
 
         // update
-        public async Task<TblTransactionLogs> UpdateTransaction(TblTransactionLogs transaction)
+        public async Task<TblTransactionLog> UpdateTransaction(TblTransactionLog transaction)
         {
             //retrieve the transaction we are trying to update
             var transaction1 = await _context.TblTransactionLogs.Where(zh => zh.Pid == transaction.Pid)

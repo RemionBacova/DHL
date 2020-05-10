@@ -13,14 +13,10 @@ namespace DHLWebAPI.Mapper
         public ClassMappings()
         {
             //mapping address entity and its dto
-            CreateMap<TblAddress, TblAddressDTO>()
-                //mapping complex type to primitive ones
-                .ForMember(dest => dest.AdressType, act => act.MapFrom(src => src.IdAddressTypeNavigation.AdressType))
-                .ForMember(dest=>dest.Description,act=>act.MapFrom(src=>src.IdAddressTypeNavigation.Description))
-                .ReverseMap();   //bidirectional mapping
+            CreateMap<TblAddress, TblAddressDTO>().ReverseMap();   //bidirectional mapping
 
             //mapping cards entity and its dto
-            CreateMap<TblCards, TblCardsDTO>()
+            CreateMap<TblCard, TblCardsDTO>()
                         .ForMember(dest => dest.CardStatus, act => act.MapFrom(src => src.CardStatusNavigation.IdCardStatus))
                         .ForMember(dest=>dest.CardStatus,act=>act.MapFrom(src=>src.CardStatusNavigation.CardStatus))
                         .ReverseMap();
@@ -31,17 +27,16 @@ namespace DHLWebAPI.Mapper
             //mapping customer discount entity and its dto
             CreateMap<TblCustomerDiscount, TblCustomerDiscountDTO>().ReverseMap();
 
-            CreateMap<TblCustomerLogs, TblCustomerLogsDTO>().ReverseMap();
-            CreateMap<TblCustomers, TblCustomersDTO>().ReverseMap();
+            CreateMap<TblCustomerLog, TblCustomerLogsDTO>().ReverseMap();
+            CreateMap<TblCustomer, TblCustomersDTO>().ReverseMap();
             CreateMap<TblCustomerStatus, TblCustomerStatusDTO>().ReverseMap();
             CreateMap<TblCustomerType, TblCustomerTypeDTO>().ReverseMap();
-            CreateMap<TblDiscounts, TblDiscountsDTO>().ReverseMap();
+            CreateMap<TblDiscount, TblDiscountsDTO>().ReverseMap();
             CreateMap<TblDiscountType, TblDiscountTypeDTO>().ReverseMap();
-            CreateMap<TblTransactionLogs, TblTransactionLogsDTO>().ReverseMap();
+            CreateMap<TblTransactionLog, TblTransactionLogsDTO>().ReverseMap();
             CreateMap<TblAddressType, TblAddressTypeDTO>().ReverseMap();
             CreateMap<TblCardStatus, TblCardStatusDTO>().ReverseMap();
-
-            CreateMap<TblUsers, TblUsersDTO>().ReverseMap();
+            CreateMap<TblUser, TblUsersDTO>().ReverseMap();
 
         }
     }

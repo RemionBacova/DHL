@@ -18,25 +18,25 @@ namespace DHLWebAPI.Repository
             _context = context;
         }
 
-        public async void AddUser(TblUsers user)
+        public async void AddUser(TblUser user)
         {
             _context.TblUsers.Add(user);
             await _context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<TblUsers>> GetAllUsers()
+        public async Task<IEnumerable<TblUser>> GetAllUsers()
         {
             return await _context.TblUsers.ToListAsync();
         }
 
-        public async Task<TblUsers> GetUser(int id)
+        public async Task<TblUser> GetUser(int id)
         {
             return await _context.TblUsers.Where(u => u.IdUser == id)
                  .FirstOrDefaultAsync();
                 
         }
 
-        public async Task<TblUsers> GetUserWithCredentials(string username, string password)
+        public async Task<TblUser> GetUserWithCredentials(string username, string password)
         {
          return await _context.TblUsers.Where(u => u.Username == username && u.Password == password)
                  .FirstOrDefaultAsync();

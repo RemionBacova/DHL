@@ -10,13 +10,13 @@ namespace DHLWebAPI.Repository.IRepository
     public interface IDiscountRepository
     {
        
-        Task<IEnumerable<TblDiscounts>> GetAllDiscounts();
+        Task<IEnumerable<TblDiscount>> GetAllDiscounts();
 
-        Task<TblDiscounts> GetDiscounts(int id);
+        Task<TblDiscount> GetDiscounts(int id);
 
-        void AddDiscount(TblDiscounts disc);
+        void AddDiscount(TblDiscount disc);
 
-        void DeleteDiscount(TblDiscounts disc);
+        void DeleteDiscount(TblDiscount disc);
 
         Task<bool> SaveAllAsync();
 

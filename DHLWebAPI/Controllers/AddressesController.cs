@@ -95,7 +95,7 @@ namespace DHLWebAPI.Controllers
         /// <returns></returns>
         //POST: api/Address
         [HttpPost(Name = "CreateAddress")]
-        public async Task<IActionResult> Post([FromBody] TblAddressDTO addressDto)
+        public async Task<IActionResult> CreateAddress([FromBody] TblAddressDTO addressDto)
         {
             try
             {
@@ -106,14 +106,14 @@ namespace DHLWebAPI.Controllers
 
                     _repository.AddAddress(address);
 
-                    if(await _repository.SaveAllAsync())
-                    {
+                    //if(await _repository.SaveAllAsync())
+                    //{
                         var newaddressDto = _mapper.Map<TblAddressDTO>(address);
-
+                    return Ok(newaddressDto);  
                         //The CreatedAtRoute method is intended to return a URI to the newly created resource 
                         //when you invoke a POST method to store some new object
-                       return CreatedAtRoute("GetAddress", new { id = newaddressDto.IdAddress }, newaddressDto);
-                    }
+                    //  return CreatedAtRoute("GetAddress", new { id = newaddressDto.IdAddress }, newaddressDto);
+                    //}
                       
                 }
 
@@ -138,10 +138,13 @@ namespace DHLWebAPI.Controllers
         {
             try
             {
+                //get the address from the database
                 var address = await _repository.GetAddress(id);
 
+                
                 if (address == null)
                 {
+                    //if the adress is not found print the msg
                     return NotFound($"Couldn't find an address");
                 }
 
@@ -150,6 +153,7 @@ namespace DHLWebAPI.Controllers
 
                 if (await _repository.SaveAllAsync())
                 {
+                    //return the mapped result in case it is successfully saved
                     return Ok(_mapper.Map<TblAddressDTO>(newAddress));
                 }
                 else

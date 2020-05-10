@@ -22,7 +22,7 @@ namespace DHLWebAPI.Repository.IRepository
       
         public async Task<IEnumerable<TblCustomerDiscount>> GetAllCusDisc()
         {
-            var model = await _context.TblCustomerDiscount.ToListAsync();
+            var model = await _context.TblCustomerDiscounts.ToListAsync();
             return model;
         }
 
@@ -31,7 +31,7 @@ namespace DHLWebAPI.Repository.IRepository
         public async Task<TblCustomerDiscount> GetCusDisc(int Id)
         {
            
-            return await _context.TblCustomerDiscount.Where(o => o.IdDiscount == Id)
+            return await _context.TblCustomerDiscounts.Where(o => o.IdDiscount == Id)
                                             .FirstOrDefaultAsync();
         }
 
@@ -39,7 +39,7 @@ namespace DHLWebAPI.Repository.IRepository
         public async void AddCusDiscount(TblCustomerDiscount cusdisc)
         {
            
-            await _context.TblCustomerDiscount.AddAsync(cusdisc);
+            await _context.TblCustomerDiscounts.AddAsync(cusdisc);
             await _context.SaveChangesAsync();
 
         }
@@ -49,7 +49,7 @@ namespace DHLWebAPI.Repository.IRepository
         public async void DeleteCusDisc(TblCustomerDiscount cusdisc)
         {
             
-            _context.TblCustomerDiscount.Remove(cusdisc);
+            _context.TblCustomerDiscounts.Remove(cusdisc);
             
              await _context.SaveChangesAsync();
 
