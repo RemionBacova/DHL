@@ -29,7 +29,7 @@ namespace DHLWebAPI.Controllers
         }
         // GET: api/Users
         [HttpGet("GetUsers")]
-        public async Task<ActionResult<IEnumerable<TblUsersDTO>>> GetUsers()
+        public async Task<ActionResult> GetUsers()
         {
             try
             {
