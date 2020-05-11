@@ -95,7 +95,7 @@ namespace DHLWebAPI.Controllers
         /// <returns></returns>
         //POST: api/Address
         [HttpPost(Name = "CreateCustomer")]
-        public async Task<IActionResult> CreateAddress([FromBody] TblCustomersDTO custDto)
+        public async Task<IActionResult> CreateCustomer([FromBody] TblCustomersDTO custDto)
         {
             try
             {
@@ -132,7 +132,7 @@ namespace DHLWebAPI.Controllers
         /// <param name="custDto"></param>
         /// <returns></returns>
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateAddress(string id, [FromBody] TblCustomersDTO custDto)
+        public async Task<IActionResult> UpdateCustomer(string id, [FromBody] TblCustomersDTO custDto)
         {
             try
             {
@@ -175,7 +175,7 @@ namespace DHLWebAPI.Controllers
         /// <returns></returns>
         //DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAddress(string id)
+        public async Task<IActionResult> DeleteCustomer(string id)
         {
             try
             {
