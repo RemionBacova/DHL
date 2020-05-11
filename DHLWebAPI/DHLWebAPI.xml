@@ -74,6 +74,41 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="M:DHLWebAPI.Controllers.CustomersController.GetCustomers">
+            <summary>
+            Get list of Customers.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DHLWebAPI.Controllers.CustomersController.GetCustomer(System.String)">
+            <summary>
+            Get single Customer.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DHLWebAPI.Controllers.CustomersController.CreateAddress(DHLWebAPI.Models.DTOs.TblCustomersDTO)">
+            <summary>
+            Create Customer.
+            </summary>
+            <param name="custDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DHLWebAPI.Controllers.CustomersController.UpdateAddress(System.String,DHLWebAPI.Models.DTOs.TblCustomersDTO)">
+            <summary>
+            Update Customer.
+            </summary>
+            <param name="id"></param>
+            <param name="custDto"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DHLWebAPI.Controllers.CustomersController.DeleteAddress(System.String)">
+            <summary>
+            Delete Customer.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
         <member name="M:DHLWebAPI.Controllers.DiscountsController.GetDiscounts">
             <summary>
             Get list of Discounts.
@@ -89,7 +124,7 @@
         </member>
         <member name="M:DHLWebAPI.Controllers.DiscountsController.Post(DHLWebAPI.Models.DTOs.TblDiscountsDTO)">
             <summary>
-            Create Address.
+            Create Discount.
             </summary>
             <param name="discDto"></param>
             <returns></returns>

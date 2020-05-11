@@ -25,5 +25,17 @@ namespace DHLWebAPI.Repository.IRepository
         void AddToken(TblRefreshToken token);
         Task<bool> SaveAllAsync();
 
+        //geenerate access token
+        public string GenerateAccessToken(int userId);
+
+        //generate refresh token
+        public  TblRefreshToken GenerateRefreshToken();
+
+        //validate refresh  token
+        public Task<bool> ValidateRefreshTokenAsync(TblUser user, string refreshToken);
+
+        //get user
+        public Task<TblUser> GetUserFromAccessToken(string accessToken);
+
     }
 }

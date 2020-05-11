@@ -8,6 +8,13 @@ namespace DHLWebAPI.Repository.IRepository
 {
     public interface ICustomersRepository
     {
-        ICollection<TblCustomer> GetCustomers();
+       
+        Task<IEnumerable<TblCustomer>> GetAllCustomers();
+
+        Task<TblCustomer> GetCustomer(string id);
+
+        void AddCustomer(TblCustomer customer);
+
+        Task<bool> SaveAllAsync();
     }
 }

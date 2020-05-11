@@ -106,11 +106,13 @@ namespace DHLWebAPI.Controllers
 
                     _repository.AddAddress(address);
 
-                  //  if (await _repository.SaveAllAsync())
-                    //{
+                   if (await _repository.SaveAllAsync())
+                    {
                         var newaddressDto = _mapper.Map<TblAddressDTO>(address);
                         return Ok(newaddressDto);
-                    //}
+
+                        //  return CreatedAtRoute("GetAddress", new { id = newaddressDto.IdAddress }, newaddressDto);
+                    }
 
                 }
             }
