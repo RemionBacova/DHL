@@ -87,14 +87,14 @@
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:DHLWebAPI.Controllers.CustomersController.CreateAddress(DHLWebAPI.Models.DTOs.TblCustomersDTO)">
+        <member name="M:DHLWebAPI.Controllers.CustomersController.CreateCustomer(DHLWebAPI.Models.DTOs.TblCustomersDTO)">
             <summary>
             Create Customer.
             </summary>
             <param name="custDto"></param>
             <returns></returns>
         </member>
-        <member name="M:DHLWebAPI.Controllers.CustomersController.UpdateAddress(System.String,DHLWebAPI.Models.DTOs.TblCustomersDTO)">
+        <member name="M:DHLWebAPI.Controllers.CustomersController.UpdateCustomer(System.String,DHLWebAPI.Models.DTOs.TblCustomersDTO)">
             <summary>
             Update Customer.
             </summary>
@@ -102,7 +102,7 @@
             <param name="custDto"></param>
             <returns></returns>
         </member>
-        <member name="M:DHLWebAPI.Controllers.CustomersController.DeleteAddress(System.String)">
+        <member name="M:DHLWebAPI.Controllers.CustomersController.DeleteCustomer(System.String)">
             <summary>
             Delete Customer.
             </summary>
