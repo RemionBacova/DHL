@@ -69,7 +69,7 @@ namespace DHLWebAPI.Controllers
         /// <param name="addressDTO"></param>
         /// <returns></returns>
         [HttpPost(Name = "CreateAddress")]
-        public IActionResult CreateAddress([FromBody] TblAddressDTO addressDTO)
+        public IActionResult CreateAddress([FromBody] TblAddressDTOPUT addressDTO)
         {
             var address = mapper.Map<TblAddress>(addressDTO);
             repository.CreateAddress(address);

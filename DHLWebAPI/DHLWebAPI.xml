@@ -17,7 +17,7 @@
             <param name="id">The id address.</param>
             <returns></returns>
         </member>
-        <member name="M:DHLWebAPI.Controllers.AddressesController.CreateAddress(DHLWebAPI.Models.DTOs.TblAddressDTO)">
+        <member name="M:DHLWebAPI.Controllers.AddressesController.CreateAddress(DHLWebAPI.Models.DTOs.TblAddressDTOPUT)">
             <summary>
             Create Address.
             </summary>
