@@ -14,14 +14,14 @@
             <summary>
             Get single Address.
             </summary>
-            <param name="id"></param>
+            <param name="id">The id address.</param>
             <returns></returns>
         </member>
         <member name="M:DHLWebAPI.Controllers.AddressesController.CreateAddress(DHLWebAPI.Models.DTOs.TblAddressDTO)">
             <summary>
             Create Address.
             </summary>
-            <param name="addressDto"></param>
+            <param name="addressDTO"></param>
             <returns></returns>
         </member>
         <member name="M:DHLWebAPI.Controllers.AddressesController.UpdateAddress(System.Int32,DHLWebAPI.Models.DTOs.TblAddressDTO)">
@@ -29,14 +29,7 @@
             Update Address.
             </summary>
             <param name="id"></param>
-            <param name="addressDto"></param>
-            <returns></returns>
-        </member>
-        <member name="M:DHLWebAPI.Controllers.AddressesController.DeleteAddress(System.Int32)">
-            <summary>
-            Delete Address.
-            </summary>
-            <param name="id"></param>
+            <param name="addressDTO"></param>
             <returns></returns>
         </member>
         <member name="M:DHLWebAPI.Controllers.CardsController.GetCards">
@@ -45,7 +38,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:DHLWebAPI.Controllers.CardsController.GetCard(System.String)">
+        <member name="M:DHLWebAPI.Controllers.CardsController.GetCard(System.Int32)">
             <summary>
             Get a single Card.
             </summary>
@@ -56,120 +49,7 @@
             <summary>
             Create Card.
             </summary>
-            <param name="cardDto"></param>
-            <returns></returns>
-        </member>
-        <member name="M:DHLWebAPI.Controllers.CardsController.UpdateCard(System.String,DHLWebAPI.Models.DTOs.TblCardsDTO)">
-            <summary>
-            Update Card.
-            </summary>
-            <param name="id"></param>
-            <param name="cardDto"></param>
-            <returns></returns>
-        </member>
-        <member name="M:DHLWebAPI.Controllers.CardsController.DeleteCard(System.String)">
-            <summary>
-            Delete Card.
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:DHLWebAPI.Controllers.CustomersController.GetCustomers">
-            <summary>
-            Get list of Customers.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:DHLWebAPI.Controllers.CustomersController.GetCustomer(System.String)">
-            <summary>
-            Get single Customer.
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:DHLWebAPI.Controllers.CustomersController.CreateCustomer(DHLWebAPI.Models.DTOs.TblCustomersDTO)">
-            <summary>
-            Create Customer.
-            </summary>
-            <param name="custDto"></param>
-            <returns></returns>
-        </member>
-        <member name="M:DHLWebAPI.Controllers.CustomersController.UpdateCustomer(System.String,DHLWebAPI.Models.DTOs.TblCustomersDTO)">
-            <summary>
-            Update Customer.
-            </summary>
-            <param name="id"></param>
-            <param name="custDto"></param>
-            <returns></returns>
-        </member>
-        <member name="M:DHLWebAPI.Controllers.CustomersController.DeleteCustomer(System.String)">
-            <summary>
-            Delete Customer.
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:DHLWebAPI.Controllers.DiscountsController.GetDiscounts">
-            <summary>
-            Get list of Discounts.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:DHLWebAPI.Controllers.DiscountsController.GetDiscounts(System.Int32)">
-            <summary>
-            Get single Discount.
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:DHLWebAPI.Controllers.DiscountsController.Post(DHLWebAPI.Models.DTOs.TblDiscountsDTO)">
-            <summary>
-            Create Discount.
-            </summary>
-            <param name="discDto"></param>
-            <returns></returns>
-        </member>
-        <member name="M:DHLWebAPI.Controllers.DiscountsController.UpdateDiscount(System.Int32,DHLWebAPI.Models.DTOs.TblDiscountsDTO)">
-            <summary>
-            Update Discounts.
-            </summary>
-            <param name="id"></param>
-            <param name="discDto"></param>
-            <returns></returns>
-        </member>
-        <member name="M:DHLWebAPI.Controllers.DiscountsController.DeleteDisocunt(System.Int32)">
-            <summary>
-            Delete Discounts.
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:DHLWebAPI.Controllers.TransactionController.GetTransactions">
-            <summary>
-            Get list of Transactions.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:DHLWebAPI.Controllers.TransactionController.GetTransaction(System.Int32)">
-            <summary>
-            Get a single Transaction.
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:DHLWebAPI.Controllers.TransactionController.CreateTransaction(DHLWebAPI.Models.DTOs.TblTransactionLogsDTO)">
-            <summary>
-            Create Transaction.
-            </summary>
-            <param name="transactionlogsDto"></param>
-            <returns></returns>
-        </member>
-        <member name="M:DHLWebAPI.Controllers.TransactionController.UpdateTransaction(System.Int32,DHLWebAPI.Models.DTOs.TblTransactionLogsDTO)">
-            <summary>
-            Update Transaction.
-            </summary>
-            <param name="id"></param>
-            <param name="transactionlogsDto"></param>
+            <param name="cardDTO"></param>
             <returns></returns>
         </member>
     </members>

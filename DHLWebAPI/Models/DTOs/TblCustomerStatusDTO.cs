@@ -14,6 +14,5 @@ namespace DHLWebAPI.Models.DTOs
         public DateTime InsertDate { get; set; }
         public int UpdateBy { get; set; }
         public DateTime UpdateDate { get; set; }
-
     }
 }

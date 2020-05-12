@@ -16,174 +16,63 @@ namespace DHLWebAPI.Controllers
     public class CardsController : ControllerBase
     {
         //inject repository pattern for cards
-        private readonly ICardsRepository _repository;
+        private readonly ICardsRepository repository;
         //inject AutoMapper at runtime into card controller:
-        private readonly IMapper _mapper;
+        private readonly IMapper mapper;
 
-        public CardsController(ICardsRepository cardRepository, IMapper mapper)
+        public CardsController(ICardsRepository repository, IMapper mapper)
         {
-            _repository = cardRepository;
-            _mapper = mapper;
+            this.repository = repository;
+            this.mapper = mapper;
         }
         /// <summary>
         /// Get list of Cards.
         /// </summary>
         /// <returns></returns>
-        //GET:api/Cards
         [HttpGet]
-        public async Task<ActionResult> GetCards()
+        public IActionResult GetCards()
         {
-            try
+            var card = repository.GetCards();
+            var cardDTO = new List<TblCardsDTO>();
+
+            foreach (var item in card)
             {
-                var cards = await _repository.GetAllCards();
-
-                if (cards == null)
-                {
-                    return NotFound($"Couldn't find any cards from the database");
-                }
-
-               var cardsDTO= _mapper.Map<IEnumerable<TblCardsDTO>>(cards);
-                
-               return Ok(cardsDTO);
-
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                    $"Error Explanation: {ex.Message} ");
+                cardDTO.Add(mapper.Map<TblCardsDTO>(item));
             }
 
+            return Ok(cardDTO);
         }
         /// <summary>
         /// Get a single Card.
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        // GET: api/Card/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult> GetCard(string id)
+        [HttpGet("{id:int}", Name = "GetCard")]
+        public IActionResult GetCard(int id)
         {
-            try
+            var card = repository.GetCard(id);
+            if (card == null)
             {
-                var card = await _repository.GetCard(id);
-
-                if (card == null)
-                {
-                    return NotFound($"Card of {id} was not found");
-
-                }
-
-                return Ok(_mapper.Map<TblCardsDTO>(card));
+                return NotFound();
             }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                    $"Error Explanation: {ex.Message} ");
-            }
+
+            var cardDTO = mapper.Map<TblCardsDTO>(card);
+
+            return Ok(cardDTO);
         }
         /// <summary>
         /// Create Card.
         /// </summary>
-        /// <param name="cardDto"></param>
+        /// <param name="cardDTO"></param>
         /// <returns></returns>
         //POST: api/Card
-        [HttpPost]
-        public async Task<IActionResult> CreateCard([FromBody] TblCardsDTO cardDto)
+        [HttpPost(Name = "CreateCard")]
+        public IActionResult CreateCard([FromBody] TblCardsDTO cardDTO)
         {
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    var card = _mapper.Map<TblCard>(cardDto);
+            var card = mapper.Map<TblCards>(cardDTO);
+            repository.CreateCard(card);
 
-                     _repository.AddCard(card);
-
-                    if(await _repository.SaveAllAsync())
-                    {
-                        var newcardDTO= _mapper.Map<TblCardsDTO>(card);
-                        return Ok(newcardDTO);
-                        //The CreatedAtRoute method is intended to return a URI to the newly created resource 
-                        //when you invoke a POST method to store some new object
-                        //return CreatedAtRoute("GetCard", new
-                        //{
-                        //    cardID = newcardDTO.IdCard
-                        //},newcardDTO);
-                    }
-                }
-                
-                
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                    $"Error Explanation: {ex.Message} ");
-            }
-            return BadRequest(ModelState);
+            return Created("GetCard", cardDTO);
         }
-        /// <summary>
-        /// Update Card.
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="cardDto"></param>
-        /// <returns></returns>
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateCard(string id, [FromBody]TblCardsDTO cardDto)
-        {
-            try
-            {
-               
-                var card = await _repository.GetCard(id);
-
-                if (card == null)
-                {
-                    return NotFound($"Couldn't find a card of {id}");
-                }
-
-                _mapper.Map(cardDto,card);
-
-                if (await _repository.SaveAllAsync())
-                {
-                    return Ok(_mapper.Map<TblCardsDTO>(card));
-                }
-                else
-                {
-                    return BadRequest();
-                }
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                    $"Error Explanation: {ex.Message} ");
-            }
-        }
-        /// <summary>
-        /// Delete Card.
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        //DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCard(string id)
-        {
-            try
-            {
-                var card = await _repository.GetCard(id);
-                if (card == null)
-                {
-                    return NotFound($"Couldn’t found card of id {id}");
-                }
-                //_repository.DeleteCard(card);
-
-
-                return BadRequest(string.Format("Card is not permitted to be deleted. You can change its status!"));
-
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                    $"Error Explanation: {ex.Message} ");
-            }
-        }
-
     }
 }

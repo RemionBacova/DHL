@@ -3,12 +3,12 @@ using System.Collections.Generic;
 
 namespace DHLWebAPI.Models
 {
-    public partial class TblDiscount
+    public partial class TblDiscounts
     {
-        public TblDiscount()
+        public TblDiscounts()
         {
-            TblCustomer = new HashSet<TblCustomer>();
             TblCustomerDiscount = new HashSet<TblCustomerDiscount>();
+            TblCustomers = new HashSet<TblCustomers>();
             TblProductDiscount = new HashSet<TblProductDiscount>();
         }
 
@@ -25,8 +25,11 @@ namespace DHLWebAPI.Models
         public int UpdateBy { get; set; }
         public DateTime UpdateDate { get; set; }
 
-        public virtual ICollection<TblCustomer> TblCustomer { get; set; }
+        public virtual TblDiscountType DiscountTypeNavigation { get; set; }
+        public virtual TblUsers InsertByNavigation { get; set; }
+        public virtual TblUsers UpdateByNavigation { get; set; }
         public virtual ICollection<TblCustomerDiscount> TblCustomerDiscount { get; set; }
+        public virtual ICollection<TblCustomers> TblCustomers { get; set; }
         public virtual ICollection<TblProductDiscount> TblProductDiscount { get; set; }
     }
 }

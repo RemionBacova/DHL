@@ -13,8 +13,13 @@ namespace DHLWebAPI.Models
         public int IdAddressType { get; set; }
         public string AdressType { get; set; }
         public string Description { get; set; }
-        public DateTime? InsertDate { get; set; }
+        public int InsertBy { get; set; }
+        public DateTime InsertDate { get; set; }
+        public int? UpdateBy { get; set; }
+        public DateTime? UpdateDate { get; set; }
 
+        public virtual TblUsers InsertByNavigation { get; set; }
+        public virtual TblUsers UpdateByNavigation { get; set; }
         public virtual ICollection<TblAddress> TblAddress { get; set; }
     }
 }

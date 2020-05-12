@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace DHLWebAPI.Models.DTOs
+namespace DHLWebAPI.Models
 {
-    public class TblTransactionLogsDTO
+    public partial class TblTransactionLogs
     {
         public int Pid { get; set; }
         public int IdCustomer { get; set; }
@@ -20,5 +18,10 @@ namespace DHLWebAPI.Models.DTOs
         public int InsertBy { get; set; }
         public DateTime InsertDate { get; set; }
         public int? IdTool { get; set; }
+
+        public virtual TblCards IdCardNavigation { get; set; }
+        public virtual TblCustomers IdCustomerNavigation { get; set; }
+        public virtual TblTools IdToolNavigation { get; set; }
+        public virtual TblUsers InsertByNavigation { get; set; }
     }
 }

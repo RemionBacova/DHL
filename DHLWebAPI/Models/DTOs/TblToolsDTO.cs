@@ -7,7 +7,7 @@ namespace DHLWebAPI.Models.DTOs
 {
     public class TblToolsDTO
     {
-        public string IdTool { get; set; }
+        public int IdTool { get; set; }
         public string ToolName { get; set; }
         public byte[] ToolKey { get; set; }
         public bool ToolStatus { get; set; }

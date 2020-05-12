@@ -11,7 +11,7 @@ namespace DHLWebAPI.Models.JWT
         public string AccessToken { get; set; }
         public string RefreshToken { get; set; }
 
-        public UserWithToken(TblUser user)
+       /* public UserWithToken(TblUser user)
         {
             //this.IdUser = user.IdUser;
             //this.ContactName = user.ContactName;
@@ -24,6 +24,6 @@ namespace DHLWebAPI.Models.JWT
             //this.Username = user.Username;
 
 
-        }
+        }*/
     }
 }

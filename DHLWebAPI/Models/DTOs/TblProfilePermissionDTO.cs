@@ -10,7 +10,5 @@ namespace DHLWebAPI.Models.DTOs
         public string ProfileSetName { get; set; }
         public int IdProfile { get; set; }
         public string ProfileCode { get; set; }
-
-
     }
 }

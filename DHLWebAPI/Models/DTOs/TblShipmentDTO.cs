@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace DHLWebAPI.Models
+namespace DHLWebAPI.Models.DTOs
 {
-    public partial class TblShipment
+    public class TblShipmentDTO
     {
         public int Pid { get; set; }
-        public string IdCostumer { get; set; }
-        public int Awb { get; set; }
+        public int? IdCostumer { get; set; }
+        public long Awb { get; set; }
         public DateTime DatetimeCreation { get; set; }
         public bool ImmediateInvoicing { get; set; }
         public bool CheckPointFound { get; set; }
@@ -18,9 +20,6 @@ namespace DHLWebAPI.Models
         public DateTime InsertDate { get; set; }
         public int UpdateBy { get; set; }
         public DateTime UpdateDate { get; set; }
-        public string IdTool { get; set; }
-
-        public virtual TblCustomer IdCostumerNavigation { get; set; }
-        public virtual TblTool IdToolNavigation { get; set; }
+        public int? IdTool { get; set; }
     }
 }

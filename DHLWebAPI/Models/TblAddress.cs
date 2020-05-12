@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DHLWebAPI.Models
 {
@@ -9,7 +11,8 @@ namespace DHLWebAPI.Models
         {
             TblCustomerAddress = new HashSet<TblCustomerAddress>();
         }
-
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int IdAddress { get; set; }
         public int IdAddressType { get; set; }
         public string AddressLabel { get; set; }

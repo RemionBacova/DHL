@@ -1,54 +1,31 @@
-﻿
-using DHLWebAPI.Data;
-using DHLWebAPI.Models;
-using DHLWebAPI.Repository.IRepository;
-using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DHLWebAPI.Data;
+using DHLWebAPI.Models;
+using DHLWebAPI.Repository.IRepository;
 
 namespace DHLWebAPI.Repository
 {
-    public class CardsRepository:ICardsRepository
+    public class CardsRepository : ICardsRepository
     {
-        private readonly DHLContext _context;
+        private readonly DHLContext db;
 
-        public CardsRepository(DHLContext context)
+        public CardsRepository(DHLContext db)
         {
-            _context = context;
+            this.db = db;
         }
 
-        //function to retrieve the  list with all cards
-        public async Task<IEnumerable<TblCard>> GetAllCards()
-        {
-            //return all cards
-           return await _context.TblCards.ToListAsync();
-        }
-           
+        public TblCards GetCard(int id) => db.TblCards.FirstOrDefault(o => o.IdCard == id);
 
-        //function to retrieve only one card filtered by its id
-       public async Task<TblCard> GetCard(string cardId)
-        {
-            //return the card who matches the id
-            return await _context.TblCards.Where(c => c.IdCard == cardId)
-                                          .FirstOrDefaultAsync();
-           
-        }
+        public ICollection<TblCards> GetCards() => db.TblCards.OrderBy(o => o.IdCard).ToList();
 
-        //function to create a new  card
-        public async void AddCard(TblCard card)
+        public bool Save() => db.SaveChanges() >= 0 ? true : false;
+        public bool CreateCard(TblCards card)
         {
-            //add the new card
-            await _context.TblCards.AddAsync(card);
-            //save changes
-            await _context.SaveChangesAsync(); 
-        }
-
-
-        public async Task<bool> SaveAllAsync()
-        {
-            return (await _context.SaveChangesAsync() > 0);
+            db.TblCards.Add(card);
+            return Save();
         }
     }
 }

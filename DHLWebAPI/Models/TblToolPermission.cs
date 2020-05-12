@@ -8,13 +8,13 @@ namespace DHLWebAPI.Models
         public TblToolPermission()
         {
             TblProfilePermission = new HashSet<TblProfilePermission>();
-            TblTool = new HashSet<TblTool>();
+            TblTools = new HashSet<TblTools>();
         }
 
         public int IdProfile { get; set; }
         public string ProfileCode { get; set; }
 
         public virtual ICollection<TblProfilePermission> TblProfilePermission { get; set; }
-        public virtual ICollection<TblTool> TblTool { get; set; }
+        public virtual ICollection<TblTools> TblTools { get; set; }
     }
 }

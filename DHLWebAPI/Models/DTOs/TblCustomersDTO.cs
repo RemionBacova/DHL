@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -7,7 +9,9 @@ namespace DHLWebAPI.Models.DTOs
 {
     public class TblCustomersDTO
     {
-        public string IdCustomer { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int IdCustomer { get; set; }
         public int CustomerType { get; set; }
         public int CustomerStatus { get; set; }
         public string Channel { get; set; }

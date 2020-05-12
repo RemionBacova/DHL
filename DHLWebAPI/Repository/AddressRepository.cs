@@ -1,62 +1,40 @@
-﻿
-using DHLWebAPI.Data;
-using DHLWebAPI.Models;
-using DHLWebAPI.Models.DTOs;
-using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DHLWebAPI.Data;
+using DHLWebAPI.Models;
+using DHLWebAPI.Repository.IRepository;
 
-namespace DHLWebAPI.Repository.IRepository
+namespace DHLWebAPI.Repository
 {
     public class AddressRepository : IAddressRepository
     {
-        private readonly DHLContext _context;
+        private readonly DHLContext db;
 
-        public AddressRepository(DHLContext context)
+        public AddressRepository(DHLContext db)
         {
-            _context = context;
+            this.db = db;
         }
 
-        //function to retrieve the  list with all addresses
-        public async Task<IEnumerable<TblAddress>> GetAllAddresses()
+        public TblAddress GetAddress(int id) => db.TblAddress.FirstOrDefault(o => o.IdAddress == id);
+        public ICollection<TblAddress> GetAddresses() => db.TblAddress.OrderBy(o => o.IdAddress).ToList();
+        public bool CreateAddress(TblAddress address)
         {
-            var model = await _context.TblAddresses
-                                       .Include(cust => cust.TblCustomerAddress)
-                                      .ToListAsync();
-            //return the list with all addresses
-            return model;
+            db.TblAddress.Add(address);
+            return Save();
+        }
+        public bool DeleteAddress(TblAddress address)
+        {
+            db.TblAddress.Remove(address);
+            return Save();
         }
 
-
-        //function to retrieve only one card filtered by its id
-        public async Task<TblAddress> GetAddress(int addressId)
+        public bool UpdateAddress(TblAddress address)
         {
-            //return the user who matches the id
-            return await _context.TblAddresses.Where(adr => adr.IdAddress == addressId)
-                                           .Include(cust => cust.TblCustomerAddress)
-                                            .FirstOrDefaultAsync();
+            db.TblAddress.Update(address);
+            return Save();
         }
-
-        //function to create a new card
-        public async void AddAddress(TblAddress address)
-        {
-         
-            //add the new address
-          await _context.TblAddresses.AddAsync(address);
-            //save changes
-           await _context.SaveChangesAsync();
-
-        }
-
-   
-
-        public async Task<bool> SaveAllAsync()
-        {
-            return (await _context.SaveChangesAsync() > 0);
-        }
-
-   
+        public bool Save() => db.SaveChanges() >= 0 ? true : false;
     }
 }

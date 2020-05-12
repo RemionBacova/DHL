@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -7,7 +9,10 @@ namespace DHLWebAPI.Models.DTOs
 {
     public class TblAddressDTO
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int IdAddress { get; set; }
+        public int IdAddressType { get; set; }
         public string AddressLabel { get; set; }
         public string Country { get; set; }
         public string Province { get; set; }
@@ -21,6 +26,5 @@ namespace DHLWebAPI.Models.DTOs
         public string LunchTimeStart { get; set; }
         public string LunchTimeEnd { get; set; }
         public string ContactName { get; set; }
-
     }
 }

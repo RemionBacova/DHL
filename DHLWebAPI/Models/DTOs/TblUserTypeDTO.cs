@@ -7,7 +7,7 @@ namespace DHLWebAPI.Models.DTOs
 {
     public class TblUserTypeDTO
     {
-        public int IdUserType { get; set; }
+        public byte IdUserType { get; set; }
         public string UserTypeTitle { get; set; }
         public string Description { get; set; }
         public int InsertBy { get; set; }

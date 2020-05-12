@@ -7,14 +7,11 @@ namespace DHLWebAPI.Models.DTOs
 {
     public class TblProductsDTO
     {
-
-
-        public string IdProduct { get; set; }
+        public int IdProduct { get; set; }
         public string ProductName { get; set; }
         public int InsertBy { get; set; }
         public DateTime InsertData { get; set; }
         public int UpdatedBy { get; set; }
         public DateTime UpdateDate { get; set; }
-
     }
 }

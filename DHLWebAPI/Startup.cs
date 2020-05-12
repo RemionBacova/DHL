@@ -42,8 +42,7 @@ namespace DHLWebAPI
             //                .WithMethods("Put");
             //        });
             //});
-            
-            //DbContext added as a service
+
             services.AddDbContext<DHLContext>
                 (options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 

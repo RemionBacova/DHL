@@ -17,15 +17,13 @@ namespace DHLWebAPI.Controllers
     [ApiController]
     public class AddressesController : ControllerBase
     {
-        //inject repository pattern for address
-        private readonly IAddressRepository _repository;
-        //inject AutoMapper at runtime into address controller:
-        private readonly IMapper _mapper;
+        private readonly IAddressRepository repository;
+        private readonly IMapper mapper;
 
-        public AddressesController(IAddressRepository addressRepository, IMapper mapper)
+        public AddressesController(IAddressRepository repository, IMapper mapper)
         {
-            _repository = addressRepository;
-            _mapper = mapper;
+            this.repository = repository;
+            this.mapper = mapper;
         }
 
         /// <summary>
@@ -33,173 +31,65 @@ namespace DHLWebAPI.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public async Task<ActionResult> GetAddresses()
+        public IActionResult GetAddresses()
         {
-            try
+            var address = repository.GetAddresses();
+            var addressDTO = new List<TblAddressDTO>();
+
+            foreach (var item in address)
             {
-                //get all addresses saved until now
-                var addresses = await _repository.GetAllAddresses();
-
-            
-                //transfer all the data to dto
-                var addresesDTO =_mapper.Map<IEnumerable<TblAddressDTO>>(addresses);
-
-                //display status code
-                return Ok(addresesDTO);
-
+                addressDTO.Add(mapper.Map<TblAddressDTO>(item));
             }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                    $"Error Explanation: {ex.Message} ");
-            }
+
+            return Ok(addressDTO);
         }
 
         /// <summary>
         /// Get single Address.
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id">The id address.</param>
         /// <returns></returns>
-        // GET: api/Address/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult> GetAddress(int id)
+        [HttpGet("{id:int}", Name = "GetAddress")]
+        public IActionResult GetAddress(int id)
         {
-            try
+            var address = repository.GetAddress(id);
+            if (address == null)
             {
-                //get the address as identified by its id
-                var address = await _repository.GetAddress(id);
-
-                if (address == null)
-                {
-                    //if the address does not exist display error message
-                    return NotFound($"Address of {id} was not found");
-
-                }
-                //transfer the data of source into dto 
-                var addressDto = _mapper.Map<TblAddressDTO>(address);
-
-                //display the msg
-                return Ok(addressDto);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                    $"Error Explanation: {ex.Message} ");
+                return NotFound();
             }
 
+            var addressDTO = mapper.Map<TblAddressDTO>(address);
+
+            return Ok(addressDTO);
         }
+
         /// <summary>
         /// Create Address.
         /// </summary>
-        /// <param name="addressDto"></param>
+        /// <param name="addressDTO"></param>
         /// <returns></returns>
-        //POST: api/Address
         [HttpPost(Name = "CreateAddress")]
-        public async Task<IActionResult> CreateAddress([FromBody] TblAddressDTO addressDto)
+        public IActionResult CreateAddress([FromBody] TblAddressDTO addressDTO)
         {
-            try
-            {
+            var address = mapper.Map<TblAddress>(addressDTO);
+            repository.CreateAddress(address);
 
-                if (ModelState.IsValid)
-                {
-                    var address = _mapper.Map<TblAddress>(addressDto);
-
-                    _repository.AddAddress(address);
-
-                   if (await _repository.SaveAllAsync())
-                    {
-                        var newaddressDto = _mapper.Map<TblAddressDTO>(address);
-                        return Ok(newaddressDto);
-
-                        //  return CreatedAtRoute("GetAddress", new { id = newaddressDto.IdAddress }, newaddressDto);
-                    }
-
-                }
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                    $"Error Explanation: {ex.Message} ");
-            }
-
-            return BadRequest(ModelState);
+            return Created("GetAddress", addressDTO);
         }
 
         /// <summary>
         /// Update Address.
         /// </summary>
         /// <param name="id"></param>
-        /// <param name="addressDto"></param>
+        /// <param name="addressDTO"></param>
         /// <returns></returns>
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateAddress(int id, [FromBody]TblAddressDTO addressDto)
+        [HttpPatch("{id:int}")]
+        public IActionResult UpdateAddress(int id, [FromBody]TblAddressDTO addressDTO)
         {
-            try
-            {
-                //get the address from the database
-                var address = await _repository.GetAddress(id);
+            var address = mapper.Map<TblAddress>(addressDTO);
+            repository.UpdateAddress(address);
 
-                
-                if (address == null)
-                {
-                    //if the adress is not found print the msg
-                    return NotFound($"Couldn't find an address");
-                }
-
-                //send destination inf to source=> update inf
-               var newAddress= _mapper.Map(addressDto,address);
-
-                if (await _repository.SaveAllAsync())
-                {
-                    //return the mapped result in case it is successfully saved
-                    return Ok(_mapper.Map<TblAddressDTO>(newAddress));
-                }
-                else
-                {
-                    return BadRequest();
-                }
-              
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                    $"Error Explanation: {ex.Message} ");
-            }
-
-
-        }
-        /// <summary>
-        /// Delete Address.
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        //DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAddress(int id)
-        {
-            try
-            {
-                //get the address from the db 
-                var address = await _repository.GetAddress(id);
-
-                if (address == null)
-                { 
-                    //in case it does exists display the msg
-                    return NotFound($"Couldn’t found address in the database!");
-                }
-               
-                    return BadRequest(string.Format("Address is not permitted to be deleted. You can change its status!"));
-                
-
-
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                    $"Error Explanation: {ex.Message} ");
-            }
-
-
+            return Created("getAddress", addressDTO);
         }
     }
 }

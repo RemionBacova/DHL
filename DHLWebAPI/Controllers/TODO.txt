@@ -1,9 +1,0 @@
-﻿at Customer Controller
-
-1) private readonly JWTSetting _jwtsettings;
-2)(IOptions<JWTSettings> jwtsettings){
-		_jwtsettings=jwtsettings.Value}
-3) sign token code:
-
-
-https://app.pluralsight.com/course-player?clipId=aefa2d25-1160-4c49-bf21-d925efca45ba
